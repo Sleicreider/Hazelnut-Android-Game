@@ -1,0 +1,3 @@
+adb shell dumpsys meminfo | grep Hazel //get RAM usage of connected device
+python build_nativ.py -p 10 Hazelnutnamerino // build apk for 10 android API
+adb install bin/Hazelnut-debug.apk //install apk
