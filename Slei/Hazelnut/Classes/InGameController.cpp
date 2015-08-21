@@ -40,7 +40,7 @@ InGameController::InGameController(InGameScene* scene)
 , hazelnut_speed_(0)
 {
     //Squirrel
-
+    
     squirrel_ = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL
                                 , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL)
                                 , Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_SQUIRREL_POSY_START));
@@ -53,6 +53,12 @@ InGameController::InGameController(InGameScene* scene)
                                                                         DataHandler::GAME_RESOLUTION_HEIGHT/2));
     
     scene_->addChild(background_);
+    
+    //Branch
+    
+    branch_ = FSprite::create(DataHandler::TEXTURE_GAME_BRANCH, Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::COLLECT_GAME_SQUIRREL_POSY_START-94));
+    
+    scene_->addChild(branch_);
     
     if(DataHandler::app_layout_ == EAppLayout::LAYOUT_IPAD)
     {
@@ -92,6 +98,37 @@ InGameController::InGameController(InGameScene* scene)
     cloud_3_->runAction(move3);
     scene_->addChild(cloud_3_);
     
+    //BIRDS
+    Vector<SpriteFrame*> anim_bird_frames = Vector<SpriteFrame*>(2);
+    anim_bird_frames.pushBack(SpriteFrame::create(DataHandler::TEXTURE_GAME_BIRD_FRAME_1, Rect(0, 0, 106, 120)));
+    anim_bird_frames.pushBack(SpriteFrame::create(DataHandler::TEXTURE_GAME_BIRD_FRAME_2, Rect(0, 0, 106, 120)));
+    
+    auto animation = Animation::createWithSpriteFrames(anim_bird_frames, 0.2f);
+    auto animate = Animate::create(animation);
+    
+    sprite_anim_bird = FSprite::create();
+    sprite_anim_bird->setTextureRect(Rect(0, 0, 106, 120));
+    sprite_anim_bird->setScale(0.6);
+    sprite_anim_bird->setRotation(15);
+    sprite_anim_bird->setPosition(Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 500, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 100));
+    sprite_anim_bird->runAction(RepeatForever::create(animate));
+    MoveTo* bMove1 = MoveTo::create(12.0, Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH + 1150, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 100));
+    sprite_anim_bird->runAction(bMove1);
+    scene_->addChild(sprite_anim_bird);
+    
+    auto animation1 = Animation::createWithSpriteFrames(anim_bird_frames, 0.2f);
+    auto animate1 = Animate::create(animation1);
+    sprite_anim_bird1 = FSprite::create();
+    sprite_anim_bird1->setTextureRect(Rect(0, 0, 106, 120));
+    sprite_anim_bird1->setScale(0.6);
+    sprite_anim_bird1->setRotation(-15);
+    sprite_anim_bird1->setFlipX(true);
+    sprite_anim_bird1->setPosition(Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 500, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 200));
+    sprite_anim_bird1->runAction(RepeatForever::create(animate1));
+    MoveTo* bMove2 = MoveTo::create(12.0, Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 200));
+    sprite_anim_bird1->runAction(bMove2);
+    scene_->addChild(sprite_anim_bird1);
+    
     //Basket
     basket_ = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET
                               , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
@@ -104,7 +141,7 @@ InGameController::InGameController(InGameScene* scene)
     basket_->setZOrder(2);
     
     
-
+    
     
     //Default set state RUNNING
     state_machine_.SetState(STATE_RUNNING);
@@ -113,9 +150,9 @@ InGameController::InGameController(InGameScene* scene)
     
     lvl_system_.LevelControl(player_score_);
     lvl_system_.GetLevelSettings(squirrel_speed_, drop_object_speed_min_, drop_object_speed_max_,
-                                 drop_interval_min_, drop_interval_max_,level_score_multiplier_, 
-								 drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_, hazelnut_speed_);
-	ai_.SetDropChance(drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_);
+                                 drop_interval_min_, drop_interval_max_,level_score_multiplier_,
+                                 drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_, hazelnut_speed_);
+    ai_.SetDropChance(drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_);
     
     ai_.InitAI(squirrel_);
     
@@ -130,7 +167,7 @@ InGameController::InGameController(InGameScene* scene)
     
     FSprite* menuPopupSprite = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_MENU, FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_MENU));
     
-//    button_menu_ = scene->CreateButton(110, 100,menuPopupSprite);
+    //    button_menu_ = scene->CreateButton(110, 100,menuPopupSprite);
     button_menu_ = FrameworkButton::create(scene, 110, 100, menuPopupSprite);
     button_menu_->SetPositionX(50);
     button_menu_->SetPositionY(50);
@@ -144,7 +181,7 @@ InGameController::InGameController(InGameScene* scene)
         height = 1536;
     }
     
-//    button_right_ = scene->CreateButton(DataHandler::GAME_RESOLUTION_WIDTH/2, height);
+    //    button_right_ = scene->CreateButton(DataHandler::GAME_RESOLUTION_WIDTH/2, height);
     button_right_ = FrameworkButton::create(scene, DataHandler::GAME_RESOLUTION_WIDTH/2, height);
     button_right_->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH-button_right_->GetWidth()/2);
     button_right_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2);
@@ -152,7 +189,7 @@ InGameController::InGameController(InGameScene* scene)
     scene->addChild(button_right_);
     
     
-//    button_left_ = scene->CreateButton(DataHandler::GAME_RESOLUTION_WIDTH/2, height);
+    //    button_left_ = scene->CreateButton(DataHandler::GAME_RESOLUTION_WIDTH/2, height);
     button_left_ = FrameworkButton::create(scene, DataHandler::GAME_RESOLUTION_WIDTH/2, height);
     button_left_->SetPositionX(button_left_->GetWidth()/2);
     button_left_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2);
@@ -162,7 +199,7 @@ InGameController::InGameController(InGameScene* scene)
     popup_pause_ = GamePausePopup::create(scene_);
     FUtil::SetActiveAndVisible(popup_pause_, false);
     
-//    label_level_up_ = scene_->CreateText("levelup", "-1337", DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2,140,"Qarmic sans Abridged.ttf", Color3B(0,0,0));
+    //    label_level_up_ = scene_->CreateText("levelup", "-1337", DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2,140,"Qarmic sans Abridged.ttf", Color3B(0,0,0));
     
     label_level_up_ = Label::createWithTTF("", DataHandler::FONT_QUARMIC_SANS, 140);
     label_level_up_->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2));
@@ -170,7 +207,7 @@ InGameController::InGameController(InGameScene* scene)
     scene_->addChild(label_level_up_);
     FUtil::SetActiveAndVisible(label_level_up_, false);
     
-//    label_player_score_ = scene_->CreateText("playerscore", std::to_string(player_score_), 1550, 1000, 140, "Qarmic sans Abridged.ttf", Color3B(100, 100, 100));
+    //    label_player_score_ = scene_->CreateText("playerscore", std::to_string(player_score_), 1550, 1000, 140, "Qarmic sans Abridged.ttf", Color3B(100, 100, 100));
     label_player_score_ = Label::createWithTTF(std::to_string(player_score_), DataHandler::FONT_QUARMIC_SANS, 140);
     label_player_score_->setColor(Color3B(100, 100, 100));
     label_player_score_->setPosition(Vec2( 1550, 1000));
@@ -179,7 +216,7 @@ InGameController::InGameController(InGameScene* scene)
     scene->AddTickable(timeframe_);
     scene->AddTickable(timeframe_animation_);
     scene->AddTickable(timeframe_animation_2_);
-	scene->AddTickable(timeframe_state_);
+    scene->AddTickable(timeframe_state_);
     scene->AddTickable(state_machine_);
     
     state_machine_.Register(STATE_RUNNING, this, &InGameController::OnStateRunning);
@@ -236,100 +273,120 @@ void InGameController::OnStateRunning(float delta)
     //COLLISION
     if(basket_collision_box_.OnBeginOverlap())
     {
-        AIDropObject* drop_object_ = basket_collision_box_.GetObject();
-        EDropObjectType type = drop_object_->GetType();
-        
-        if(type == EDropObjectType::HAZELNUT)
+        if(!basket_collision_box_.GetObject()->IsDead())
         {
-            DataHandler::game_audio->playEffect(DataHandler::SOUND_OTHER_1, false, 1.0f, 1.0f, 1.0f);
-            player_score_ += (DataHandler::COLLECT_GAME_HAZELNUT_POINTS * level_score_multiplier_);
-        }
-        else if(type == EDropObjectType::WASTE)
-        {
-            DataHandler::game_audio->playEffect(DataHandler::SOUND_PAPER_WAD, false, 1.0f, 1.0f, 1.0f);
-            player_lives_--;
-        }
-        else if(type == EDropObjectType::APPLE)
-        {
-            DataHandler::game_audio->playEffect(DataHandler::SOUND_APPLE_BITE, false, 1.0f, 1.0f, 1.0f);
-            player_score_ += (DataHandler::COLLECT_GAME_APPLE_POINTS * level_score_multiplier_);
-        }
-        else if(type == EDropObjectType::HEART)
-        {
-			DataHandler::game_audio->playEffect(DataHandler::SOUND_HEART_COLLECT, false, 1.0f, 1.0f, 0.7);
-            if (player_lives_ < DataHandler::COLLECT_GAME_PLAYER_LIVES_MAX)
+            AIDropObject* drop_object_ = basket_collision_box_.GetObject();
+            EDropObjectType type = drop_object_->GetType();
+            
+            if(type == EDropObjectType::HAZELNUT)
             {
-                player_lives_++;
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_OTHER_1, false, 1.0f, 1.0f, 1.0f);
+                player_score_ += (DataHandler::COLLECT_GAME_HAZELNUT_POINTS * level_score_multiplier_);
             }
-            ai_.DecreaseHeartCounter();
+            else if(type == EDropObjectType::WASTE)
+            {
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_PAPER_WAD, false, 1.0f, 1.0f, 1.0f);
+                player_lives_--;
+            }
+            else if(type == EDropObjectType::APPLE)
+            {
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_APPLE_BITE, false, 1.0f, 1.0f, 1.0f);
+                player_score_ += (DataHandler::COLLECT_GAME_APPLE_POINTS * level_score_multiplier_);
+            }
+            else if(type == EDropObjectType::HEART)
+            {
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_HEART_COLLECT, false, 1.0f, 1.0f, 0.7);
+                if (player_lives_ < DataHandler::COLLECT_GAME_PLAYER_LIVES_MAX)
+                {
+                    player_lives_++;
+                }
+                ai_.DecreaseHeartCounter();
+                
+                ParticleSystemQuad* psq = ParticleSystemQuad::createWithTotalParticles(999);
+                psq->setEmitterMode(ParticleSystem::Mode::GRAVITY);
+                
+                psq->setTexture(Director::getInstance()->getTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_HEART));
+                psq->setZOrder(-1);
+                psq->setDuration(2.0);
+                
+                psq->setEmissionRate(30.0);
+                
+                psq->setSpeed(50.);
+                psq->setSpeedVar(40.);
+                psq->setRadialAccel(200.);
+                psq->setRadialAccelVar(30.);
+                
+                
+                psq->setStartColor(Color4F::WHITE);
+                psq->setStartSize(50);
+                psq->setEndSize(30);
+                psq->setEndColor(Color4F(1.0,1.0,1.0,0.0));
+                psq->setLife(1.5);
+                psq->setGravity(Vec2(0,-90));
+                psq->setAngle(60.);
+                psq->setAngleVar(20.);
+                
+                psq->setAutoRemoveOnFinish(true);
+                psq->setTangentialAccel(100.0);
+                psq->setTangentialAccelVar(50.0);
+                psq->setPositionX(50);
+                
+                basket_->addChild(psq);
+                
+            }
+            else if(type == EDropObjectType::COIN)
+            {
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_COIN_COLLECT, false, 1.0f, 1.0f, 1.0f);
+                player_score_ += (DataHandler::COLLECT_GAME_COIN_POINTS * level_score_multiplier_);
+            }
             
-            ParticleSystemQuad* psq = ParticleSystemQuad::createWithTotalParticles(999);
-            psq->setEmitterMode(ParticleSystem::Mode::GRAVITY);
             
-            psq->setTexture(Director::getInstance()->getTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_HEART));
-            psq->setZOrder(-1);
-            psq->setDuration(2.0);
+            basket_collision_box_.RemoveObject();
             
-            psq->setEmissionRate(30.0);
+            //if overlap check if player advances to a new level
+            lvl_system_.LevelControl(player_score_);
+            lvl_system_.GetLevelSettings(squirrel_speed_, drop_object_speed_min_, drop_object_speed_max_,
+                                         drop_interval_min_, drop_interval_max_, level_score_multiplier_,
+                                         drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_,hazelnut_speed_);
             
-            psq->setSpeed(50.);
-            psq->setSpeedVar(40.);
-            psq->setRadialAccel(200.);
-            psq->setRadialAccelVar(30.);
+            ai_.SetDropChance(drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_);
             
-            
-            psq->setStartColor(Color4F::WHITE);
-            psq->setStartSize(50);
-            psq->setEndSize(30);
-            psq->setEndColor(Color4F(1.0,1.0,1.0,0.0));
-            psq->setLife(1.5);
-            psq->setGravity(Vec2(0,-90));
-            psq->setAngle(60.);
-            psq->setAngleVar(20.);
-            
-            psq->setAutoRemoveOnFinish(true);
-            psq->setTangentialAccel(100.0);
-            psq->setTangentialAccelVar(50.0);
-            psq->setPositionX(50);
-            
-            basket_->addChild(psq);
+            if(lvl_system_.OnLevelUp())
+            {
+                ai_.ActivateHeartDrop();
+                
+                label_level_up_->setPosition(Vec2(-300,DataHandler::GAME_RESOLUTION_CENTER_HEIGHT));
+                scene_->SetActiveAndVisible(label_level_up_,true);
+                label_level_up_->setString("LEVEL "+std::to_string(lvl_system_.GetLevel()));
+                
+                MoveTo* anim_move = MoveTo::create(1.0,DataHandler::GAME_RESOLUTION_CENTER);
+                label_level_up_->runAction(anim_move);
+
+				squirrel_->setTexture(CCTextureCache::sharedTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL_ANGRY));
+				squirrel_->setTextureRect(Rect(0, 0, 104,140));
+                
+                //timeframe_animation_.Start(milliseconds(3000));
+                
+                DataHandler::game_audio->playEffect(DataHandler::SOUND_LEVEL_UP, false, 1.0f, 1.0f, 0.3f);
+                
+                timeframe_state_.Start(milliseconds(2000), this, &InGameController::MoveOutLevelUp);
+
+
+                state_machine_.SetState(STATE_LEVEL_UP);
+                prev_state_ = STATE_RUNNING;
+            }
         }
-        else if(type == EDropObjectType::COIN)
+        else
         {
-            DataHandler::game_audio->playEffect(DataHandler::SOUND_COIN_COLLECT, false, 1.0f, 1.0f, 1.0f);
-            player_score_ += (DataHandler::COLLECT_GAME_COIN_POINTS * level_score_multiplier_);
-        }
-        
-        
-        basket_collision_box_.RemoveObject();
-        
-        //if overlap check if player advances to a new level
-        lvl_system_.LevelControl(player_score_);
-		lvl_system_.GetLevelSettings(squirrel_speed_, drop_object_speed_min_, drop_object_speed_max_,
-			drop_interval_min_, drop_interval_max_, level_score_multiplier_,
-			drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_,hazelnut_speed_);
-
-		ai_.SetDropChance(drop_c_hazelnut_, drop_c_waste_, drop_c_apple_, drop_c_heart_, drop_c_coin_);
-        
-        if(lvl_system_.OnLevelUp())
-        {
-			ai_.ActivateHeartDrop();
-
-            label_level_up_->setPosition(Vec2(-300,DataHandler::GAME_RESOLUTION_CENTER_HEIGHT));
-            scene_->SetActiveAndVisible(label_level_up_,true);
-            label_level_up_->setString("LEVEL "+std::to_string(lvl_system_.GetLevel()));
-            
-            MoveTo* anim_move = MoveTo::create(1.0,DataHandler::GAME_RESOLUTION_CENTER);
-            label_level_up_->runAction(anim_move);
-            
-            //timeframe_animation_.Start(milliseconds(3000));
-            
-			DataHandler::game_audio->playEffect(DataHandler::SOUND_LEVEL_UP, false, 1.0f, 1.0f, 0.3f);
-
-			timeframe_state_.Start(milliseconds(2000), this, &InGameController::MoveOutLevelUp);
-            
-            state_machine_.SetState(STATE_LEVEL_UP);
-            prev_state_ = STATE_RUNNING;
+            if(
+            basket_collision_box_.GetObject()->isrun())
+            {
+                CCLOG("running");
+            }
+            else
+            {
+                CCLOG("not running");
+            }
         }
     }
     
@@ -351,41 +408,41 @@ void InGameController::OnStateRunning(float delta)
         //remove all existing dropobjects from the screen
         for(int i = 0; i < ai_.GetDropObjects().size();i++)
         {
-            ai_.GetDropObjects().at(i).Remove();
+            ai_.GetDropObjects().at(i)->Remove();
         }
         
-//        scene_->CreateText("gameover", "GAME OVER", DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 100,100,"Qarmic sans Abridged.ttf",Color3B(100,100,100));
+        //        scene_->CreateText("gameover", "GAME OVER", DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 100,100,"Qarmic sans Abridged.ttf",Color3B(100,100,100));
         Label* text_game_over = Label::createWithTTF("GAME OVER", DataHandler::FONT_QUARMIC_SANS, 100);
         text_game_over->setColor(Color3B(100,100,100));
         text_game_over->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 100));
         scene_->addChild(text_game_over);
         
         
-//        scene_->CreateText("gameover_highscore", "Score: " + std::to_string(player_score_), DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 - 20, 80, "Qarmic sans Abridged.ttf", Color3B(255,255,255));
+        //        scene_->CreateText("gameover_highscore", "Score: " + std::to_string(player_score_), DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 - 20, 80, "Qarmic sans Abridged.ttf", Color3B(255,255,255));
         
         Label* text_end_score = Label::createWithTTF("Score: " + std::to_string(player_score_), DataHandler::FONT_QUARMIC_SANS, 80);
-        text_end_score->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 - 20));
+        text_end_score->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 + 10));
         text_end_score->setColor(Color3B(255,255,255));
         scene_->addChild(text_end_score);
         
         FSprite* buttonSpriteRegister = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_REGISTER);
         buttonRegister = FrameworkButton::create(scene_, 700, 100, buttonSpriteRegister);
         buttonRegister->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-        buttonRegister->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 280);
+        buttonRegister->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 250);
         buttonRegister->SetZOrder(2);
         scene_->addChild(buttonRegister);
         
         tfeUsername = TextFieldExtended::create("Input username", DataHandler::FONT_QUARMIC_SANS
                                                 , 46
                                                 , Vec2(scene_->getContentSize().width / 2.0f
-                                                , buttonRegister->GetTop() + 52)
+                                                       , buttonRegister->GetTop() + 52)
                                                 , 1.0);
         scene_->addChild(tfeUsername, 1);
         
         FSprite* buttonSpriteRetry = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_RETRY);
         buttonRetry = FrameworkButton::create(scene_, 700, 120, buttonSpriteRetry);
         buttonRetry->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-        buttonRetry->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 450);
+        buttonRetry->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 420);
         buttonRetry->SetZOrder(2);
         scene_->addChild(buttonRetry);
         
@@ -409,11 +466,11 @@ void InGameController::OnStateIdle(float delta)
 
 void InGameController::OnStateGameOver(float delta)
 {
-	if(!AdmobHelper::isAdScreenShowing){
-		AdmobHelper::showAdScreen();
-	}
-	
-	
+    if(!AdmobHelper::isAdScreenShowing){
+        AdmobHelper::showAdScreen();
+    }
+    
+    
 #pragma message WARN("DELAY NOT NEEDED?")
     
     if (buttonRetry != NULL && buttonRetry->WasPressed())
@@ -426,8 +483,8 @@ void InGameController::OnStateGameOver(float delta)
         
         state_machine_.SetState("");
         prev_state_ = STATE_GAME_OVER;
-		
-		AdmobHelper::hideAdScreen();
+        
+        AdmobHelper::hideAdScreen();
     }
     else if (buttonRegister != NULL && buttonRegister->WasPressed())
     {
@@ -445,14 +502,14 @@ void InGameController::OnStateGameOver(float delta)
         DataHandler::game_audio->unloadEffect(DataHandler::SOUND_APPLE_BITE);
         DataHandler::game_audio->unloadEffect(DataHandler::SOUND_OTHER_1);
         //        DataHandler::game_audio->unloadEffect("sound/sound_heart.mp3");
-        DataHandler::game_audio->unloadEffect(DataHandler::SOUND_PAPER_WAD); 
+        DataHandler::game_audio->unloadEffect(DataHandler::SOUND_PAPER_WAD);
         
         DataHandler::game_audio->stopBackgroundMusic();
         
         state_machine_.SetState(STATE_IDLE);
         prev_state_ = STATE_GAME_OVER;
-		
-		AdmobHelper::hideAdScreen();
+        
+        AdmobHelper::hideAdScreen();
     }
     
     //    prev_state_ = STATE_GAME_OVER;
@@ -521,6 +578,7 @@ void InGameController::Tick(float delta)
     }
     
     CloudMovement();
+    BirdMovement();
 }
 
 void InGameController::UpdateTextAndLives()
@@ -545,42 +603,42 @@ void InGameController::GenerateLiveBar()
         FSprite* sprite = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_HEART, FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_HEART));
         
         sprite->setAnchorPoint(Vec2(0.5, 0.5));
-        sprite->setPosition(70 + (i * 90), (DataHandler::GAME_RESOLUTION_HEIGHT / 2) + 470);
+        sprite->setPosition(70 + (i * 102), (DataHandler::GAME_RESOLUTION_HEIGHT / 2) + 470);
         live_bar_player_lives_.push_back(sprite);
         scene_->addChild(sprite);
         
 #ifdef ETC1
-//        //Shader
-//        GLProgram* glp = new GLProgram();
-//        
-//        glp->initWithVertexShaderFilename("testv.vsh", "test.fsh");
-//        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
-//        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
-//        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORD);
-//        glp->link();
-//        glp->updateUniforms();
-//        
-//        Texture2D* tex = Director::getInstance()->getTextureCache()->addImage("Heart_alpha.pkm");
-//        
-//        GL::bindTexture2DN(1, tex->getName());
-//        
-//        //button_sprite_menu_popup->setBlendFunc(BlendFunc::DISABLE);
-//        
-//        
-//        live_bar_player_lives_[i]->setBlendFunc((ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA });
-//        
-//        GLuint t1Location = glGetUniformLocation(glp->getProgram(), "tex1");
-//        //    GLuint t2Location = glGetUniformLocation(glp->getProgram(), "tex2");
-//        
-//        
-//        
-//        glp->setUniformLocationWith1i(t1Location, 1);
-//        //    glp->setUniformLocationWith1i(t2Location, 0);
-//        
-//        
-//        live_bar_player_lives_[i]->setShaderProgram(glp);
+        //        //Shader
+        //        GLProgram* glp = new GLProgram();
+        //
+        //        glp->initWithVertexShaderFilename("testv.vsh", "test.fsh");
+        //        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+        //        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+        //        glp->addAttribute(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORD);
+        //        glp->link();
+        //        glp->updateUniforms();
+        //
+        //        Texture2D* tex = Director::getInstance()->getTextureCache()->addImage("Heart_alpha.pkm");
+        //
+        //        GL::bindTexture2DN(1, tex->getName());
+        //
+        //        //button_sprite_menu_popup->setBlendFunc(BlendFunc::DISABLE);
+        //
+        //
+        //        live_bar_player_lives_[i]->setBlendFunc((ccBlendFunc) { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA });
+        //
+        //        GLuint t1Location = glGetUniformLocation(glp->getProgram(), "tex1");
+        //        //    GLuint t2Location = glGetUniformLocation(glp->getProgram(), "tex2");
+        //
+        //
+        //
+        //        glp->setUniformLocationWith1i(t1Location, 1);
+        //        //    glp->setUniformLocationWith1i(t2Location, 0);
+        //
+        //
+        //        live_bar_player_lives_[i]->setShaderProgram(glp);
 #endif
-
+        
     }
 }
 
@@ -595,23 +653,29 @@ void InGameController::UpdateLiveBar()
 
 void InGameController::MoveOutLevelUp()
 {
-	MoveTo* anim_level_up = MoveTo::create(1.0, Vec2(DataHandler::GAME_RESOLUTION_WIDTH + 400, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT));
-	label_level_up_->runAction(anim_level_up);
-
-	timeframe_state_.Start(milliseconds(2000), this, &InGameController::LevelUpEnd);
+    MoveTo* anim_level_up = MoveTo::create(1.0, Vec2(DataHandler::GAME_RESOLUTION_WIDTH + 400, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT));
+    label_level_up_->runAction(anim_level_up);
+    
+    timeframe_state_.Start(milliseconds(2000), this, &InGameController::LevelUpEnd);
 }
 
 void InGameController::LevelUpEnd()
 {
-	if (state_machine_.GetCurrentState() == STATE_POPUP_MENU)
-	{
-		state_machine_.SetState(STATE_RUNNING);
-		state_machine_.SetState(STATE_POPUP_MENU);
-	}
-	else
-	{
-		state_machine_.SetState(STATE_RUNNING);
-	}
+	squirrel_->setTexture(CCTextureCache::sharedTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL));
+	squirrel_->setTextureRect(Rect(0, 0, 
+		104,		
+		140));
+
+
+    if (state_machine_.GetCurrentState() == STATE_POPUP_MENU)
+    {
+        state_machine_.SetState(STATE_RUNNING);
+        state_machine_.SetState(STATE_POPUP_MENU);
+    }
+    else
+    {
+        state_machine_.SetState(STATE_RUNNING);
+    }
 }
 
 void InGameController::CloudMovement()
@@ -635,5 +699,23 @@ void InGameController::CloudMovement()
         cloud_3_->setPositionX(DataHandler::GAME_RESOLUTION_CENTER_WIDTH + 1150);
         MoveTo* move = MoveTo::create(50.0,Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150,cloud_3_->getPosition().y));
         cloud_3_->runAction(move);
+    }
+}
+
+void InGameController::BirdMovement()
+{
+    if (sprite_anim_bird->getPosition().x >= DataHandler::GAME_RESOLUTION_CENTER_WIDTH + 1150)
+    {
+        sprite_anim_bird->setPositionX(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150);
+        sprite_anim_bird->setPositionY(DataHandler::GAME_RESOLUTION_CENTER_HEIGHT - 300 + RandomHelper::random_int(0, 600));
+        MoveTo* move = MoveTo::create(RandomHelper::random_int(15,30), Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH + 1150, sprite_anim_bird->getPosition().y));
+        sprite_anim_bird->runAction(move);
+    }
+    if (sprite_anim_bird1->getPosition().x <= DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150)
+    {
+        sprite_anim_bird1->setPositionX(DataHandler::GAME_RESOLUTION_CENTER_WIDTH + 1150);
+        sprite_anim_bird1->setPositionY(DataHandler::GAME_RESOLUTION_CENTER_HEIGHT - 300 + RandomHelper::random_int(0, 600));
+        MoveTo* move = MoveTo::create(RandomHelper::random_int(15, 30), Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150, sprite_anim_bird1->getPosition().y));
+        sprite_anim_bird1->runAction(move);
     }
 }

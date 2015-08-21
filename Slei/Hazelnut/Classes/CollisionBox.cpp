@@ -19,7 +19,7 @@ CollisionBox::~CollisionBox()
 }
 
 #pragma message WARN("CHECK IF DROPOBJECT IS COLLIEDING WITH PLAYER OBJECT SO WE DONT NEED THE FOR LOOP")
-void CollisionBox::AttatchTo(Sprite* sprite,std::vector<AIDropObject>& dropObjects,std::vector<AIDropObject>& inactiveDropObjects)
+void CollisionBox::AttatchTo(Sprite* sprite,std::vector<std::shared_ptr<AIDropObject>>& dropObjects,std::vector<std::shared_ptr<AIDropObject>>& inactiveDropObjects)
 {
     this->vecDropObjects = &dropObjects;
     this->inactiveDropObjects = &inactiveDropObjects;
@@ -33,19 +33,19 @@ bool CollisionBox::OnBeginOverlap()
     {
 #ifdef COLLISIONBOX_1
         
-        if(vecDropObjects->at(i).GetSprite()->getPositionY() <= DataHandler::TEXTURE_COLLECT_GAME_BASKET_SIZE) //only check objects which are below y = Basket height
+        if(vecDropObjects->at(i)->GetSprite()->getPositionY() <= DataHandler::TEXTURE_COLLECT_GAME_BASKET_SIZE) //only check objects which are below y = Basket height
         {
-            if((vecDropObjects->at(i).GetSprite()->getPositionY() - (vecDropObjects->at(i).GetSprite()->boundingBox().size.height / 2)) <= (sprite->getPositionY() + (sprite->boundingBox().size.height/2)))
+            if((vecDropObjects->at(i)->GetSprite()->getPositionY() - (vecDropObjects->at(i)->GetSprite()->boundingBox().size.height / 2)) <= (sprite->getPositionY() + (sprite->boundingBox().size.height/2)))
             {
-                if(((vecDropObjects->at(i).GetSprite()->getPositionX() + (vecDropObjects->at(i).GetSprite()->boundingBox().size.width/2)) >= (sprite->getPositionX() - (sprite->boundingBox().size.width/2))) && ((vecDropObjects->at(i).GetSprite()->getPositionX() + (vecDropObjects->at(i).GetSprite()->boundingBox().size.height/2)) <= (sprite->getPositionX() + (sprite->boundingBox().size.width/2))))
+                if(((vecDropObjects->at(i)->GetSprite()->getPositionX() + (vecDropObjects->at(i)->GetSprite()->boundingBox().size.width/2)) >= (sprite->getPositionX() - (sprite->boundingBox().size.width/2))) && ((vecDropObjects->at(i)->GetSprite()->getPositionX() + (vecDropObjects->at(i)->GetSprite()->boundingBox().size.width/2)) <= (sprite->getPositionX() + (sprite->boundingBox().size.width/2))))
                 {
-                    collidedObject = &vecDropObjects->at(i);
+                    collidedObject = vecDropObjects->at(i).get();
                     colliedIndex = i;
                     return true;
                 }
-                else if(((vecDropObjects->at(i).GetSprite()->getPositionX() - (vecDropObjects->at(i).GetSprite()->boundingBox().size.width/2)) <= (sprite->getPositionX() + (sprite->boundingBox().size.width/2))) && ((vecDropObjects->at(i).GetSprite()->getPositionX() - (vecDropObjects->at(i).GetSprite()->boundingBox().size.width/2)) >= (sprite->getPositionX() - (sprite->boundingBox().size.width/2))))
+                else if(((vecDropObjects->at(i)->GetSprite()->getPositionX() - (vecDropObjects->at(i)->GetSprite()->boundingBox().size.width/2)) <= (sprite->getPositionX() + (sprite->boundingBox().size.width/2))) && ((vecDropObjects->at(i)->GetSprite()->getPositionX() - (vecDropObjects->at(i)->GetSprite()->boundingBox().size.width/2)) >= (sprite->getPositionX() - (sprite->boundingBox().size.width/2))))
                 {
-                    collidedObject = &vecDropObjects->at(i);
+                    collidedObject = vecDropObjects->at(i).get();
                     colliedIndex = i;
                     return true;
                 }
@@ -72,9 +72,9 @@ bool CollisionBox::OnBeginOverlap()
 
 void CollisionBox::RemoveObject()
 {
-    vecDropObjects->at(colliedIndex).SetActive(false);
-    vecDropObjects->at(colliedIndex).SetPositionX(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
-    vecDropObjects->at(colliedIndex).SetPositionY(700); /**<just above Ground */
+    vecDropObjects->at(colliedIndex)->SetActive(false);
+    vecDropObjects->at(colliedIndex)->SetPositionX(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
+    vecDropObjects->at(colliedIndex)->SetPositionY(700); /**<just above Ground */
     inactiveDropObjects->push_back(std::move(vecDropObjects->at(colliedIndex)));
     
     vecDropObjects->erase(vecDropObjects->begin() + colliedIndex);

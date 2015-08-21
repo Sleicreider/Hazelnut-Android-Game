@@ -22,8 +22,18 @@ class AIDropObject
 
 public:
 	AIDropObject(FrameworkScene* scene);
+    ~AIDropObject();
 
 	bool GroundCollision();
+    
+    void DeathAnimation();
+    void DeathAnimationHeart();
+    void DeathAnimationBroken();
+    
+    bool DeathAnimationHasFinished();
+    
+    bool isrun() { return timeframe_death_anim_.IsRunning(); }
+
 
 	FSprite* GetSprite();
     
@@ -35,11 +45,17 @@ public:
     void SetDropObjectSpeed(int dropObjectSpeed);
     void SetActive(bool active);
     void WithAnimation(bool active, FSprite::EAnimation sprite_animation);
+    void SetDead(bool bIsDead);
     
     EDropObjectType GetType();
     int GetDropObjectSpeed();
+    bool IsActive();
+    
+    bool IsDead();
 
 	void Remove();
+    
+
     
 private:
     FrameworkScene* scene;
@@ -48,6 +64,10 @@ private:
     EDropObjectType dropObjectType;
     int dropObjectSpeed;
     
+    FTimeframe timeframe_death_anim_;
+    
+    bool bIsDead_;
+    bool bIsActive_;
 };
 
 inline void AIDropObject::WithAnimation(bool active, FSprite::EAnimation sprite_animation){ dropObject->WithAnimation(active,sprite_animation); }
@@ -68,10 +88,26 @@ inline void AIDropObject::SetActive(bool active)
         dropObject->setVisible(false);
         dropObject->pause();
     }
+    
+    bIsActive_ = active;
 }
 
 inline EDropObjectType AIDropObject::GetType(){ return dropObjectType; }
 inline FSprite* AIDropObject::GetSprite(){ return dropObject; }
 inline int AIDropObject::GetDropObjectSpeed(){ return dropObjectSpeed; }
+
+inline bool AIDropObject::GroundCollision()
+{
+    if(dropObject->getPositionY() <= DataHandler::COLLECT_GAME_GROUND_COLLISION_Y)
+    {
+        return true;
+    }
+    return false;
+}
+
+FORCEINLINE bool AIDropObject::IsDead() { return bIsDead_; }
+FORCEINLINE void AIDropObject::SetDead(bool bIsDead) { bIsDead_ = bIsDead; };
+
+FORCEINLINE bool AIDropObject::IsActive() { return bIsActive_; }
 
 #endif /* defined(__Hazelnut__AIDropObject__) */

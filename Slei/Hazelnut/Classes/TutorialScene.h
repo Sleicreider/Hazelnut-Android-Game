@@ -42,11 +42,7 @@ private:
     void OnStateMoveTutorial(float delta);
     void OnStateCollectTutorial(float delta);
     void OnStateEnter(float delta);
-    void OnStatePaused(float delta);
-    void OnStateGameOver(float delta);
-    void OnStateLevelUp(float delta);
-    void OnStateExit(float delta);
-    void OnStateIdle(float delta); //intentionally left empty to do nothing
+
     
     
     void FadeInBackground();
@@ -72,7 +68,6 @@ private:
     
     Loader loader_;
     
-    FSprite* squirrel_;
     FSprite* background_;
     FSprite* scene_object_;
     FSprite* basket_;

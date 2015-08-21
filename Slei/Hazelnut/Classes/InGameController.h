@@ -61,10 +61,14 @@ public:
     
 private:
     FSprite* squirrel_;
-    FSprite* background_;
+	FSprite* background_;
+	FSprite* branch_;
     FSprite* cloud_1_;
     FSprite* cloud_2_;
     FSprite* cloud_3_;
+	FSprite* bird_;
+	FSprite* sprite_anim_bird;
+	FSprite* sprite_anim_bird1;
     FSprite* scene_object_;
     FSprite* basket_;
     
@@ -151,6 +155,11 @@ private:
     // Clouds
     
     void CloudMovement();
+
+	//======================================================
+	// Birds
+
+	void BirdMovement();
     
 private:
     const std::string SQUIRREL;

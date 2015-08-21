@@ -24,7 +24,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 		   ../../Classes/FrameworkScene.cpp \
 			../../Classes/FSprite.cpp \
 		   ../../Classes/FPopup.cpp \
-		   ../../Classes/SpecialSprite.cpp \
 		   ../../Classes/TutorialPopup.cpp \
 		   ../../Classes/GamePausePopup.cpp \
                    ../../Classes/AI.cpp \

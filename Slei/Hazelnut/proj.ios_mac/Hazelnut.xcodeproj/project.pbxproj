@@ -46,8 +46,6 @@
 		1474D0771A3856D60084E0C0 /* Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1474D0751A3856D60084E0C0 /* Loader.cpp */; };
 		1474D0781A3856D60084E0C0 /* Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1474D0751A3856D60084E0C0 /* Loader.cpp */; };
 		147AE9721AA0A4F5002C49CE /* CocosGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 147AE9501AA0A4F5002C49CE /* CocosGUI.cpp */; };
-		147CCA0B1AC2C627005B28C1 /* FStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 147CCA091AC2C627005B28C1 /* FStateMachine.cpp */; };
-		147CCA0C1AC2C627005B28C1 /* FStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 147CCA091AC2C627005B28C1 /* FStateMachine.cpp */; };
 		14A011A31B0B5B760024BAEB /* FPopup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A011A11B0B5B760024BAEB /* FPopup.cpp */; };
 		14A011A41B0B5B760024BAEB /* FPopup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A011A11B0B5B760024BAEB /* FPopup.cpp */; };
 		14B4B2B51A2708D800B81C22 /* CollisionBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14B4B2B31A2708D800B81C22 /* CollisionBox.cpp */; };
@@ -56,8 +54,6 @@
 		14EE0FB21A1376C500CAFB99 /* InGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EE0FAF1A1376C500CAFB99 /* InGameScene.cpp */; };
 		14EE0FBA1A137C3C00CAFB99 /* InGameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EE0FB81A137C3C00CAFB99 /* InGameController.cpp */; };
 		14EE0FBB1A137C3C00CAFB99 /* InGameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EE0FB81A137C3C00CAFB99 /* InGameController.cpp */; };
-		14FBC93D1ACED76700B1F722 /* SpecialSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FBC93B1ACED76700B1F722 /* SpecialSprite.cpp */; };
-		14FBC93E1ACED76700B1F722 /* SpecialSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FBC93B1ACED76700B1F722 /* SpecialSprite.cpp */; };
 		14FBC9411ACED77500B1F722 /* HighscoreScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FBC93F1ACED77500B1F722 /* HighscoreScene.cpp */; };
 		14FBC9421ACED77500B1F722 /* HighscoreScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FBC93F1ACED77500B1F722 /* HighscoreScene.cpp */; };
 		14FBC9451ACED78000B1F722 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FBC9431ACED78000B1F722 /* MenuScene.cpp */; };
@@ -188,7 +184,6 @@
 		147AE9501AA0A4F5002C49CE /* CocosGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocosGUI.cpp; sourceTree = "<group>"; };
 		147AE9511AA0A4F5002C49CE /* CocosGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocosGUI.h; sourceTree = "<group>"; };
 		147AE95E1AA0A4F5002C49CE /* HazelnutEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HazelnutEnum.h; sourceTree = "<group>"; };
-		147CCA091AC2C627005B28C1 /* FStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FStateMachine.cpp; sourceTree = "<group>"; };
 		147CCA0A1AC2C627005B28C1 /* FStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FStateMachine.h; sourceTree = "<group>"; };
 		149ADE541AE7CE1F002E3FFF /* FTimeframe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTimeframe.h; sourceTree = "<group>"; };
 		14A011A11B0B5B760024BAEB /* FPopup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPopup.cpp; sourceTree = "<group>"; };
@@ -200,8 +195,6 @@
 		14EE0FB01A1376C500CAFB99 /* InGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InGameScene.h; sourceTree = "<group>"; };
 		14EE0FB81A137C3C00CAFB99 /* InGameController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InGameController.cpp; sourceTree = "<group>"; };
 		14EE0FB91A137C3C00CAFB99 /* InGameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InGameController.h; sourceTree = "<group>"; };
-		14FBC93B1ACED76700B1F722 /* SpecialSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpecialSprite.cpp; sourceTree = "<group>"; };
-		14FBC93C1ACED76700B1F722 /* SpecialSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialSprite.h; sourceTree = "<group>"; };
 		14FBC93F1ACED77500B1F722 /* HighscoreScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HighscoreScene.cpp; sourceTree = "<group>"; };
 		14FBC9401ACED77500B1F722 /* HighscoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighscoreScene.h; sourceTree = "<group>"; };
 		14FBC9431ACED78000B1F722 /* MenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScene.cpp; sourceTree = "<group>"; };
@@ -377,15 +370,12 @@
 		144058101A14A88600C392F3 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				14FBC93B1ACED76700B1F722 /* SpecialSprite.cpp */,
-				14FBC93C1ACED76700B1F722 /* SpecialSprite.h */,
 				146F7F3D1A5AD19A001F72E3 /* FrameworkScene.cpp */,
 				146F7F3E1A5AD19A001F72E3 /* FrameworkScene.h */,
 				144058151A14AB3800C392F3 /* FrameworkTimer.cpp */,
 				144058161A14AB3800C392F3 /* FrameworkTimer.h */,
 				1467B8B71A275BF300E00935 /* FrameworkButton.h */,
 				149ADE541AE7CE1F002E3FFF /* FTimeframe.h */,
-				147CCA091AC2C627005B28C1 /* FStateMachine.cpp */,
 				147CCA0A1AC2C627005B28C1 /* FStateMachine.h */,
 				1417031F1AF799FE00E19643 /* ITickable.h */,
 				14A011A11B0B5B760024BAEB /* FPopup.cpp */,
@@ -721,8 +711,6 @@
 				144058171A14AB3800C392F3 /* FrameworkTimer.cpp in Sources */,
 				1440581E1A14C19700C392F3 /* AIDropObject.cpp in Sources */,
 				14B4B2B51A2708D800B81C22 /* CollisionBox.cpp in Sources */,
-				14FBC93D1ACED76700B1F722 /* SpecialSprite.cpp in Sources */,
-				147CCA0B1AC2C627005B28C1 /* FStateMachine.cpp in Sources */,
 				14A011A31B0B5B760024BAEB /* FPopup.cpp in Sources */,
 				141703191AF78F5100E19643 /* TutorialScene.cpp in Sources */,
 				141253351B0CA45B009F7139 /* TutorialPopup.cpp in Sources */,
@@ -756,7 +744,6 @@
 				1471ACAA1AC999A7002BE619 /* TextFieldExtended.cpp in Sources */,
 				1417031A1AF78F5100E19643 /* TutorialScene.cpp in Sources */,
 				146F7F401A5AD19A001F72E3 /* FrameworkScene.cpp in Sources */,
-				14FBC93E1ACED76700B1F722 /* SpecialSprite.cpp in Sources */,
 				144CF28F1A2EFF5A003B68C6 /* LevelSystem.cpp in Sources */,
 				140F56871B34349B000FD6ED /* FUtil.cpp in Sources */,
 				14FBC9421ACED77500B1F722 /* HighscoreScene.cpp in Sources */,
@@ -775,7 +762,6 @@
 				14EE0FB21A1376C500CAFB99 /* InGameScene.cpp in Sources */,
 				147AE9721AA0A4F5002C49CE /* CocosGUI.cpp in Sources */,
 				14FBC9461ACED78000B1F722 /* MenuScene.cpp in Sources */,
-				147CCA0C1AC2C627005B28C1 /* FStateMachine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

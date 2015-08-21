@@ -58,24 +58,24 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-//	   glview->setFrameSize(1920, 1080); //HD
-    //glview->setFrameSize(1280, 800);  //HD READY
-//    glview->setFrameSize(1024, 768);  //iPad
-    //glview->setFrameSize(2048, 1536);   //iPad 3
-    glview->setFrameSize(960, 640);   //iPhone4
-//    glview->setFrameSize(1136, 640);  //iPhone5
-//
-//    glview->setFrameSize(858, 480);   // Samsung Galaxy S1
-//    glview->setFrameSize(1920, 1080); // Samsung Galaxy S4
-//    glview->setFrameSize(1280, 754);  // Samsung 10" Tablet
-//    glview->setFrameSize(480, 320);   // Samsung Galaxy Ace
-//    glview->setFrameSize(1024, 600);  // Kindle Fire
-//    glview->setFrameSize(960, 540);   // HD READY
-//    glview->setFrameSize(780, 480);   // HD READY
-//    glview->setFrameSize(1190, 720);   // HD READY
-//    glview->setFrameSize(780, 480);   // Motorola Nexus
-//    glview->setFrameSize(2048, 1440);   // Nexus 6/9 Tablet
-    //glview->setFrameSize(1024, 720);   // Nexus 6/9 Tablet small
+	//    glview->setFrameSize(1920, 1080); //HD
+	//glview->setFrameSize(1280, 800);  //HD READY
+	//    glview->setFrameSize(1024, 768);  //iPad
+	//glview->setFrameSize(2048, 1536);   //iPad 3
+//  glview->setFrameSize(960, 640);   //iPhone4
+	//    glview->setFrameSize(1136, 640);  //iPhone5
+	//
+	//    glview->setFrameSize(858, 480);   // Samsung Galaxy S1
+	//glview->setFrameSize(1920, 1080); // Samsung Galaxy S4
+	//    glview->setFrameSize(1280, 754);  // Samsung 10" Tablet
+	    glview->setFrameSize(480, 320);   // Samsung Galaxy Ace
+	//    glview->setFrameSize(1024, 600);  // Kindle Fire
+	//    glview->setFrameSize(960, 540);   // HD READY
+	//    glview->setFrameSize(780, 480);   // HD READY
+	//    glview->setFrameSize(1190, 720);   // HD READY
+	//    glview->setFrameSize(780, 480);   // Motorola Nexus
+	//    glview->setFrameSize(2048, 1440);   // Nexus 6/9 Tablet
+	//glview->setFrameSize(1024, 720);   // Nexus 6/9 Tablet small
 
 
 
@@ -166,13 +166,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
         director->setContentScaleFactor(1080/designResolutionSize.height);
     }
-
-#ifdef DEBUG
+    
     // turn on display FPS
     director->setDisplayStats(true);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
+
+#ifdef DEBUG
+    //doesnt working in ifdef somehow
+//    // turn on display FPS
+//    director->setDisplayStats(true);
+//    
+//    // set FPS. the default value is 1.0/60 if you don't call this
+//    director->setAnimationInterval(1.0 / 60);
 #endif
 
     

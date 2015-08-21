@@ -54,14 +54,14 @@ bool TutorialScene::init()
     
     //Background
     background_ = FSprite::create(DataHandler::TEXTURE_GAME_MAP_1, Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2,
-                                                                                      DataHandler::GAME_RESOLUTION_HEIGHT/2));
+                                                                        DataHandler::GAME_RESOLUTION_HEIGHT/2));
     addChild(background_);
     
     //Background extension
     if(DataHandler::app_layout_ == EAppLayout::LAYOUT_IPAD)
     {
         FSprite* background_extension = FSprite::create( DataHandler::TEXTURE_GAME_MAP_1_EXTENSION
-                                                         ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2,DataHandler::GAME_RESOLUTION_HEIGHT+180));
+                                                        ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2,DataHandler::GAME_RESOLUTION_HEIGHT+180));
         background_extension->setScale(32, 6);
         
         addChild(background_extension);
@@ -69,7 +69,7 @@ bool TutorialScene::init()
     else if(DataHandler::app_layout_ == EAppLayout::LAYOUT_DEFAULT)
     {
         FSprite* background_extension = FSprite::create(  DataHandler::TEXTURE_GAME_MAP_1_EXTENSION
-                                                         ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2,DataHandler::GAME_RESOLUTION_HEIGHT+100));
+                                                        ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2,DataHandler::GAME_RESOLUTION_HEIGHT+100));
         background_extension->setScale(32, 3.35);
         
         addChild(background_extension);
@@ -77,20 +77,12 @@ bool TutorialScene::init()
     
     //Basket
     basket_ = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET
-        , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
-        , Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2
-        , DataHandler::COLLECT_GAME_BASKET_POSY_START));
+                              , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
+                              , Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2
+                                     , DataHandler::COLLECT_GAME_BASKET_POSY_START));
     addChild(basket_);
     
-    //Squirrel
-    squirrel_ = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL
-                                ,FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL)
-                                ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2
-                                ,DataHandler::COLLECT_GAME_SQUIRREL_POSY_START));
-    addChild(squirrel_);
-    
     background_->setZOrder(0);
-    squirrel_->setZOrder(2);
     basket_->setZOrder(2);
     
     int32_t height = 1080;
@@ -147,11 +139,6 @@ bool TutorialScene::init()
     state_machine_.Register(STATE_MOVE_TUTORIAL, this, &TutorialScene::OnStateMoveTutorial);
     state_machine_.Register(STATE_COLLECT_TUTORIAL, this, &TutorialScene::OnStateCollectTutorial);
     state_machine_.Register(STATE_ENTER, this, &TutorialScene::OnStateEnter);
-    state_machine_.Register(STATE_GAME_OVER, this, &TutorialScene::OnStateGameOver);
-    state_machine_.Register(STATE_LEVEL_UP, this, &TutorialScene::OnStateLevelUp);
-    state_machine_.Register(STATE_PAUSED, this, &TutorialScene::OnStatePaused);
-    state_machine_.Register(STATE_EXIT, this, &TutorialScene::OnStateExit);
-    state_machine_.Register(STATE_IDLE, this, &TutorialScene::OnStateIdle);
     
     state_machine_.SetState(STATE_ENTER);
     
@@ -315,28 +302,7 @@ void TutorialScene::OnStateCollectTutorial(float delta)
     }
 }
 
-void TutorialScene::OnStateLevelUp(float delta)
-{
-    
-}
 
-void TutorialScene::OnStatePaused(float delta)
-{
-    
-}
-
-void TutorialScene::OnStateIdle(float delta)
-{
-    //DO NOTHING!
-}
-
-void TutorialScene::OnStateGameOver(float delta)
-{
-}
-
-void TutorialScene::OnStateExit(float delta)
-{
-}
 
 void TutorialScene::FadeInBackground()
 {
@@ -347,7 +313,7 @@ void TutorialScene::FadeInBackground()
     
     fade_in_current_time_ = timer_.GetCurrentTimeInMilliseconds();
     fade_in_end_time_ = fade_in_current_time_ + fade_in_time_;
-   
+    
     SetActiveAndVisible(tap_area_, true);
     SetActiveAndVisible(tap_right_, true);
     tap_right_->setOpacity(0);

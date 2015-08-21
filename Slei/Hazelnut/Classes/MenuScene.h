@@ -41,7 +41,9 @@ public:
 	ui::UICCTextField * textField;
 
 private:
-    void CloudMovement();
+	void CloudMovement();
+	void BirdMovement();
+
     
     void StartHeartAnimation();
     void HeartAnimation();
@@ -74,6 +76,8 @@ private:
     FSprite* cloud_1_;
     FSprite* cloud_2_;
     FSprite* cloud_3_;
+	FSprite* sprite_anim_bird;
+	FSprite* sprite_anim_bird1;
 };
 
 #endif /* defined(__Hazelnut__MenuScene__) */

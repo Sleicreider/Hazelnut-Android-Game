@@ -20,6 +20,7 @@ public:
     
 private:
     virtual void Tick(float delta) = 0;
+    virtual void ResetToInitialState() {};
 };
 
 inline ITickable::~ITickable() {

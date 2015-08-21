@@ -74,6 +74,8 @@ private:
      */
     virtual void Tick(float delta);
     
+    virtual void ResetToInitialState() override;
+    
 private:
     FrameworkTimer time_;
     
@@ -145,6 +147,14 @@ inline bool FTimeframe::IsOrWasrunning()
     }
     
     return false;
+}
+
+inline void FTimeframe::ResetToInitialState()
+{
+    bWasRunning_ = false;
+    bIsRunning_ = false;
+    current_time_ = milliseconds(0);
+    end_time_ = milliseconds(0);
 }
 
 #endif

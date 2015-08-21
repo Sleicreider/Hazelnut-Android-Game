@@ -242,29 +242,29 @@ private:
     Sprite* sprite_;
 };
 
-inline int  FrameworkButton::GetPositionX() { return getPositionX(); }
-inline int  FrameworkButton::GetPositionY() { return getPositionY(); }
+FORCEINLINE int  FrameworkButton::GetPositionX() { return getPositionX(); }
+FORCEINLINE int  FrameworkButton::GetPositionY() { return getPositionY(); }
 
-inline int  FrameworkButton::GetWidth()  { return width_; }
-inline int  FrameworkButton::GetHeight() { return height_; }
-inline int  FrameworkButton::GetZOrder() { return getZOrder(); }
-inline int  FrameworkButton::GetLeft()   { return (getParent()->convertToWorldSpace(getPosition()).x - width_/2); }
-inline int  FrameworkButton::GetRight()  { return (getParent()->convertToWorldSpace(getPosition()).x + width_/2); }
-inline int  FrameworkButton::GetTop()    { return (getParent()->convertToWorldSpace(getPosition()).y + height_/2); }
-inline int  FrameworkButton::GetBottom() { return (getParent()->convertToWorldSpace(getPosition()).y - height_/2); }
+FORCEINLINE int  FrameworkButton::GetWidth()  { return width_; }
+FORCEINLINE int  FrameworkButton::GetHeight() { return height_; }
+FORCEINLINE int  FrameworkButton::GetZOrder() { return getZOrder(); }
+FORCEINLINE int  FrameworkButton::GetLeft()   { return (getParent()->convertToWorldSpace(getPosition()).x - width_/2); }
+FORCEINLINE int  FrameworkButton::GetRight()  { return (getParent()->convertToWorldSpace(getPosition()).x + width_/2); }
+FORCEINLINE int  FrameworkButton::GetTop()    { return (getParent()->convertToWorldSpace(getPosition()).y + height_/2); }
+FORCEINLINE int  FrameworkButton::GetBottom() { return (getParent()->convertToWorldSpace(getPosition()).y - height_/2); }
 
-inline bool FrameworkButton::IsPressed()    { return bIsPressed_; }
-inline bool FrameworkButton::WasPressed()   { return bWasPressed_; }
-inline void FrameworkButton::SetWasPressed(bool bWasPressed)    { bWasPressed_ = bWasPressed; }
-inline void FrameworkButton::SetIsPressed(bool bIsPressed)      { bIsPressed_ = bIsPressed; }
+FORCEINLINE bool FrameworkButton::IsPressed()    { return bIsPressed_; }
+FORCEINLINE bool FrameworkButton::WasPressed()   { return bWasPressed_; }
+FORCEINLINE void FrameworkButton::SetWasPressed(bool bWasPressed)    { bWasPressed_ = bWasPressed; }
+FORCEINLINE void FrameworkButton::SetIsPressed(bool bIsPressed)      { bIsPressed_ = bIsPressed; }
 
-inline Sprite*  FrameworkButton::GetSprite()    { return sprite_; }
+FORCEINLINE Sprite*  FrameworkButton::GetSprite()    { return sprite_; }
 
-inline bool     FrameworkButton::IsActive()     { return bIsActive_; }
-//inline bool     FrameworkButton::IsVisible()    { return bIsVisible_; }
+FORCEINLINE bool     FrameworkButton::IsActive()     { return bIsActive_; }
+//FORCEINLINE bool     FrameworkButton::IsVisible()    { return bIsVisible_; }
 
 
-inline void FrameworkButton::SetPositionX(int x)
+FORCEINLINE void FrameworkButton::SetPositionX(int x)
 {
     //    this->x_ = x;
     
@@ -278,7 +278,7 @@ inline void FrameworkButton::SetPositionX(int x)
 #endif
 }
 
-inline void FrameworkButton::SetPositionY(int y)
+FORCEINLINE void FrameworkButton::SetPositionY(int y)
 {
     //    this->y_ = y;
     setPositionY(y);
@@ -293,7 +293,7 @@ inline void FrameworkButton::SetPositionY(int y)
 #endif
 }
 
-inline void FrameworkButton::SetZOrder(int z_order)
+FORCEINLINE void FrameworkButton::SetZOrder(int z_order)
 {
     //    this->z_order_ = z_order;
     setZOrder(z_order);
@@ -307,7 +307,7 @@ inline void FrameworkButton::SetZOrder(int z_order)
 #endif
 }
 
-inline void FrameworkButton::SetActive(bool active)
+FORCEINLINE void FrameworkButton::SetActive(bool active)
 {
     bIsActive_ = active;
     //
@@ -322,12 +322,13 @@ inline void FrameworkButton::SetActive(bool active)
 #endif
 }
 
-inline void FrameworkButton::SetVisible(bool visible)
+FORCEINLINE void FrameworkButton::SetVisible(bool visible)
 {
     //    bIsVisible_ = visible;
     
     //    if(sprite_ != nullptr)
     //    {
+#pragma message WARN("is this also true for the sprite? or just for the button node??? check for all other functions too")
     setVisible(visible);
     //    }
     
@@ -337,7 +338,7 @@ inline void FrameworkButton::SetVisible(bool visible)
 }
 
 #ifdef BUTTON_RECT
-inline void FrameworkButton::SetRect(DrawNode* rectangle)
+FORCEINLINE void FrameworkButton::SetRect(DrawNode* rectangle)
 {
     this->rectangle_ = rectangle;
 }

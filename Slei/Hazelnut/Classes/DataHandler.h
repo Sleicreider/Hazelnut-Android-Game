@@ -26,13 +26,13 @@
 #define STRINGISE_IMPL(x) #x
 #define STRINGISE(x) STRINGISE_IMPL(x)
 
-#define FORCEINLINE __attribute__((always_inline))
+//#define FORCEINLINE __attribute__((always_inline))
 
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #    define FORCEINLINE __forceinline
 #else
-#    define FORCEINLINE __attribute__((always_inline))
+#    define FORCEINLINE __attribute__((always_inline)) inline
 #endif
 
 
@@ -64,6 +64,7 @@ namespace DataHandler
     static const int32_t COLLECT_GAME_SQUIRREL_POSY_START = ((GAME_RESOLUTION_HEIGHT/2) + 425);
     static const float_t COLLECT_GAME_BASKET_POSY_START = ((GAME_RESOLUTION_HEIGHT/2) - 505);
     static const float_t COLLECT_GAME_BASKET_SPEED = 10;
+    static const float_t COLLECT_GAME_GROUND_COLLISION_Y = 25;
     
  //   static const int32_t COLLECT_GAME_LEVEL_1_HAZELNUT_DROP_CHANCE = 36;
 	//static const int32_t COLLECT_GAME_LEVEL_1_WASTE_DROP_CHANCE = 36;
@@ -84,6 +85,7 @@ namespace DataHandler
     static const int32_t COLLECT_GAME_COIN_POINTS = 15;
     
     
+    
     /** LEVEL SETTINGS **/
 #ifndef PERFORMANCETEST
     //LEVEL 1
@@ -98,7 +100,7 @@ namespace DataHandler
 	static const int32_t COLLECT_GAME_LEVEL_1_HAZELNUT_DROP_CHANCE = 55;
 	static const int32_t COLLECT_GAME_LEVEL_1_WASTE_DROP_CHANCE = 45;
 	static const int32_t COLLECT_GAME_LEVEL_1_APPLE_DROP_CHANCE = 0;
-	static const int32_t COLLECT_GAME_LEVEL_1_HEART_DROP_CHANCE = 100;
+	static const int32_t COLLECT_GAME_LEVEL_1_HEART_DROP_CHANCE = 0;
 	static const int32_t COLLECT_GAME_LEVEL_1_COIN_DROP_CHANCE = 0;
     
     //LEVEL 2
@@ -326,10 +328,10 @@ namespace DataHandler
     static const int32_t COLLECT_GAME_LEVEL_X_SCORE_MAX = 1;
     static const float_t COLLECT_GAME_LEVEL_X_AI_SPEED = 1;
     static const float_t COLLECT_GAME_LEVEL_X_HAZELNUT_SPEED = 1;
-    static const int32_t COLLECT_GAME_LEVEL_X_DROP_INTERVAL_MIN = 1;
-    static const int32_t COLLECT_GAME_LEVEL_X_DROP_INTERVAL_MAX = 1;
+    static const int32_t COLLECT_GAME_LEVEL_X_DROP_INTERVAL_MIN = 10;
+    static const int32_t COLLECT_GAME_LEVEL_X_DROP_INTERVAL_MAX = 30;
     static const int32_t COLLECT_GAME_LEVEL_X_DROP_SPEED_MIN = 1;
-    static const int32_t COLLECT_GAME_LEVEL_X_DROP_SPEED_MAX = 1;
+    static const int32_t COLLECT_GAME_LEVEL_X_DROP_SPEED_MAX = 5;
     static const int32_t COLLECT_GAME_LEVEL_X_SCORE_MULTIPLIER = 10000;
     static const int32_t COLLECT_GAME_LEVEL_X_HAZELNUT_DROP_CHANCE = 20;
     static const int32_t COLLECT_GAME_LEVEL_X_WASTE_DROP_CHANCE = 20;
@@ -350,6 +352,7 @@ namespace DataHandler
     static const std::string TEXTURE_GAME_MAP_1 = "Map1" + extension;
     static const std::string TEXTURE_GAME_MAP_1_EXTENSION = "Map1_extension" + extension;
     static const std::string TEXTURE_GAME_MAP_1_POPUP = "GamePopupBackground" + extension;
+	static const std::string TEXTURE_GAME_BRANCH = "branch" + extension;
     
     static const std::string TEXTURE_GAME_POPUP_FRAME = "frame" + extension;
     
@@ -357,8 +360,12 @@ namespace DataHandler
     static const std::string TEXTURE_GAME_CLOUD_2 = "cloud2" + extension;
     static const std::string TEXTURE_GAME_CLOUD_3 = "cloud3" + extension;
 
+	static const std::string TEXTURE_GAME_BIRD_FRAME_1 = "bird_down" + extension;
+	static const std::string TEXTURE_GAME_BIRD_FRAME_2 = "bird_up" + extension;
+
     
     //Menu
+	static const std::string TEXTURE_MENU_LABEL_HEADER		= "MenuHeader" + extension;
     static const std::string TEXTURE_MENU_BUTTON_START      = "MenuButtonStart" + extension;
     static const std::string TEXTURE_MENU_BUTTON_HIGHSCORE  = "MenuButtonHighscore" + extension;
     static const std::string TEXTURE_MENU_BUTTON_EXIT       = "MenuButtonExit" + extension;
@@ -384,11 +391,18 @@ namespace DataHandler
     static const std::string TEXTURE_COLLECT_GAME_APPLE     = "Apple2" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_APPLE_SIZE    = 53;
     
+    static const std::string TEXTURE_COLLECT_GAME_APPLE_BROKEN     = "Apple2_broken" + extension;
+    static const int32_t TEXTURE_COLLECT_GAME_APPLE_BROKEN_SIZE    = 53;
+    
     static const std::string TEXTURE_COLLECT_GAME_WASTE     = "Waste2" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_WASTE_SIZE    = 50;
     
+    
     static const std::string TEXTURE_COLLECT_GAME_HAZELNUT  = "Hazelnut2" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_HAZELNUT_SIZE = 58;
+    
+    static const std::string TEXTURE_COLLECT_GAME_HAZELNUT_BROKEN = "Hazelnut2_broken" + extension;
+    static const int32_t TEXTURE_COLLECT_GAME_HAZELNUT_BROKEN_SIZE = 50;
     
     static const std::string TEXTURE_COLLECT_GAME_HEART     = "Heart" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_HEART_SIZE    = 100;
@@ -400,13 +414,15 @@ namespace DataHandler
     static const int32_t TEXTURE_COLLECT_GAME_BASKET_SIZE    = 106;
      
     static const std::string TEXTURE_COLLECT_GAME_SQUIRREL  = "squirrel" + extension;
-    
+
+	static const std::string TEXTURE_COLLECT_GAME_SQUIRREL_ANGRY = "Squirrel_angry" + extension;
+
     static const std::string TEXTURE_COLLECT_GAME_BUTTON_MENU       = "MenuButton" + extension;
     
     static const std::string TEXTURE_COLLECT_GAME_BUTTON_RETRY      = "MenuButtonRetry" + extension;
     static const std::string TEXTURE_COLLECT_GAME_BUTTON_REGISTER   = "MenuButtonRegister" + extension;
     static const std::string TEXTURE_COLLECT_GAME_EDIT_BOX          = "EditBoxTemplate" + extension;
-    
+
     static const std::string TEXTURE_COLLECT_GAME_POPUP_RESUME  = "PopupButtonResume" + extension;
     static const std::string TEXTURE_COLLECT_GAME_POPUP_EXIT    = "PopupButtonQuit" + extension;
     

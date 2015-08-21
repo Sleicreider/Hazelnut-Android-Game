@@ -94,6 +94,7 @@ void FrameworkScene::update(float delta)
     {
         if(vec_tickables_[i] != nullptr)
         {
+//            CCLOG("%d size = ", vec_tickables_.size());
             vec_tickables_[i]->Tick(delta);
         }
         else
@@ -190,38 +191,6 @@ void FrameworkScene::UpdateButtons()
     }
 }
 
-//FrameworkButton* FrameworkScene::CreateButton(const int width,const int height, Sprite* sprite)
-//{
-//    FrameworkButton* bt = FrameworkButton::create(this, width, height, sprite);//new FrameworkButton(width, height, sprite);
-//    
-//#ifdef BUTTON_RECT
-//    DrawNode* rectangle = DrawNode::create();
-//    Vec2 vertices[] =
-//    {
-//        Vec2(-(width/2),height/2),
-//        Vec2(width/2,height/2),
-//        Vec2(width/2,-(height/2)),
-//        Vec2(-(width/2),-(height/2))
-//    };
-//    rectangle->drawPolygon(vertices, 4, Color4F(1.0f,0.3f,0.3f,0.5f), 3, Color4F(0.2f,0.2f,0.2f,0.5f));
-//    this->addChild(rectangle);
-//    
-//    bt->SetRect(rectangle);
-//#endif
-//    
-////    if(sprite != nullptr)
-////    {
-////        this->addChild(sprite);
-////    }
-//    
-//    addChild(bt);
-//    
-////    vec_buttons_.push_back(bt);
-//    
-//    return vec_buttons_.back();
-//}
-
-
 bool FrameworkScene::onTouchBegan(Touch* touch, Event* event)
 {
     touch_x_ = touch->getLocation().x;
@@ -252,39 +221,21 @@ void FrameworkScene::onTouchCancelled(Touch* touch, Event* event)
 	}
 }
 
-//
-//Sprite* FrameworkScene::CreateWorldObject(const std::string& id,const std::string& fileName, const Vec2& objectPosition)
-//{
-//    FSprite* sprite = FSprite::create(fileName);
-//    sprite->setAnchorPoint(Vec2(0.5, 0.5));
-//    sprite->cocos2d::Node::setPosition(objectPosition);
-//    
-//    map_world_objects_.insert(id, sprite);
-//    
-//    this->addChild(sprite);
-//    
-//    return sprite;
-//}
 
-//Label* FrameworkScene::CreateText(const std::string& id, const std::string& text, const float posX, const float posY, const int fontSize,const std::string& ttfFile,const Color3B& color)
-//{
-//    if(map_texts_.find(id) != map_texts_.end())
-//    {
-//        CCLOGERROR("Text already exists");
-//        throw;
-//        return nullptr;
-//    }
-//    else
-//    {
-//        Label* text_label = Label::createWithTTF(text,ttfFile, fontSize);
-//        text_label->setAnchorPoint(Vec2(0.5,0.5));
-//        text_label->setPosition(posX,posY);
-//        text_label->setColor(color);
-//        
-//        map_texts_.insert(id,text_label);
-//        
-//        this->addChild(text_label);
-//        
-//        return text_label;
-//    }
-//}
+void FrameworkScene::RemoveTickable(ITickable &tickable)
+{
+    for(int i = 0; i < vec_tickables_.size(); i++)
+    {
+        if(vec_tickables_[i] == &tickable)
+        {
+            CCLOG("try rem %d",i);
+
+            vec_tickables_[i]->ResetToInitialState();
+            vec_tickables_.erase(vec_tickables_.begin() + i);
+            
+            CCLOG("removed %d",i);
+            CCLOG("size %d",vec_tickables_.size());
+
+        }
+    }
+}

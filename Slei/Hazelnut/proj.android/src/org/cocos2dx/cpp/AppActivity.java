@@ -209,8 +209,8 @@ public class AppActivity extends Cocos2dxActivity {
 
 		adViewScreen = new AdView(this);
 		adViewScreen.setAdSize(new AdSize((int) (convertPixelsToDp(
-				displayWidth / 100 * 80, this)), (int) (convertPixelsToDp(
-				displayHeight / 100 * 80, this))));
+				displayWidth / 100 * 95, this)), (int) (convertPixelsToDp(
+				displayHeight / 100 * 95, this))));
 		// adViewScreen.setAdSize(AdSize.LARGE_BANNER);
 		adViewScreen.setAdUnitId(AD_UNIT_FULL_ID);
 

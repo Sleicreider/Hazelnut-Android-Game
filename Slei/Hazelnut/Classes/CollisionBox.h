@@ -26,7 +26,7 @@ public:
     CollisionBox();
     ~CollisionBox();
     bool OnBeginOverlap();
-    void AttatchTo(Sprite* sprite,std::vector<AIDropObject>& dropObjects,std::vector<AIDropObject>& inactiveDropObjects);
+    void AttatchTo(Sprite* sprite,std::vector<std::shared_ptr<AIDropObject>>& dropObjects,std::vector<std::shared_ptr<AIDropObject>>& inactiveDropObjects);
     AIDropObject* GetObject();
     void RemoveObject();
     
@@ -36,8 +36,8 @@ public:
     
 private:
     Sprite* sprite;
-    std::vector<AIDropObject>* vecDropObjects;
-    std::vector<AIDropObject>* inactiveDropObjects;
+    std::vector<std::shared_ptr<AIDropObject>>* vecDropObjects;
+    std::vector<std::shared_ptr<AIDropObject>>* inactiveDropObjects;
     AIDropObject* collidedObject;
     int32_t colliedIndex;
 };
