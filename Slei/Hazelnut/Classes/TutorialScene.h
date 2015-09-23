@@ -58,7 +58,7 @@ private:
     static const std::string STATE_IDLE;
 
 private:
-    FStateMachine<TutorialScene> state_machine_;
+    FStateMachine state_machine_;
     FrameworkTimer timer_;
     
     FTimeframe timeframe_;

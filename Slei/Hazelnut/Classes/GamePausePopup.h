@@ -30,7 +30,7 @@ private:
     
     FrameworkButton* button_exit_;
     
-    FStateMachine<GamePausePopup> state_machine_;
+    FStateMachine state_machine_;
     
     bool bExit_;
 

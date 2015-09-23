@@ -72,7 +72,7 @@ private:
     FSprite* scene_object_;
     FSprite* basket_;
     
-    FStateMachine<InGameController> f;
+    FStateMachine f;
     
     GamePausePopup* popup_pause_;
     
@@ -124,7 +124,7 @@ private:
     
     AI ai_;
     
-    FStateMachine<InGameController> state_machine_;
+    FStateMachine state_machine_;
 	FTimeframe timeframe_;
     FTimeframe timeframe_animation_;
     FTimeframe timeframe_animation_2_;

@@ -53,7 +53,7 @@ private:
     
     FTimeframe timeframe_active_visible_;
     
-    FStateMachine<MenuPopup> state_machine_;
+    FStateMachine state_machine_;
     
 private:
     static const std::string STATE_MAIN;

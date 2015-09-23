@@ -111,7 +111,6 @@ inline void FTimeframe::Tick(float delta)
         bWasRunning_ = false;
     }
     
-    
     if(bIsRunning_)
     {
         
