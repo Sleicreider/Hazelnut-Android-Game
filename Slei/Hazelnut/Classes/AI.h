@@ -29,8 +29,8 @@ public:
     AI(FrameworkScene* scene);
     void Movement(int squirrelSpeed, int dropObjectSpeedMin,int dropObjectSpeedMax,int dropIntervalMin,int dropIntervalMax, int hazelnut_speed);
     void InitAI(cocos2d::Sprite* aiObject);
-    std::vector<std::shared_ptr<AIDropObject>>& GetDropObjects();
-    std::vector<std::shared_ptr<AIDropObject>>& GetInactiveDropObjects();
+    std::vector<std::unique_ptr<AIDropObject>>& GetDropObjects();
+    std::vector<std::unique_ptr<AIDropObject>>& GetInactiveDropObjects();
     
     /**
      * Amount of dropObjects which hit the ground in the current frame
@@ -61,9 +61,9 @@ private:
     Sprite* aiObject;
 
     
-    std::vector<std::shared_ptr<AIDropObject>> vecDropObjects;
-    std::vector<std::shared_ptr<AIDropObject>> vecInactiveObjects;
-    std::vector<std::shared_ptr<AIDropObject>> vecDanglingObjects; /**< Objects where animation hasn't finished yet */
+    std::vector<std::unique_ptr<AIDropObject>> vecDropObjects;
+    std::vector<std::unique_ptr<AIDropObject>> vecInactiveObjects;
+    std::vector<std::unique_ptr<AIDropObject>> vecDanglingObjects; /**< Objects where animation hasn't finished yet */
     
     int hitGroundCounter;
 
@@ -100,8 +100,8 @@ private:
     bool withAnimation;
 };
 
-inline std::vector<std::shared_ptr<AIDropObject>>& AI::GetDropObjects() { return vecDropObjects; }
-inline std::vector<std::shared_ptr<AIDropObject>>& AI::GetInactiveDropObjects() { return vecInactiveObjects; }
+inline std::vector<std::unique_ptr<AIDropObject>>& AI::GetDropObjects() { return vecDropObjects; }
+inline std::vector<std::unique_ptr<AIDropObject>>& AI::GetInactiveDropObjects() { return vecInactiveObjects; }
 inline int AI::GetHitGroundCounter() { return hitGroundCounter; }
 inline int32_t AI::GetNewDropTypeValue() { return rand() % GetMaxDropChance() + 1; }
 inline void AI::DecreaseHeartCounter() { heart_counter_--; }

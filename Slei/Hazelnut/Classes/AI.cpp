@@ -280,7 +280,7 @@ void AI::SpawnObject()
     }
     else
     {
-        std::shared_ptr<AIDropObject> dropObject = std::make_shared<AIDropObject>(scene);
+        auto dropObject = std::unique_ptr<AIDropObject>(new AIDropObject(scene));
         
         
         DropObjectTypeAssignment(dropObject.get());
