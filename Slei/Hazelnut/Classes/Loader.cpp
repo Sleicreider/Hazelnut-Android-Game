@@ -12,6 +12,7 @@
 #include "InGameScene.h"
 #include "HighscoreScene.h"
 #include "TutorialScene.h"
+#include "AchievementListScene.h"
 
 Loader::Loader()
 {
@@ -178,6 +179,27 @@ void Loader::UnloadHighscore()
     CCLOG("scene highscore assets unloaded");
 }
 
+void Loader::LoadAchievement(const std::string& newHighscoreEntry)
+{
+	LoadTextureContainer(scene_achievement_textures_);
+	LoadSoundContainer(scene_achievement_sounds_);
+
+	auto scene = AchievementListScene::createMenuScene(newHighscoreEntry);
+	Director::getInstance()->replaceScene(TransitionCrossFade::create(1, scene));
+
+	CCLOG("scene highscore assets loaded");
+}
+
+void Loader::UnloadAchievement()
+{
+
+	UnloadTextureContainer(scene_highscore_textures_);
+	UnloadSoundContainer(scene_highscore_sounds_);
+
+
+	CCLOG("achievement assets unloaded");
+}
+
 void Loader::LoadTutorial()
 {
     LoadTextureContainer(scene_tutorial_textures_);
@@ -202,7 +224,7 @@ void Loader::BackToLastScene()
     
 }
 
-void Loader::LoadTextureContainer(std::vector<const std::string>& container)
+void Loader::LoadTextureContainer(std::vector<std::string>& container)
 {
     for(int i = 0; i < container.size(); i++)
     {
@@ -210,7 +232,7 @@ void Loader::LoadTextureContainer(std::vector<const std::string>& container)
     }
 }
 
-void Loader::LoadSoundContainer(std::vector<const std::string>& container)
+void Loader::LoadSoundContainer(std::vector<std::string>& container)
 {
     for(int i = 0; i < container.size(); i++)
     {
@@ -218,7 +240,7 @@ void Loader::LoadSoundContainer(std::vector<const std::string>& container)
     }
 }
 
-void Loader::UnloadTextureContainer(std::vector<const std::string> &container)
+void Loader::UnloadTextureContainer(std::vector<std::string> &container)
 {
     for(int i = 0; i < container.size(); i++)
     {
@@ -226,7 +248,7 @@ void Loader::UnloadTextureContainer(std::vector<const std::string> &container)
     }
 }
 
-void Loader::UnloadSoundContainer(std::vector<const std::string> &container)
+void Loader::UnloadSoundContainer(std::vector<std::string> &container)
 {
     for(int i = 0; i < container.size(); i++)
     {

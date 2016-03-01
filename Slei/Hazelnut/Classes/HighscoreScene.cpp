@@ -36,7 +36,7 @@ Scene* HighscoreScene::createMenuScene(std::string newHighscoreEntry)
 
 bool HighscoreScene::init()
 {
-    if (!Layer::init())
+    if (!FrameworkScene::init())
     {
         return false;
     }

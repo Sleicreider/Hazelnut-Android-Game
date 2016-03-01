@@ -10,6 +10,7 @@
 #include "DataHandler.h"
 #include "FSprite.h"
 #include "FUtil.h"
+#include "InGameScene.h"
 
 AI::AI(FrameworkScene* scene)
 : scene(scene)
@@ -122,15 +123,23 @@ void AI::DropObjectMovement()
         {
             if(!vecDropObjects[i]->IsDead())
             {
-                if(vecDropObjects[i]->GetType() == EDropObjectType::APPLE || vecDropObjects[i]->GetType() == EDropObjectType::HAZELNUT)
+                if(vecDropObjects[i]->GetType() == EDropObjectType::HAZELNUT)
                 {
                     vecDropObjects[i]->DeathAnimationBroken();
+                    
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_HAZELNUT_MISSED);
+                }
+                else if(vecDropObjects[i]->GetType() == EDropObjectType::APPLE)
+                {
+                    vecDropObjects[i]->DeathAnimationBroken();
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_APPLE_MISSED);
                 }
                 else if(vecDropObjects[i]->GetType() == EDropObjectType::HEART)
                 {
                     vecDropObjects[i]->DeathAnimationHeart();
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_HEART_MISSED);
                 }
-                else
+                else if(vecDropObjects[i]->GetType() == EDropObjectType::WASTE)
                 {
                     vecDropObjects[i]->DeathAnimation();
                 }
@@ -157,9 +166,6 @@ void AI::DropObjectMovement()
         if(vecDanglingObjects[k]->DeathAnimationHasFinished())
         {
             //DropObject HIT GROUND
-            
-            CCLOG("animation of %d has finished inactive object now", k);
-            
             vecDanglingObjects.at(k)->SetActive(false);
             vecDanglingObjects.at(k)->SetPositionX(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
             vecDanglingObjects.at(k)->SetPositionY(aiPosX);
@@ -253,8 +259,8 @@ void AI::SpawnObject()
         }
         
         // GET TEXTURE BY NAME!!!! DONT ADD IT AGAIN (COCOS CHECKS IT BUT STILL DONT DO IT)
-        vecInactiveObjects[0]->GetSprite()->setTexture(CCTextureCache::sharedTextureCache()->addImage(fileName));
-        CCTextureCache::getInstance()->getTextureForKey(fileName);
+        vecInactiveObjects[0]->GetSprite()->setTexture(Director::getInstance()->getTextureCache()->addImage(fileName));
+        Director::getInstance()->getTextureCache()->getTextureForKey(fileName);
         vecInactiveObjects[0]->GetSprite()->setTextureRect(Rect(0, 0, size, size));
         
         vecInactiveObjects[0]->GetSprite()->UpdateAlphaTexture(FUtil::GenerateETC1AlphaString(fileName));
@@ -274,9 +280,6 @@ void AI::SpawnObject()
         
         vecDropObjects.push_back(std::move(vecInactiveObjects[0]));
         vecInactiveObjects.erase(vecInactiveObjects.begin() + 0);
-        
-        CCLOG("FROM OBJECT POOL activeSize=%lu inactivSize=%lu",vecDropObjects.size(),vecInactiveObjects.size());
-        
     }
     else
     {

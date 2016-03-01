@@ -9,12 +9,17 @@
 #ifndef __Hazelnut__InGameScene__
 #define __Hazelnut__InGameScene__
 
+#include "FGeneral.h"
+
 #include <cocos2d.h>
 #include <CocosGUI.h>
 
 #include "FrameworkScene.h"
 #include "InGameController.h"
 #include "Loader.h"
+
+#include "Achievements.h"
+#include "AchievementNotification.h"
 
 
 USING_NS_CC;
@@ -40,11 +45,23 @@ public:
     
     CREATE_FUNC(InGameScene);
     
+    //==============================================================
+    //Achievements
+    
+    Subject subject_;
+    AchievementNotification* an_;
+    
+
+    
 private:
     void AddAllGeneralSceneObjects();
     
 private:
     InGameController ingController;
+    
+
+	Achievements achievments_;
+
     
     FTimeframe timeframe_;
     

@@ -28,7 +28,10 @@ class MenuScene : public FrameworkScene
 {
 public:
     MenuScene();
-    ~MenuScene();
+    virtual ~MenuScene();
+    
+	MenuScene(MenuScene&&) noexcept;
+	MenuScene& operator=(MenuScene&&) noexcept;
     
     static Scene* createMenuScene();
     
@@ -37,8 +40,6 @@ public:
     virtual void onExit();
     
     CREATE_FUNC(MenuScene);
-
-	ui::UICCTextField * textField;
 
 private:
 	void CloudMovement();
@@ -54,30 +55,21 @@ private:
 	        
     FrameworkButton* buttonStart;
     FrameworkButton* buttonHighscore;
+	FrameworkButton* buttonAchievement;
     FrameworkButton* buttonExit;
     FrameworkButton* button_tutorial_;
     FrameworkButton* button_menu_popup_;
-    
-    FSprite* spriteL;
-    FSprite* spriteR;
-    FSprite* sprite;
-    Node* n;
-    
-    Vector<SpriteFrame*> animFrames;
-    
+        
     MenuPopup* popup_menu_;
-    
-    FTimeframe tframe;
-    FTimeframe tframe2;
-    
-    static const std::string BACKGROUND;
-    
+
     FSprite* background_;
     FSprite* cloud_1_;
     FSprite* cloud_2_;
     FSprite* cloud_3_;
 	FSprite* sprite_anim_bird;
 	FSprite* sprite_anim_bird1;
+
+	static const std::string BACKGROUND;
 };
 
 #endif /* defined(__Hazelnut__MenuScene__) */

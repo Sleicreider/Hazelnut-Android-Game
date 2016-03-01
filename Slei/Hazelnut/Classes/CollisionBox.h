@@ -9,6 +9,8 @@
 #ifndef __Hazelnut__CollisionBox__
 #define __Hazelnut__CollisionBox__
 
+#include "FGeneral.h"
+
 #include <stdio.h>
 #include <cocos2d.h>
 #include <vector>

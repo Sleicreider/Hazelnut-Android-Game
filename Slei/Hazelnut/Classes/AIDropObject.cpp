@@ -23,7 +23,6 @@ AIDropObject::AIDropObject(FrameworkScene* scene)
 
 AIDropObject::~AIDropObject()
 {
-    CCLOG("DTOR DROPOBJECT");
 }
 
 void AIDropObject::CreateDropObject()
@@ -97,8 +96,8 @@ void AIDropObject::DeathAnimationBroken()
         size = DataHandler::TEXTURE_COLLECT_GAME_HAZELNUT_BROKEN_SIZE;
     }
     
-    dropObject->setTexture(CCTextureCache::sharedTextureCache()->addImage(filename));
-    CCTextureCache::getInstance()->getTextureForKey(filename);
+    dropObject->setTexture(Director::getInstance()->getTextureCache()->addImage(filename));
+    Director::getInstance()->getTextureCache()->getTextureForKey(filename);
     dropObject->setTextureRect(Rect(0, 0, size, size));
     
     timeframe_death_anim_.Start(milliseconds(1200));
@@ -124,7 +123,6 @@ void AIDropObject::DeathAnimationHeart()
     auto animation = Animation::createWithSpriteFrames(animFrames, 0.11f);
     auto animate = Animate::create(animation);
     //    animation->setLoops(10);
-    
     
     
 //    dropObject->runAction(animate);

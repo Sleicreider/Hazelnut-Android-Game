@@ -7,7 +7,7 @@
 class FileOperation 
 {
 public:
-	static void saveFile(std::vector<HighscoreScene::GameUser> userData);
+	static void saveFile(std::vector<HighscoreScene::GameUser>& userData);
 	static void createFileIfNotExist();
 	static std::string readFile(void);
 	static std::string getFilePath();

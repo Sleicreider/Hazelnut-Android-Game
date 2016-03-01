@@ -1,4 +1,3 @@
-// to enable CCLOG()
 #define COCOS2D_DEBUG 1
 
 #include "cocos2d.h"
@@ -6,14 +5,14 @@
 
 using namespace std;
 
-void FileOperation::saveFile(std::vector<HighscoreScene::GameUser> userData)
+void FileOperation::saveFile(std::vector<HighscoreScene::GameUser>& userData)
 {
 	string path = getFilePath();
 	FILE *fp = fopen(path.c_str(), "w");
     
 	if (! fp)
 	{
-		CCLOG("can not create file %s", path.c_str());
+		CCLOGERROR("can not create file %s", path.c_str());
 		return;
 	}
 
@@ -35,20 +34,20 @@ void FileOperation::saveFile(std::vector<HighscoreScene::GameUser> userData)
 
 void FileOperation::createFileIfNotExist()
 {
+#pragma message WARN("create file")
 	string path = getFilePath();
 	FILE *fp = fopen(path.c_str(), "r");
-	char buf[250] = { 0 };
 
 	bool fileExists = false;
 
 	if (!fp)
 	{
-		CCLOG("can not open file %s... will create file", path.c_str());
+		CCLOGERROR("can not open file %s... will create file", path.c_str());
 		fileExists = false;
 	}
 	else
 	{
-		CCLOG("can open file %s... will NOT create file", path.c_str());
+		CCLOGERROR("can open file %s... will NOT create file", path.c_str());
 		fileExists = true;
 	}
 
@@ -60,7 +59,7 @@ void FileOperation::createFileIfNotExist()
 
 		if (!fp)
 		{
-			CCLOG("can not create file %s", path.c_str());
+			CCLOGERROR("can not create file %s", path.c_str());
 			return;
 		}
 
@@ -78,19 +77,19 @@ std::string FileOperation::readFile()
 
 	if (! fp)
 	{
-		CCLOG("can not open file %s", path.c_str());
+		CCLOGERROR("can not open file %s", path.c_str());
 		return "error";
 	}
 
 	fgets(buf, 250, fp);
-	CCLOG("read content %s", buf);
+	CCLOGERROR("read content %s", buf);
 
 	fclose(fp);
-
-	return string(buf);
+	std::string str(buf);
+	return str;
 }
 
-string FileOperation::getFilePath()
+std::string FileOperation::getFilePath()
 {
 	string path("");
 

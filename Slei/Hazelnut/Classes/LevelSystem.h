@@ -9,6 +9,8 @@
 #ifndef __Hazelnut__LevelSystem__
 #define __Hazelnut__LevelSystem__
 
+#include "FGeneral.h"
+
 #include <stdio.h>
 #include <cocos2d.h>
 #include "HazelnutEnum.h"

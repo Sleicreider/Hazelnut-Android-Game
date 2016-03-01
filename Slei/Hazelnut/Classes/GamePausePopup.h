@@ -9,6 +9,8 @@
 #ifndef __Hazelnut__GamePausePopup__
 #define __Hazelnut__GamePausePopup__
 
+#include "FGeneral.h"
+
 #include "FPopup.h"
 #include "FrameworkButton.h"
 

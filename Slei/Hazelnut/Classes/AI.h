@@ -9,6 +9,8 @@
 #ifndef __Hazelnut__AI___
 #define __Hazelnut__AI___
 
+#include "FGeneral.h"
+
 #include "cocos2d.h"
 #include "FrameworkScene.h"
 
@@ -21,6 +23,7 @@
 USING_NS_CC;
 
 class FSprite;
+class InGameScene;
 
 class AI
 {
@@ -50,6 +53,7 @@ public:
 
 private:
 	int32_t GetMaxDropChance();
+    InGameScene* ing_scene_;
     
 private:
     FrameworkScene* scene;

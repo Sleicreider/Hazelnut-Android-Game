@@ -47,7 +47,7 @@ Scene* TutorialScene::CreateTutorialScene()
 
 bool TutorialScene::init()
 {
-    if(!Layer::init())
+    if(!FrameworkScene::init())
     {
         return false;
     }

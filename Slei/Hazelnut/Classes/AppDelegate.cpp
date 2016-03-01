@@ -58,7 +58,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	//    glview->setFrameSize(1920, 1080); //HD
+//	    glview->setFrameSize(1920, 1080); //HD
 	//glview->setFrameSize(1280, 800);  //HD READY
 	//    glview->setFrameSize(1024, 768);  //iPad
 	//glview->setFrameSize(2048, 1536);   //iPad 3
@@ -82,11 +82,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionFixedWidth);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::FIXED_WIDTH);
     
     
     Size frameSize = glview->getFrameSize();
-    CCLOG("Display = %f x %f",frameSize.width,frameSize.height);
     DataHandler::app_screen_size_ = glview->getFrameSize();//director->getOpenGLView()->getFrameSize();
 
     
@@ -181,7 +180,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    // set FPS. the default value is 1.0/60 if you don't call this
 //    director->setAnimationInterval(1.0 / 60);
 #endif
-
     
     // create a scene. it's an autorelease object
     Loader loader;

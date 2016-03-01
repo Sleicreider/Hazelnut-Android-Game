@@ -12,6 +12,8 @@
 #include "SimpleAudioEngine.h"
 #include "AppEnum.h"
 
+#include "AchievementManager.h"
+#include <map>
 //#define PERFORMANCETEST
 #pragma warn message("TODO: BUTTON RECTS DO NOT WORK IN POPUPS CHECK")
 //#define BUTTON_RECT
@@ -368,6 +370,7 @@ namespace DataHandler
 	static const std::string TEXTURE_MENU_LABEL_HEADER		= "MenuHeader" + extension;
     static const std::string TEXTURE_MENU_BUTTON_START      = "MenuButtonStart" + extension;
     static const std::string TEXTURE_MENU_BUTTON_HIGHSCORE  = "MenuButtonHighscore" + extension;
+	static const std::string TEXTURE_MENU_BUTTON_ACHIEVEMENT = "MenuButtonAchievement" + extension;
     static const std::string TEXTURE_MENU_BUTTON_EXIT       = "MenuButtonExit" + extension;
     static const std::string TEXTURE_MENU_BUTTON_TUTORIAL   = "MenuButtonTutorial" + extension;
     
@@ -431,10 +434,56 @@ namespace DataHandler
     //Highscore
     static const std::string TEXTURE_HIGHSCORE_TABLE_BG     = "highscore" + extension;
     static const std::string TEXTURE_HIGHSCORE_BUTTON_BACK  = "MenuButtonBack" + extension;
+
+	//Achievement
+	static const std::string TEXTURE_ACHIEVEMENT_TABLE_BG = "achievement" + extension;
+	static const std::string TEXTURE_ACHIEVEMENT_EMPTY = "empty_achievement" + extension;
     
     //Tutorial
     static const std::string TEXTURE_TUTORIAL_TAP_HERE_RIGHT = "tap_right" + extension;
     static const std::string TEXTURE_TUTORIAL_TAP_HERE_LEFT = "tap_left" + extension;
+    
+    //Achievments
+    static const std::string TEXTURE_ACHIEVMENTS_BG = "achievements_bg" + extension;
+    
+    struct SStaticAchievementObject
+    {
+        const std::string text;
+        const std::string sprite_file_name;
+    };
+    
+    using AchievmentStaticMap = std::map<EAchievements,SStaticAchievementObject>;
+    
+    static const AchievmentStaticMap ACHIEVEMENT_STATIC_MAP
+    {
+        {   EAchievements::NO_HAZ_MISSED_L1,   {"No Hazelnuts Missed Lv1", "squirrel"+extension} },
+        {   EAchievements::NO_HAZ_MISSED_L3,   {"No Hazelnuts Missed Lv2", "squirrel"+extension} },
+        {   EAchievements::NO_HAZ_MISSED_L5,   {"No Hazelnuts Missed Lv3", "squirrel"+extension} },
+        {   EAchievements::NO_WASTE_CATCHED_L2,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_WASTE_CATCHED_L4,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_WASTE_CATCHED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_WASTE_CATCHED_L8,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_WASTE_CATCHED_L10,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_APPLE_MISSED_L4,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_APPLE_MISSED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_APPLE_MISSED_L10,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::HEART_BAR_FILLED,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_HEART_MISSED_L3,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_HEART_MISSED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_HEART_MISSED_L9,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::COINS_COLLECTED_5,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::COINS_COLLECTED_10,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::OVERALL_GAMES_STARTED_100,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_1,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_2,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_3,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"No Waste Catched_L2", "squirrel"+extension} },
+    };
+//    static const std::vector<SStaticAchievementObject> ACHIEVEMENT_STATIC_CONTAINER
+//    {
+//        {"EpicQuest",""}
+//    };
     
     
     //SOUNDS & MUSIC

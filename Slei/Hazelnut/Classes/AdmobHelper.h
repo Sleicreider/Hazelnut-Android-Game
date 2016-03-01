@@ -7,6 +7,8 @@ GPLv3
 #ifndef  __ADMOB_HELPER_H_
 #define  __ADMOB_HELPER_H_
 
+#include "FGeneral.h"
+
 class AdmobHelper
 {
 public:

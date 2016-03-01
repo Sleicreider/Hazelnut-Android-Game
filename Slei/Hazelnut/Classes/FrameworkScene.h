@@ -12,9 +12,14 @@
 #include "FTimeframe.h"
 #include "FStateMachine.h"
 #include "FSprite.h"
+#include "FGeneral.h"
 
 //class Gamepopup;
 class FrameworkButton;
+
+
+
+
 
 
 USING_NS_CC;
@@ -26,6 +31,8 @@ class FrameworkScene : public Layer
 public:
     FrameworkScene();
     virtual ~FrameworkScene();
+    
+    virtual bool init() override;
     
     void NodeRecursion(Node* node, bool active_and_visible)
     {
@@ -48,7 +55,7 @@ public:
     }
     
     //DEPRECATED USE FUtil::SetActiveAndVisible(..)
-    void SetActiveAndVisible(Node* node, bool active);
+    DEPRECATED(void SetActiveAndVisible(Node* node, bool active));
  
     /**
      * Updates all FrameworkButtons in the FrameworkScene. Checks for touches on active buttons.
@@ -71,7 +78,20 @@ public:
         vec_buttons_.push_back(button);
     }
     
+public:
+    
+    static FrameworkScene* GetActiveScene()
+    {
+        return FrameworkScene::active_scene_;
+    }
+    
 private:
+    static FrameworkScene* active_scene_;
+
+    
+private:
+    
+    
     /**
      * Updates FrameworkScene and it's objects. Items are FrameworkObjects and the Tick(float) function.
      */
@@ -114,6 +134,7 @@ private:
     FrameworkButton* active_button_;    /**< The pressed button */
     
     
+    
     // Delay Control
     float sumDelta;
     void initDelayControl();
@@ -127,7 +148,7 @@ protected:
 };
 
 //DEPRECATED USE FUtil::SetActiveAndVisible(..)
-inline void     FrameworkScene::SetActiveAndVisible(Node* node, bool active_and_visible)
+inline void FrameworkScene::SetActiveAndVisible(Node* node, bool active_and_visible)
 {
     if(node == nullptr) { CCLOGERROR("SetActiveAndVisible didn't work, node is a nullptr"); return; }
 
@@ -135,8 +156,8 @@ inline void     FrameworkScene::SetActiveAndVisible(Node* node, bool active_and_
 }
 
 
-inline void FrameworkScene::AddTickable(ITickable &tickable)         { vec_tickables_.push_back(&tickable); CCLOG("%lu size", vec_tickables_.size());
-}
+inline void FrameworkScene::AddTickable(ITickable &tickable)         { vec_tickables_.push_back(&tickable); }
+
 
 
 #endif // FRAMEWORKLAYER_H

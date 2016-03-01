@@ -39,40 +39,46 @@ public:
     
 	void LoadHighscore(const std::string& user);
     void UnloadHighscore();
+
+	void LoadAchievement(const std::string& user);
+	void UnloadAchievement();
     
     void LoadTutorial();
     void UnloadTutorial();
     
     void BackToLastScene();
     
-    void AddFile(std::vector<const std::string>& container,const std::string& file_name);
+    void AddFile(std::vector<std::string>& container,const std::string& file_name);
     
-    void LoadTextureContainer(std::vector<const std::string>& container);
-    void LoadSoundContainer(std::vector<const std::string>& container);
-    void UnloadTextureContainer(std::vector<const std::string>& container);
-    void UnloadSoundContainer(std::vector<const std::string>& container);
+    void LoadTextureContainer(std::vector<std::string>& container);
+    void LoadSoundContainer(std::vector<std::string>& container);
+    void UnloadTextureContainer(std::vector<std::string>& container);
+    void UnloadSoundContainer(std::vector<std::string>& container);
     
 private:
-    std::vector<const std::string> game_sounds_;
-    std::vector<const std::string> game_textures_;
+    std::vector<std::string> game_sounds_;
+    std::vector<std::string> game_textures_;
     
-    std::vector<const std::string> scene_menu_sounds_;
-    std::vector<const std::string> scene_menu_textures_;
+    std::vector<std::string> scene_menu_sounds_;
+    std::vector<std::string> scene_menu_textures_;
     
-    std::vector<const std::string> scene_collect_game_sounds_;
-    std::vector<const std::string> scene_collect_game_textures_;
+    std::vector<std::string> scene_collect_game_sounds_;
+    std::vector<std::string> scene_collect_game_textures_;
     
-    std::vector<const std::string> scene_highscore_sounds_;
-    std::vector<const std::string> scene_highscore_textures_;
+    std::vector<std::string> scene_highscore_sounds_;
+    std::vector<std::string> scene_highscore_textures_;
+
+	std::vector<std::string> scene_achievement_sounds_;
+	std::vector<std::string> scene_achievement_textures_;
     
-    std::vector<const std::string> scene_tutorial_sounds_;
-    std::vector<const std::string> scene_tutorial_textures_;
+    std::vector<std::string> scene_tutorial_sounds_;
+    std::vector<std::string> scene_tutorial_textures_;
     
     //Scene* prevScene;
     //Scene* currentScene;
 };
 
-inline void Loader::AddFile(std::vector<const std::string>& container, const std::string& file_name)
+inline void Loader::AddFile(std::vector<std::string>& container, const std::string& file_name)
 {
     container.push_back(file_name);
 }

@@ -26,9 +26,7 @@ private:
     void CreateMainContent();
     void CreateAboutContent();
     void CreateHelpContent();
-    
-    void CreatePopupFrame();
-    
+        
     void OnStateMain(float delta);
     void OnStateAbout(float delta);
     void OnStateHelp(float delta);

@@ -232,6 +232,8 @@ InGameController::InGameController(InGameScene* scene)
     
     timeframe_.Start(milliseconds(3000));
     state_machine_.SetState(STATE_RUNNING);
+
+
 }
 
 InGameController::~InGameController()
@@ -287,11 +289,14 @@ void InGameController::OnStateRunning(float delta)
             {
                 DataHandler::game_audio->playEffect(DataHandler::SOUND_PAPER_WAD, false, 1.0f, 1.0f, 1.0f);
                 player_lives_--;
+                scene_->subject_.Notify(EEvent::EVENT_WASTES_COLLECTED);
             }
             else if(type == EDropObjectType::APPLE)
             {
                 DataHandler::game_audio->playEffect(DataHandler::SOUND_APPLE_BITE, false, 1.0f, 1.0f, 1.0f);
                 player_score_ += (DataHandler::COLLECT_GAME_APPLE_POINTS * level_score_multiplier_);
+
+                scene_->subject_.Notify(EEvent::EVENT_APPLE_COLLECTED);
             }
             else if(type == EDropObjectType::HEART)
             {
@@ -301,6 +306,8 @@ void InGameController::OnStateRunning(float delta)
                     player_lives_++;
                 }
                 ai_.DecreaseHeartCounter();
+                
+#pragma message WARN("performancep problems with particlesystem?")
                 
                 ParticleSystemQuad* psq = ParticleSystemQuad::createWithTotalParticles(999);
                 psq->setEmitterMode(ParticleSystem::Mode::GRAVITY);
@@ -333,11 +340,15 @@ void InGameController::OnStateRunning(float delta)
                 
                 basket_->addChild(psq);
                 
+                scene_->subject_.Notify(EEvent::EVENT_HEART_COLLECTED);
+                
             }
             else if(type == EDropObjectType::COIN)
             {
                 DataHandler::game_audio->playEffect(DataHandler::SOUND_COIN_COLLECT, false, 1.0f, 1.0f, 1.0f);
                 player_score_ += (DataHandler::COLLECT_GAME_COIN_POINTS * level_score_multiplier_);
+                
+                scene_->subject_.Notify(EEvent::EVENT_COIN_COLLECTED);
             }
             
             
@@ -362,7 +373,7 @@ void InGameController::OnStateRunning(float delta)
                 MoveTo* anim_move = MoveTo::create(1.0,DataHandler::GAME_RESOLUTION_CENTER);
                 label_level_up_->runAction(anim_move);
 
-				squirrel_->setTexture(CCTextureCache::sharedTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL_ANGRY));
+				squirrel_->setTexture(Director::getInstance()->getTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL_ANGRY));
 				squirrel_->setTextureRect(Rect(0, 0, 104,140));
                 
                 //timeframe_animation_.Start(milliseconds(3000));
@@ -374,18 +385,6 @@ void InGameController::OnStateRunning(float delta)
 
                 state_machine_.SetState(STATE_LEVEL_UP);
                 prev_state_ = STATE_RUNNING;
-            }
-        }
-        else
-        {
-            if(
-            basket_collision_box_.GetObject()->isrun())
-            {
-                CCLOG("running");
-            }
-            else
-            {
-                CCLOG("not running");
             }
         }
     }
@@ -446,6 +445,7 @@ void InGameController::OnStateRunning(float delta)
         buttonRetry->SetZOrder(2);
         scene_->addChild(buttonRetry);
         
+        scene_->subject_.Notify(EEvent::EVENT_GAME_OVER);
         state_machine_.SetState(STATE_GAME_OVER);
         
         prev_state_ = STATE_RUNNING;
@@ -661,7 +661,7 @@ void InGameController::MoveOutLevelUp()
 
 void InGameController::LevelUpEnd()
 {
-	squirrel_->setTexture(CCTextureCache::sharedTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL));
+	squirrel_->setTexture(Director::getInstance()->getTextureCache()->addImage(DataHandler::TEXTURE_COLLECT_GAME_SQUIRREL));
 	squirrel_->setTextureRect(Rect(0, 0, 
 		104,		
 		140));

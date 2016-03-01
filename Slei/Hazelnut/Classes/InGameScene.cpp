@@ -42,12 +42,17 @@ Scene* InGameScene::createInGameScene()
 
 bool InGameScene::init()
 {
-    if(!Layer::init())
+    if(!FrameworkScene::init())
     {
         return false;
     }
     
+	subject_.AddObserver(&achievments_);
+    
 	DataHandler::game_audio->playBackgroundMusic(DataHandler::MUSIC_BIRDS_ENVIRONMENT,true);
+    
+    an_ = AchievementNotification::create("Test");
+    addChild(an_);
     
     //AddTickable(timeframe_);
     //timeframe_.Start(milliseconds(3000));
@@ -62,8 +67,22 @@ void InGameScene::Tick(float delta)
     //{
     //    return;
     //}
-    
+
     ingController.Tick(delta);
+    
+    if(achievments_.NewAchievement())
+    {
+//        if(achievments_.GetAchievementList()[0] == EAchievements::ARCHIEVEMENT_NO_WASTE_COLLECTED)
+//        {
+//            an_->SetText("NEW ACHIEVEMENT - NO WASTE COLLECTED");
+//            an_->Show();
+//        }
+//        else if(achievments_.GetAchievementList()[0] == EAchievements::ARCHIEVEMENT_NO_VALUE_ITEM_MISSED)
+//        {
+//            an_->SetText("NEW ACHIEVEMENT - NO VAL MISSED");
+//            an_->Show();
+//        }
+    }
 }
 
 void InGameScene::LoadMenu()

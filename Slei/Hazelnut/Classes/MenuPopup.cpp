@@ -65,9 +65,7 @@ void MenuPopup::OnInit()
     CreateMainContent();
     CreateAboutContent();
     CreateHelpContent();
-    
-    CreatePopupFrame();
-    
+        
     sprite_background_ = FSprite::create(DataHandler::TEXTURE_GAME_MAP_1_POPUP);
     sprite_background_->setOpacity(200);
     sprite_background_->setZOrder(getZOrder()+1);
@@ -243,52 +241,4 @@ void MenuPopup::CreateHelpContent()
     label_help->setAnchorPoint(Vec2(0,0.5f));
     label_help->setPositionX(-500);
     node_menu_help_->addChild(label_help);
-}
-
-void MenuPopup::CreatePopupFrame()
-{
-//    Sprite* frame_left = Sprite::create(DataHandler::TEXTURE_GAME_POPUP_FRAME);
-//    int height = frame_left->getTexture()->getContentSize().height;
-//    frame_left->setPositionX(-1080/2);
-//    frame_left->setScaleY(800/height);
-//    frame_left->setAnchorPoint(Vec2(0.5,0.5));
-//    frame_left->setZOrder(node_menu_frame_->getZOrder()+1);
-//    
-//    Sprite* frame_top = Sprite::create(DataHandler::TEXTURE_GAME_POPUP_FRAME);
-//    height = frame_top->getTexture()->getContentSize().height;
-//    frame_top->setRotation(90);
-//    frame_top->setPositionY(-700/2);
-//    frame_top->setScaleY(-1200/height);
-//    frame_top->setZOrder(node_menu_frame_->getZOrder()+1);
-//    
-//    
-//    Sprite* frame_right = Sprite::create(DataHandler::TEXTURE_GAME_POPUP_FRAME);
-//    height = frame_right->getTexture()->getContentSize().height;
-//    frame_right->setPositionX(1080/2);
-//    frame_right->setScaleY(800/height);
-//    frame_right->setZOrder(node_menu_frame_->getZOrder()+1);
-//    
-//    Sprite* frame_bot = Sprite::create(DataHandler::TEXTURE_GAME_POPUP_FRAME);
-//    height = frame_bot->getTexture()->getContentSize().height;
-//    frame_bot->setRotation(90);
-//    frame_bot->setPositionY(700/2);
-//    frame_bot->setScaleY(1200/height);
-//    frame_bot->setZOrder(node_menu_frame_->getZOrder()+1);
-    
-//    Sprite* frame_background = Sprite::create(DataHandler::TEXTURE_GAME_MAP_1_POPUP);
-//    frame_background->setScaleX(1080/frame_background->getTexture()->getContentSize().width);
-//    frame_background->setScaleY(700/frame_background->getTexture()->getContentSize().height);
-//    frame_background->setOpacity(180);
-//    frame_background->setZOrder(node_menu_frame_->getZOrder());
-//    
-//    button_background_ = FrameworkButton::create(scene_, 1080, 700);
-//    button_background_->SetZOrder(node_menu_frame_->getZOrder());
-    
-    
-//    node_menu_frame_->addChild(frame_left);
-//    node_menu_frame_->addChild(frame_top);
-//    node_menu_frame_->addChild(frame_right);
-//    node_menu_frame_->addChild(frame_bot);
-//    node_menu_frame_->addChild(frame_background);
-//    node_menu_frame_->addChild(button_background_);
 }

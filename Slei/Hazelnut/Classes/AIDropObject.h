@@ -9,6 +9,7 @@
 #ifndef __Hazelnut__AIDropObject__
 #define __Hazelnut__AIDropObject__
 
+#include "FGeneral.h"
 #include "cocos2d.h"
 #include "FrameworkScene.h"
 #include "FSprite.h"
@@ -31,9 +32,6 @@ public:
     void DeathAnimationBroken();
     
     bool DeathAnimationHasFinished();
-    
-    bool isrun() { return timeframe_death_anim_.IsRunning(); }
-
 
 	FSprite* GetSprite();
     

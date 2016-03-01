@@ -12,6 +12,8 @@
 #include "MenuPopup.h"
 #include "FPopup.h"
 #include "AdmobHelper.h"
+#include "AchievementNotification.h"
+#include "AchievementManager.h"
 
 const std::string MenuScene::BACKGROUND = "background";
 
@@ -21,6 +23,44 @@ MenuScene::MenuScene()
 
 MenuScene::~MenuScene()
 {
+}
+
+MenuScene::MenuScene(MenuScene&& ms) noexcept
+	: loader(std::move(ms.loader))
+	, buttonStart(std::move(buttonStart))
+	, buttonHighscore(std::move(ms.buttonHighscore))
+	, buttonExit(std::move(ms.buttonExit))
+	, button_tutorial_(std::move(ms.button_tutorial_))
+	, button_menu_popup_(std::move(ms.button_menu_popup_))
+	, popup_menu_(std::move(ms.popup_menu_))
+	, background_(std::move(ms.background_))
+	, cloud_1_(std::move(ms.cloud_1_))
+	, cloud_2_(std::move(ms.cloud_2_))
+	, cloud_3_(std::move(ms.cloud_3_))
+	, sprite_anim_bird(std::move(ms.sprite_anim_bird))
+	, sprite_anim_bird1(std::move(ms.sprite_anim_bird1))
+{
+	CCLOG("MOVE CONSTR");
+}
+
+MenuScene& MenuScene::operator=(MenuScene&& ms) noexcept
+{
+	loader = std::move(ms.loader);
+	buttonStart = (std::move(buttonStart));
+	buttonHighscore = (std::move(ms.buttonHighscore));
+	buttonExit = (std::move(ms.buttonExit));
+	button_tutorial_ = (std::move(ms.button_tutorial_));
+	button_menu_popup_ = (std::move(ms.button_menu_popup_));
+	popup_menu_ = (std::move(ms.popup_menu_));
+	background_ = (std::move(ms.background_));
+	cloud_1_ = (std::move(ms.cloud_1_));
+	cloud_2_ = (std::move(ms.cloud_2_));
+	cloud_3_ = (std::move(ms.cloud_3_));
+	sprite_anim_bird = (std::move(ms.sprite_anim_bird));
+	sprite_anim_bird1 = (std::move(ms.sprite_anim_bird1));
+	CCLOG("MOVE ASSIGN");
+
+	return *this;
 }
 
 void MenuScene::onExit()
@@ -40,7 +80,7 @@ Scene* MenuScene::createMenuScene()
 
 bool MenuScene::init()
 {
-    if(!Layer::init())
+    if(!FrameworkScene::init())
     {
         return false;
     }
@@ -113,7 +153,7 @@ bool MenuScene::init()
 	sprite_anim_bird1->setTextureRect(Rect(0, 0, 106, 120));
 	sprite_anim_bird1->setScale(0.6);
 	sprite_anim_bird1->setRotation(-15);
-	sprite_anim_bird1->setFlipX(true);
+	sprite_anim_bird1->setFlippedX(true);
 	sprite_anim_bird1->setPosition(Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 500, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 200));
 	sprite_anim_bird1->runAction(RepeatForever::create(animate1));
 	MoveTo* bMove2 = MoveTo::create(12.0, Vec2(DataHandler::GAME_RESOLUTION_CENTER_WIDTH - 1150, DataHandler::GAME_RESOLUTION_CENTER_HEIGHT + 200));
@@ -140,18 +180,25 @@ bool MenuScene::init()
     buttonHighscore->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 120);
     buttonHighscore->SetZOrder(0);
     addChild(buttonHighscore);
+
+	FSprite* buttonSpriteAchievement = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_ACHIEVEMENT);
+	buttonAchievement = FrameworkButton::create(this, 700, 120, buttonSpriteAchievement);
+	buttonAchievement->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
+	buttonAchievement->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 260);
+	buttonAchievement->SetZOrder(0);
+	addChild(buttonAchievement);
     
     FSprite* button_sprite_tutorial = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_TUTORIAL);
     button_tutorial_ = FrameworkButton::create(this, 700, 120, button_sprite_tutorial);
     button_tutorial_->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    button_tutorial_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 260);
+    button_tutorial_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 400);
     button_tutorial_->SetZOrder(0);
     addChild(button_tutorial_);
     
     FSprite* buttonSpriteExit = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_EXIT);
     buttonExit = FrameworkButton::create(this, 700, 120,buttonSpriteExit);
     buttonExit->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    buttonExit->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 400);
+    buttonExit->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 540);
     buttonExit->SetZOrder(0);
     addChild(buttonExit);
     
@@ -164,6 +211,13 @@ bool MenuScene::init()
     addChild(button_menu_popup_);
     
     
+//    auto ach = AchievementNotification::create("Unlocked 199 MUTNATE");
+//    addChild(ach);
+////    starting left bottom
+//    ach->setAnchorPoint(Vec2(0.5,0.5));
+//    ach->setPosition(0 + ach->getContentSize().width/2.f,DataHandler::GAME_RESOLUTION_HEIGHT - ach->getContentSize().height/2.f);
+//    ach->Show(this , &MenuScene::CloudMovement);
+    AchievementManager::GetInstance()->UnlockAchievement(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED);
     
     popup_menu_ = MenuPopup::CreateMenuPopup(this);
     SetActiveAndVisible(popup_menu_, false);
@@ -199,7 +253,7 @@ void MenuScene::Tick(float delta)
         
         loader.UnloadGame();
         
-        CCDirector::sharedDirector()->end();
+        Director::getInstance()->end();
     }
     else if (buttonHighscore->WasPressed())
     {
@@ -210,6 +264,15 @@ void MenuScene::Tick(float delta)
         loader.UnloadMenu();
         loader.LoadHighscore("");
     }
+	else if (buttonAchievement->WasPressed())
+	{
+		DataHandler::game_audio->playEffect(DataHandler::SOUND_BUTTON_1);
+
+		onEnterTransitionDidFinish();
+
+		loader.UnloadMenu();
+		loader.LoadAchievement("");
+	}
     else if(button_tutorial_->WasPressed())
     {
         DataHandler::game_audio->playEffect(DataHandler::SOUND_BUTTON_1);

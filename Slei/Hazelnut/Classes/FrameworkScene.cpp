@@ -2,7 +2,7 @@
 #include "FrameworkButton.h"
 
 FrameworkScene* FrameworkButton::scene_ = nullptr;
-
+FrameworkScene* FrameworkScene::active_scene_ = nullptr;
 
 FrameworkScene::FrameworkScene()
 : bTouchHappened_(false)
@@ -42,10 +42,10 @@ FrameworkScene::FrameworkScene()
 
 FrameworkScene::~FrameworkScene()
 {
-//    for(int i = 0; i < vec_buttons_.size();i++)
-//    {
-//        delete vec_buttons_.at(i);
-//    }
+    //    for(int i = 0; i < vec_buttons_.size();i++)
+    //    {
+    //        delete vec_buttons_.at(i);
+    //    }
     vec_buttons_.clear();
 }
 
@@ -80,6 +80,18 @@ bool FrameworkScene::updateDelayControl(float delta, float checkpoint){
     return false;
 }
 
+bool FrameworkScene::init()
+{
+    if(!Layer::init())
+    {
+        return false;
+    }
+    
+    active_scene_ = this;
+    return true;
+}
+
+
 void FrameworkScene::update(float delta)
 {
     /*********************/
@@ -94,7 +106,6 @@ void FrameworkScene::update(float delta)
     {
         if(vec_tickables_[i] != nullptr)
         {
-//            CCLOG("%d size = ", vec_tickables_.size());
             vec_tickables_[i]->Tick(delta);
         }
         else
@@ -102,7 +113,7 @@ void FrameworkScene::update(float delta)
             CCLOGERROR("Timeframe %d in scene container is a nullptr could not Tick() FrameworkScene::update(float delta) LINE=%d",i,__LINE__);
         }
     }
-
+    
     /*********************/
     /***** Child Tick ****/
     /*********************/
@@ -115,16 +126,16 @@ void FrameworkScene::Tick(float delta)
 
 void FrameworkScene::UpdateButtons()
 {
-	//active_button_ was sometimes NULL before it came to if(bReleaseHappened_)
-	//maybe cocos button dispatcher change bRealeaseHappen to true straight after if(bWAsPressed)
-	//therefore && !bReleaseHappened to make sure it cant make it a null p
-	if (bWasPressed_ && bReleaseHappened_)
-	{
-		CCLOG("bWasPressed && bReleasesdHappened HERE<<<<<<<<<<<<<<<<<<<<<<<<<");
-		//throw;
-	}
-
-	if (bWasPressed_ && !bReleaseHappened_)
+    //active_button_ was sometimes NULL before it came to if(bReleaseHappened_)
+    //maybe cocos button dispatcher change bRealeaseHappen to true straight after if(bWAsPressed)
+    //therefore && !bReleaseHappened to make sure it cant make it a null p
+    if (bWasPressed_ && bReleaseHappened_)
+    {
+        CCLOG("bWasPressed && bReleasesdHappened HERE<<<<<<<<<<<<<<<<<<<<<<<<<");
+        //throw;
+    }
+    
+    if (bWasPressed_ && !bReleaseHappened_)
     {
         bWasPressed_ = false;
         active_button_->SetWasPressed(false);
@@ -171,22 +182,9 @@ void FrameworkScene::UpdateButtons()
     
     if(bReleaseHappened_ && (active_button_!= nullptr))
     {
-		if (active_button_ == nullptr)
-		{
-			CCLOG("setispressed NULL");
-		}
         active_button_->SetIsPressed(false);
-		if (active_button_ == nullptr)
-		{
-			CCLOG("setwaspressed NULL");
-		}
         active_button_->SetWasPressed(true);
-		if (active_button_ == nullptr)
-		{
-			CCLOG("after set was pressed NULL");
-		}
         bWasPressed_ = true;
-        
         bReleaseHappened_ = false;
     }
 }
@@ -207,18 +205,18 @@ void FrameworkScene::onTouchMoved(Touch* touch, Event* event)
 
 void FrameworkScene::onTouchEnded(Touch* touch, Event* event)
 {
-	if (active_button_ != nullptr)
-	{
-		bReleaseHappened_ = true;
-	}
+    if (active_button_ != nullptr)
+    {
+        bReleaseHappened_ = true;
+    }
 }
 
 void FrameworkScene::onTouchCancelled(Touch* touch, Event* event)
 {
-	if (active_button_ != nullptr)
-	{
-		bReleaseHappened_ = true;
-	}
+    if (active_button_ != nullptr)
+    {
+        bReleaseHappened_ = true;
+    }
 }
 
 
@@ -227,15 +225,9 @@ void FrameworkScene::RemoveTickable(ITickable &tickable)
     for(int i = 0; i < vec_tickables_.size(); i++)
     {
         if(vec_tickables_[i] == &tickable)
-        {
-            CCLOG("try rem %d",i);
-
+        {            
             vec_tickables_[i]->ResetToInitialState();
             vec_tickables_.erase(vec_tickables_.begin() + i);
-            
-            CCLOG("removed %d",i);
-            CCLOG("size %d",vec_tickables_.size());
-
         }
     }
 }

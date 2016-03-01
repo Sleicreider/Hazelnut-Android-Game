@@ -9,6 +9,8 @@
 #ifndef __Hazelnut__InGameController__
 #define __Hazelnut__InGameController__
 
+#include "FGeneral.h"
+
 #include <cocos2d.h>
 #include <stdlib.h>
 #include <CocosGUI.h>
@@ -28,6 +30,7 @@
 
 #include "FStateMachine.h"
 #include "GamePausePopup.h"
+#include "Subject.h"
 
 USING_NS_CC;
 
@@ -129,7 +132,10 @@ private:
     FTimeframe timeframe_animation_;
     FTimeframe timeframe_animation_2_;
 	FTimeframe timeframe_state_;
+
+private:
     
+    void NotifyHappen();
 //    FStateMachine<InGameController> state_machine_;
 
     void UpdateTextAndLives();
