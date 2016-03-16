@@ -181,6 +181,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    director->setAnimationInterval(1.0 / 60);
 #endif
     
+    
     // create a scene. it's an autorelease object
     Loader loader;
     loader.LoadGame();
@@ -197,8 +198,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set the background music and continuously play it.
     
     // Create file
-    //FileOperation::createFileIfNotExist();
+    FileOperation::createFileIfNotExist();
     
+    AchievementManager::GetInstance()->LoadAchievmentsFromFile();
+//    AchievementManager::GetInstance()->GetAchievementContainer()[EAchievements::NO_HAZ_MISSED_L1]
+//    int a;
+//    FileOperation::GetInt("hearts",a);
+//    std::cout << " a = " << a << std::endl;
+
 #pragma message WARN("USE LOADER")
 
 

@@ -382,7 +382,7 @@ void InGameController::OnStateRunning(float delta)
                 
                 timeframe_state_.Start(milliseconds(2000), this, &InGameController::MoveOutLevelUp);
 
-
+                scene_->subject_.Notify(EEvent::EVENT_LEVEL_UP);
                 state_machine_.SetState(STATE_LEVEL_UP);
                 prev_state_ = STATE_RUNNING;
             }
