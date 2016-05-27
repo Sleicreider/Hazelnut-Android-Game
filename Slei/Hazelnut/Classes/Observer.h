@@ -12,7 +12,8 @@ enum class EEvent
     EVENT_HAZELNUT_MISSED,
     EVENT_HEART_MISSED,
     EVENT_GAME_OVER,
-    EVENT_LEVEL_UP
+    EVENT_LEVEL_UP,
+    EVENT_GAME_STARTED
 };
 
 class Observer

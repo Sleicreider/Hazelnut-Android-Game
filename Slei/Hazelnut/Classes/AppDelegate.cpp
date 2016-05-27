@@ -196,10 +196,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
     audio->preloadEffect(DataHandler::SOUND_BUTTON_1);
     
     // set the background music and continuously play it.
+
+	auto bInitFile = false;
+	if(!FileOperation::FileAvailable(FileOperation::FILE_SAVED_DATA))
+	{ 
+		bInitFile = true;
+	}
     
     // Create file
     FileOperation::createFileIfNotExist();
     
+	if (bInitFile)
+	{
+		AchievementManager::GetInstance()->InitAchievementsFile();
+	}
+
     AchievementManager::GetInstance()->LoadAchievmentsFromFile();
 //    AchievementManager::GetInstance()->GetAchievementContainer()[EAchievements::NO_HAZ_MISSED_L1]
 //    int a;

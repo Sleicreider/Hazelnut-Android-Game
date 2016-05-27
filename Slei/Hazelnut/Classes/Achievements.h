@@ -97,6 +97,14 @@ public:
                 
                 break;
                 
+            case EEvent::EVENT_GAME_STARTED:
+                UpdateCurrPoints(EAchievements::OVERALL_GAMES_STARTED_100, 1);
+                
+                if(AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_GAMES_STARTED_100].current_points >= 100)
+                    Unlock(EAchievements::OVERALL_GAMES_STARTED_100);
+                
+                break;
+                
         }
     }
     
@@ -111,11 +119,18 @@ private:
         
         
         if(manager->IsAchievementUnlocked(type)) return;
-        obj.unlocked = true;
-        FileOperation::SetInt(obj.str, true);
+        
+
+//        obj.unlocked = true;
+//        FileOperation::SetInt(obj.str, true);
         
 #pragma message WARN("maybe directly use UnlockAchievment? or remove it and only unlock in achievments.h, it should not be possible for other classes to be called and modify achievment unlocks etc")
-//        AchievementManager::GetInstance()->UnlockAchievement(type);
+        AchievementManager::GetInstance()->UnlockAchievement(type);
+        
+        if(manager->achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points == DataHandler::ACHIEVEMENT_AMOUNT)
+        {
+            Unlock(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED);
+        }
     }
     
     void UpdateCurrPoints(EAchievements type, int points)
@@ -123,12 +138,13 @@ private:
         if(static_cast<int>(type) >= static_cast<int>(EAchievements::OVERALL_GAMES_STARTED_100))
         {
             AchievementManager::GetInstance()->achievment_container_[type].current_points += points;
-            FileOperation::SetInt(AchievementManager::GetInstance()->achievment_container_[type].str_curr, AchievementManager::GetInstance()->achievment_container_[type].current_points);
+            FileOperation::SetInt(AchievementManager::GetInstance()->achievment_container_[type].str_curr
+                                  , AchievementManager::GetInstance()->achievment_container_[type].current_points);
         }
         else
         {
             CCLOGERROR("THIS TYPE HAS NO CURRENT VALUE LINE=%d", __LINE__);
-            assert(false);
+//            assert(false);
         }
     }
     

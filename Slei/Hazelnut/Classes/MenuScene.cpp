@@ -25,7 +25,7 @@ MenuScene::~MenuScene()
 {
 }
 
-MenuScene::MenuScene(MenuScene&& ms) noexcept
+MenuScene::MenuScene(MenuScene&& ms)
 	: loader(std::move(ms.loader))
 	, buttonStart(std::move(buttonStart))
 	, buttonHighscore(std::move(ms.buttonHighscore))
@@ -43,7 +43,7 @@ MenuScene::MenuScene(MenuScene&& ms) noexcept
 	CCLOG("MOVE CONSTR");
 }
 
-MenuScene& MenuScene::operator=(MenuScene&& ms) noexcept
+MenuScene& MenuScene::operator=(MenuScene&& ms)
 {
 	loader = std::move(ms.loader);
 	buttonStart = (std::move(buttonStart));
@@ -217,7 +217,6 @@ bool MenuScene::init()
 //    ach->setAnchorPoint(Vec2(0.5,0.5));
 //    ach->setPosition(0 + ach->getContentSize().width/2.f,DataHandler::GAME_RESOLUTION_HEIGHT - ach->getContentSize().height/2.f);
 //    ach->Show(this , &MenuScene::CloudMovement);
-    AchievementManager::GetInstance()->UnlockAchievement(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED);
     
     popup_menu_ = MenuPopup::CreateMenuPopup(this);
     SetActiveAndVisible(popup_menu_, false);

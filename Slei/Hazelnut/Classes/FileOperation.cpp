@@ -57,9 +57,10 @@ void FileOperation::createFileIfNotExist()
         {
             CCLOGERROR("can open file %s... will NOT create file", path.c_str());
             fileExists = true;
+			fclose(fp);
         }
         
-        fclose(fp);
+       
         
         if (!fileExists)
         {
@@ -134,6 +135,8 @@ std::string FileOperation::getFilePath(const std::string& filename)
 #endif
     
 #endif
+    
+    CCLOGERROR("path is %s", path.c_str());
     
     return path;
 }
@@ -216,6 +219,8 @@ bool FileOperation::SetInt(const std::string& tag, int val)
     // WORKS
     std::vector<std::string> comp_file;
     
+	auto bAvailable = false;
+
     while(fgets(line, 255, fp))
     {
         stringstream ss (line);
@@ -224,6 +229,8 @@ bool FileOperation::SetInt(const std::string& tag, int val)
         
         if(first == tag)
         {
+			bAvailable = true;
+
             for(int i = 0; i < 255; i++)
             {
                 if(line[i] == '=')
@@ -236,14 +243,19 @@ bool FileOperation::SetInt(const std::string& tag, int val)
                     break;
                 }
             }
+            
+            std::cout << "write: " << comp_file[comp_file.size()-1] << std::endl;
         }
         else
         {
             comp_file.push_back(line);
         }
-        
     }
-    
+
+	if (!bAvailable)
+	{
+		comp_file.push_back(tag + " = " + std::to_string(val) + "\n");
+	}
     
     fclose(fp);
     
@@ -257,4 +269,26 @@ bool FileOperation::SetInt(const std::string& tag, int val)
     fclose(fp);
     
     return true;
+}
+
+bool FileOperation::FileAvailable(const std::string& filename)
+{
+#pragma message WARN("create file")
+	string path = getFilePath(filename);
+	FILE *fp = fopen(path.c_str(), "r+b");
+
+	bool fileExists = false;
+
+	if (!fp)
+	{
+		CCLOGERROR("can not open file %s... will create file", path.c_str());
+		fileExists = false;
+	}
+	else
+	{
+		CCLOGERROR("can open file %s... will NOT create file", path.c_str());
+		fileExists = true;
+		fclose(fp);
+	}
+	return fileExists;
 }

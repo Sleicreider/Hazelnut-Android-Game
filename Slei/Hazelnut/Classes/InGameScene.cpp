@@ -54,6 +54,7 @@ bool InGameScene::init()
     an_ = AchievementNotification::create("Test");
     addChild(an_);
     
+    achievments_.OnNotify(EEvent::EVENT_GAME_STARTED);
 
     //AddTickable(timeframe_);
     //timeframe_.Start(milliseconds(3000));

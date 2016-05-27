@@ -81,6 +81,7 @@ public:
     
 public:
     void SaveAchievmentsToFile();
+	void InitAchievementsFile();
     void LoadAchievmentsFromFile();
     
     void UpdateAchievmentCurrentPoints(EAchievements type, int32_t points);

@@ -480,6 +480,8 @@ namespace DataHandler
         {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"No Waste Catched_L2", "squirrel"+extension} },
         {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"No Waste Catched_L2", "squirrel"+extension} },
     };
+    
+    static const int32_t ACHIEVEMENT_AMOUNT = 22;
 //    static const std::vector<SStaticAchievementObject> ACHIEVEMENT_STATIC_CONTAINER
 //    {
 //        {"EpicQuest",""}

@@ -1,4 +1,4 @@
-//
+ //
 //  AchievementManager.cpp
 //  Hazelnut
 //
@@ -48,31 +48,68 @@ AchievementManager::AchievementManager(const tmp&)
     achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_4].str_curr = "OVERALL_COINS_COLLECTED_STAGE_4.curr";
     achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str_curr = "ALL_ACHIEVEMENTS_UNLOCKED.curr";
 
-    
-
     ui_queue_.reserve(5);
-    
 }
 
 void AchievementManager::LoadAchievmentsFromFile()
 {
+    int32_t a_counter = 0;
+    
     for(auto iterator = achievment_container_.begin(); iterator != achievment_container_.end(); iterator++)
     {
         int unlocked = false;
         FileOperation::GetInt(iterator->second.str, unlocked);
-        iterator->second.unlocked = unlocked > 0 ? true : false;
         
+        if(unlocked > 0)
+        {
+            //count all unlocked achievments
+            if(iterator->first != EAchievements::ALL_ACHIEVEMENTS_UNLOCKED)
+            {
+                a_counter++;
+            }
+
+            iterator->second.unlocked = true;
+        }
+        else
+        {
+            iterator->second.unlocked = false;
+        }
+        
+        
+        CCLOGERROR("%s = %s", iterator->second.str.c_str(),iterator->second.unlocked ? "1" : "0");
+
+
         if(iterator->second.str_curr != "")
         {
             FileOperation::GetInt(iterator->second.str_curr, iterator->second.current_points);
+            CCLOGERROR("%s = %s", iterator->second.str_curr.c_str(),std::to_string(iterator->second.current_points).c_str());
         }
     }
+    
+    //set the unlocked achievments, and write them to the file
+    //calculated them everytime, so its safer
+    achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points = a_counter;
+    FileOperation::SetInt(achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str_curr, a_counter);
+}
+
+void AchievementManager::InitAchievementsFile()
+{
+	for (auto& item : achievment_container_)
+	{
+		FileOperation::SetInt(item.second.str,0);
+		
+		if (item.second.str_curr != "")
+		{
+			FileOperation::SetInt(item.second.str_curr,0);
+		}
+	}
 }
 
 void AchievementManager::SaveAchievmentsToFile()
 {
     
 }
+
 
 void AchievementManager::UpdateAchievmentCurrentPoints(EAchievements type, int32_t points)
 {
@@ -82,12 +119,20 @@ void AchievementManager::UpdateAchievmentCurrentPoints(EAchievements type, int32
 void AchievementManager::UnlockAchievement(EAchievements type)
 {
     achievment_container_[type].unlocked = true;
+    FileOperation::SetInt(achievment_container_[type].str, true);
+    
+    if(type != EAchievements::ALL_ACHIEVEMENTS_UNLOCKED)
+    {
+        FileOperation::SetInt(achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str_curr
+                          ,++achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points);
+    }
+    
     
     ui_queue_.push_back(type);
     
     if(ui_notification_ != nullptr)
     {
-        FrameworkScene::GetActiveScene()->removeChild(ui_notification_);
+//        FrameworkScene::GetActiveScene()->removeChild(ui_notification_);
     }
     
     //just create it every time we need to display, not sure if cocos alwys garbage collect the ptr when the scene changes
@@ -115,3 +160,4 @@ void AchievementManager::NotificationEnd()
         ui_notification_->Show(this, &AchievementManager::NotificationEnd);
     }
 }
+

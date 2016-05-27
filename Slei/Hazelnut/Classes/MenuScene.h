@@ -30,8 +30,8 @@ public:
     MenuScene();
     virtual ~MenuScene();
     
-	MenuScene(MenuScene&&) noexcept;
-	MenuScene& operator=(MenuScene&&) noexcept;
+	MenuScene(MenuScene&&);
+	MenuScene& operator=(MenuScene&&);
     
     static Scene* createMenuScene();
     
