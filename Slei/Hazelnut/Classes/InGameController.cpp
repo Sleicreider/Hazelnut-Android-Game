@@ -13,7 +13,7 @@
 #include "TextFieldExtended.h"
 #include "FUtil.h"
 #include "AdmobHelper.h"
-
+#include "Basket.h"
 
 InGameController::InGameController(InGameScene* scene)
 : scene_(scene)
@@ -130,10 +130,14 @@ InGameController::InGameController(InGameScene* scene)
     scene_->addChild(sprite_anim_bird1);
     
     //Basket
-    basket_ = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET
-                              , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
-                              ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
+    basket_ = Basket::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET, "basket_1.fsh");
     basket_->setAnchorPoint(Vec2(0.5,0.5));
+    basket_->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
+
+    //FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET
+      //                        , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
+       //                       ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
+    //basket_->setAnchorPoint(Vec2(0.5,0.5));
     scene_->addChild(basket_);
     
     background_->setZOrder(0);
