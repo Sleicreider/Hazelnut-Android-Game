@@ -51,6 +51,7 @@ struct SAchievment
     
     bool        unlocked;
     int32_t     current_points;
+#pragma WARN message("maybe we dont need some of theesse, target points stored statically on DataHandler")
     int32_t     target_points;
     
     std::string str_curr;

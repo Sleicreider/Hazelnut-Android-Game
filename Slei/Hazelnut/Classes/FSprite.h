@@ -10,18 +10,19 @@
 #define __Hazelnut__FSprite__
 
 #include <cocos2d.h>
+#include "FGeneral.h"
 
 USING_NS_CC;
 
 class FSprite : public Sprite
 {
 public:
+	enum EAnimation { SCALE, ROTATE };
+
+public:
     FSprite();
     virtual ~FSprite();
-    
-    enum EAnimation {SCALE,ROTATE};
 
-    
     static FSprite* create(const std::string& filename, const Vec2& position = Vec2(0,0));
     
     /**
@@ -34,9 +35,7 @@ public:
     
     void AnimationUpdate();
     void Reset();
-    
     void WithAnimation(bool active, EAnimation sprite_animation);
-
     
     CREATE_FUNC(FSprite);
     
@@ -48,18 +47,17 @@ private:
     
 private:    
     float currScale;
-    bool onIncrease;
-    bool withAnimation;
+    unsigned int onIncrease:1;
+    unsigned int withAnimation:1;
     
     float current_rotation_value_;
     
     EAnimation sprite_animation_;
 
-    
 protected:
     virtual void update(float delta);
 };
 
-inline void FSprite::WithAnimation(bool active,EAnimation sprite_animation) { withAnimation = active; sprite_animation_ = sprite_animation;}
+FORCEINLINE void FSprite::WithAnimation(bool active,EAnimation sprite_animation) { withAnimation = active; sprite_animation_ = sprite_animation;}
 
 #endif /* defined(__Hazelnut__FSprite__) */

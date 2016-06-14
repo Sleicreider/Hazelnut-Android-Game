@@ -163,42 +163,42 @@ bool MenuScene::init()
     
     FSprite* labelHeader = FSprite::create(DataHandler::TEXTURE_MENU_LABEL_HEADER);
     labelHeader->setPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-    labelHeader->setPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 320);
+    labelHeader->setPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 450);
     labelHeader->setZOrder(0);
     addChild(labelHeader);
     
     FSprite* buttonSpriteStart = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_START);
     buttonStart = FrameworkButton::create(this, 700, 120, buttonSpriteStart);
     buttonStart->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    buttonStart->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 + 20);
+    buttonStart->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 + 180);
     buttonStart->SetZOrder(0);
     addChild(buttonStart);
     
     FSprite* buttonSpriteHighscore = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_HIGHSCORE);
     buttonHighscore = FrameworkButton::create(this, 700, 120, buttonSpriteHighscore);
     buttonHighscore->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    buttonHighscore->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 120);
+    buttonHighscore->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 + 40);
     buttonHighscore->SetZOrder(0);
     addChild(buttonHighscore);
 
 	FSprite* buttonSpriteAchievement = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_ACHIEVEMENT);
 	buttonAchievement = FrameworkButton::create(this, 700, 120, buttonSpriteAchievement);
 	buttonAchievement->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-	buttonAchievement->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 260);
+	buttonAchievement->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 100);
 	buttonAchievement->SetZOrder(0);
 	addChild(buttonAchievement);
     
     FSprite* button_sprite_tutorial = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_TUTORIAL);
     button_tutorial_ = FrameworkButton::create(this, 700, 120, button_sprite_tutorial);
     button_tutorial_->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    button_tutorial_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 400);
+    button_tutorial_->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 240);
     button_tutorial_->SetZOrder(0);
     addChild(button_tutorial_);
     
     FSprite* buttonSpriteExit = FSprite::create(DataHandler::TEXTURE_MENU_BUTTON_EXIT);
     buttonExit = FrameworkButton::create(this, 700, 120,buttonSpriteExit);
     buttonExit->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH/2);
-    buttonExit->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 540);
+    buttonExit->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT/2 - 380);
     buttonExit->SetZOrder(0);
     addChild(buttonExit);
     

@@ -62,13 +62,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//glview->setFrameSize(1280, 800);  //HD READY
 	//    glview->setFrameSize(1024, 768);  //iPad
 	//glview->setFrameSize(2048, 1536);   //iPad 3
-//  glview->setFrameSize(960, 640);   //iPhone4
+  glview->setFrameSize(960, 640);   //iPhone4
 	//    glview->setFrameSize(1136, 640);  //iPhone5
 	//
 	//    glview->setFrameSize(858, 480);   // Samsung Galaxy S1
 	//glview->setFrameSize(1920, 1080); // Samsung Galaxy S4
 	//    glview->setFrameSize(1280, 754);  // Samsung 10" Tablet
-	    glview->setFrameSize(480, 320);   // Samsung Galaxy Ace
+	    //glview->setFrameSize(480, 320);   // Samsung Galaxy Ace
 	//    glview->setFrameSize(1024, 600);  // Kindle Fire
 	//    glview->setFrameSize(960, 540);   // HD READY
 	//    glview->setFrameSize(780, 480);   // HD READY
@@ -167,7 +167,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
     // turn on display FPS
-    //director->setDisplayStats(true);
+    director->setDisplayStats(true);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     //director->setAnimationInterval(1.0 / 60);

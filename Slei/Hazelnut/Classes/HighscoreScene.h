@@ -51,7 +51,7 @@ private:
 	void createEntryList();
 
 	std::vector<HighscoreScene::GameUser> userData;
-	std::vector<Label *> highscoreLabels;
+	std::vector<Label*> highscoreLabels;
 	std::vector<Vec2> entryPositionListName;
 	std::vector<Vec2> entryPositionListPoint;
     

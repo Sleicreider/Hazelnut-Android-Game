@@ -113,7 +113,7 @@ void AI::DropObjectMovement()
 {
     hitGroundCounter = 0;
     
-    for(int i = 0; i < vecDropObjects.size(); i++)
+    for(auto i = 0lu; i < vecDropObjects.size(); i++)
     {
         if(!vecDropObjects.at(i)->GroundCollision())
         {
@@ -161,7 +161,7 @@ void AI::DropObjectMovement()
     }
     
     //animation objects
-    for(int k = 0; k < vecDanglingObjects.size(); k++)
+    for(auto k = 0lu; k < vecDanglingObjects.size(); k++)
     {
         if(vecDanglingObjects[k]->DeathAnimationHasFinished())
         {

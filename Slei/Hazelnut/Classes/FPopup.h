@@ -11,6 +11,7 @@
 
 #include <cocos2d.h>
 #include "FrameworkScene.h"
+#include "FGeneral.h"
 
 USING_NS_CC;
 
@@ -31,8 +32,10 @@ public:
      */
     void Show();
     
+
+#pragma WARN message("NEED COMMENT")
     /**
-     *
+     * 
      */
     bool WasClosed() const;
     
@@ -44,46 +47,24 @@ private:
     FTimeframe timeframe_fade_in_;
     FTimeframe timeframe_fade_out_;
     
-    bool bIsActive_;
-    bool bWasClosed_;
-    bool bReadyToShow_;
+	unsigned int bIsActive_:1;
+    unsigned int bWasClosed_:1;
+    unsigned int bReadyToShow_:1;
     
 #pragma warn message("JUST USE IT UNTIL FRAMEWORKBUTTON IS A NODE")
     float button_opacity_;
     
 protected:
-    bool bIsPaused_;
-    bool bHasEntered_;
-    virtual bool init();
-    virtual void update(float delta);
-    virtual void onEnter()
-    {
-        if(!bIsPaused_)
-        {
-            Node::onEnter();
-        }
-    }
-    virtual void onExit()
-    {
-        Node::onExit();
-        bHasEntered_ = false;
-    }
-    virtual void pause()
-    {
-        Node::pause();
-        bIsPaused_ = true;
-    }
-    virtual void resume()
-    {
-        Node::resume();
-        bIsPaused_ = false;
-        
-        if(!bHasEntered_)
-        {
-            bHasEntered_ = true;
-            Node::onEnter();
-        }
-    }
+    unsigned int bIsPaused_:1;
+    unsigned int bHasEntered_:1;
+
+    virtual bool init() override;
+    virtual void update(float delta) override;
+
+	virtual void onEnter();
+	virtual void onExit();
+	virtual void pause();
+	virtual void resume();
     
     /**
      * Ticks each frame when fade in animation has started
@@ -112,9 +93,35 @@ protected:
 
 };
 
-inline bool FPopup::WasClosed() const
+FORCEINLINE bool FPopup::WasClosed() const { return bWasClosed_; }
+
+FORCEINLINE void FPopup::onEnter()
 {
-    return bWasClosed_;
+	if (!bIsPaused_) Node::onEnter();
+}
+
+FORCEINLINE void FPopup::onExit()
+{
+	Node::onExit();
+	bHasEntered_ = false;
+}
+
+FORCEINLINE void FPopup::pause()
+{
+	Node::pause();
+	bIsPaused_ = true;
+}
+
+FORCEINLINE void FPopup::resume()
+{
+	Node::resume();
+	bIsPaused_ = false;
+
+	if (!bHasEntered_)
+	{
+		bHasEntered_ = true;
+		Node::onEnter();
+	}
 }
 
 #endif /* defined(__Hazelnut__FPopup__) */

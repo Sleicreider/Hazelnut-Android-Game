@@ -9,6 +9,8 @@
 #ifndef Hazelnut_ITickable_h
 #define Hazelnut_ITickable_h
 
+#include "FGeneral.h"
+
 class FrameworkScene;
 
 class ITickable
@@ -23,9 +25,6 @@ private:
     virtual void ResetToInitialState() {};
 };
 
-inline ITickable::~ITickable() {
-    
-
-}
+FORCEINLINE ITickable::~ITickable() {}
 
 #endif

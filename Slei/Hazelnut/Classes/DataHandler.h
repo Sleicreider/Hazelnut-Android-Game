@@ -437,6 +437,7 @@ namespace DataHandler
 
 	//Achievement
 	static const std::string TEXTURE_ACHIEVEMENT_TABLE_BG = "achievement" + extension;
+	static const std::string TEXTURE_ACHIEVEMENT_TABLE_BG_SCROLLER = "achievement_scroller" + extension;
 	static const std::string TEXTURE_ACHIEVEMENT_EMPTY = "empty_achievement" + extension;
     
     //Tutorial
@@ -450,35 +451,36 @@ namespace DataHandler
     {
         const std::string text;
         const std::string sprite_file_name;
+        const int target_points;
     };
     
     using AchievmentStaticMap = std::map<EAchievements,SStaticAchievementObject>;
     
     static const AchievmentStaticMap ACHIEVEMENT_STATIC_MAP
     {
-        {   EAchievements::NO_HAZ_MISSED_L1,   {"No Hazelnuts Missed Lv1", "squirrel"+extension} },
-        {   EAchievements::NO_HAZ_MISSED_L3,   {"No Hazelnuts Missed Lv2", "squirrel"+extension} },
-        {   EAchievements::NO_HAZ_MISSED_L5,   {"No Hazelnuts Missed Lv3", "squirrel"+extension} },
-        {   EAchievements::NO_WASTE_CATCHED_L2,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_WASTE_CATCHED_L4,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_WASTE_CATCHED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_WASTE_CATCHED_L8,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_WASTE_CATCHED_L10,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_APPLE_MISSED_L4,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_APPLE_MISSED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_APPLE_MISSED_L10,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::HEART_BAR_FILLED,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_HEART_MISSED_L3,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_HEART_MISSED_L6,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::NO_HEART_MISSED_L9,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::COINS_COLLECTED_5,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::COINS_COLLECTED_10,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::OVERALL_GAMES_STARTED_100,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_1,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_2,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_3,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"No Waste Catched_L2", "squirrel"+extension} },
-        {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"No Waste Catched_L2", "squirrel"+extension} },
+        {   EAchievements::NO_HAZ_MISSED_L1,   {"No Hazelnuts Missed till Lv1", "squirrel"+extension, 0} },
+        {   EAchievements::NO_HAZ_MISSED_L3,   {"No Hazelnuts Missed till Lv3", "squirrel"+extension, 0} },
+        {   EAchievements::NO_HAZ_MISSED_L5,   {"No Hazelnuts Missed till Lv5", "squirrel"+extension, 0} },
+        {   EAchievements::NO_WASTE_CATCHED_L2,   {"No Waste Catched till Lv2", "squirrel"+extension, 0} },
+        {   EAchievements::NO_WASTE_CATCHED_L4,   {"No Waste Catched till Lv4", "squirrel"+extension, 0} },
+        {   EAchievements::NO_WASTE_CATCHED_L6,   {"No Waste Catched till Lv6", "squirrel"+extension, 0} },
+        {   EAchievements::NO_WASTE_CATCHED_L8,   {"No Waste Catched till Lv8", "squirrel"+extension, 0} },
+        {   EAchievements::NO_WASTE_CATCHED_L10,   {"No Waste Catched till Lv10", "squirrel"+extension, 0} },
+        {   EAchievements::NO_APPLE_MISSED_L4,   {"No Apple Missed till Lv4", "squirrel"+extension, 0} },
+        {   EAchievements::NO_APPLE_MISSED_L6,   {"No Apple Missed till Lv6", "squirrel"+extension, 0} },
+        {   EAchievements::NO_APPLE_MISSED_L10,   {"No Apple Missed till Lv10", "squirrel"+extension, 0} },
+        {   EAchievements::HEART_BAR_FILLED,   {"Health bar fully filled", "squirrel"+extension, 0} },
+        {   EAchievements::NO_HEART_MISSED_L3,   {"No Heart missed till Lv3", "squirrel"+extension, 0} },
+        {   EAchievements::NO_HEART_MISSED_L6,   {"No Heart missed till Lv6", "squirrel"+extension, 0} },
+        {   EAchievements::NO_HEART_MISSED_L9,   {"No Heart missed till Lv9", "squirrel"+extension, 0} },
+        {   EAchievements::COINS_COLLECTED_5,   {"5 Coins collected", "squirrel"+extension, 0} },
+        {   EAchievements::COINS_COLLECTED_10,   {"10 Coins collected", "squirrel"+extension, 0} },
+        {   EAchievements::OVERALL_GAMES_STARTED_100,   {"Over Games started - 100", "squirrel"+extension, 100} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_1,   {"Overall Coins collected - xxx1", "squirrel"+extension, 10} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_2,   {"Overall Coins collected - xxx2", "squirrel"+extension, 50} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_3,   {"Overall Coins collected - xxx3", "squirrel"+extension, 100} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"Overall Coins collected - xxx4", "squirrel"+extension, 500} },
+        {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"All achievments unlocked", "squirrel"+extension, 23} },
     };
     
     static const int32_t ACHIEVEMENT_AMOUNT = 22;

@@ -15,6 +15,7 @@ std::unique_ptr<AchievementManager> AchievementManager::instance_;
 
 AchievementManager::AchievementManager(const tmp&)
 {
+#pragma WARN message("maybe use the static map from DataHandler")
     achievment_container_[EAchievements::NO_HAZ_MISSED_L1].str = "NO_HAZ_MISSED_L1";
     achievment_container_[EAchievements::NO_HAZ_MISSED_L3].str = "NO_HAZ_MISSED_L3";
     achievment_container_[EAchievements::NO_HAZ_MISSED_L5].str = "NO_HAZ_MISSED_L5";
