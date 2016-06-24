@@ -50,6 +50,7 @@ USING_NS_CC;
 #    define FORCEINLINE __attribute__((always_inline)) inline
 #endif
 
+//we use C++11, here are selfmade C++14 features
 namespace std14
 {
     template<typename T, typename ...Args>

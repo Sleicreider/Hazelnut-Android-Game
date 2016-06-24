@@ -127,9 +127,27 @@ private:
 #pragma message WARN("maybe directly use UnlockAchievment? or remove it and only unlock in achievments.h, it should not be possible for other classes to be called and modify achievment unlocks etc")
         AchievementManager::GetInstance()->UnlockAchievement(type);
         
-        if(manager->achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points == DataHandler::ACHIEVEMENT_AMOUNT)
+        
+        switch(manager->achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points)
         {
-            Unlock(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED);
+            case DataHandler::ACHIEVMENT_COSMETIC_BASKET_LV2:
+                FileOperation::SetInt("COSMETIC_BASKET", 2);
+                DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV2;
+                break;
+                
+            case DataHandler::ACHIEVMENT_COSMETIC_BASKET_LV3:
+                FileOperation::SetInt("COSMETIC_BASKET", 3);
+                DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV3;
+                break;
+                
+            case DataHandler::ACHIEVMENT_COSMETIC_BASKET_LV4:
+                FileOperation::SetInt("COSMETIC_BASKET", 4);
+                DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV4;
+                break;
+                
+            case DataHandler::ACHIEVEMENT_AMOUNT: Unlock(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED); break;
+                
+            default: CCLOG("nothing to do");
         }
     }
     

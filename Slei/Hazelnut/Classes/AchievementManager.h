@@ -65,16 +65,15 @@ class AchievementManager
 {
     friend class Achievements;
     //for make_unique in Singleton
-    struct tmp { tmp(){}; };
     
 public:
-    AchievementManager(const tmp& t);
+    AchievementManager();
     
     static AchievementManager* GetInstance()
     {
         if(instance_ == nullptr)
         {
-            instance_ = std14::make_unique<AchievementManager>(tmp());//std::unique_ptr<AchievementManager>(std::move(new AchievementManager(tmp())));
+            instance_ = std14::make_unique<AchievementManager>();
         }
         
         return instance_.get();

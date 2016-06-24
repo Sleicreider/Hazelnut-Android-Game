@@ -7,6 +7,7 @@ USING_NS_CC;
 
 EAppLayout  DataHandler::app_layout_ = EAppLayout::LAYOUT_WIDESCREEN;
 Size        DataHandler::app_screen_size_ = Size(Vec2(0,0));
+SBasket     DataHandler::COSMETIC_BASKET = SBasket{"",""};
 
 //#ifdef ETC1
 //	std::string DataHandler::extension = "pkm";

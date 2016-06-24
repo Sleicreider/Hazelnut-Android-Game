@@ -130,7 +130,7 @@ InGameController::InGameController(InGameScene* scene)
     scene_->addChild(sprite_anim_bird1);
     
     //Basket
-    basket_ = Basket::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET, "basket_1.fsh");
+    basket_ = Basket::create(DataHandler::COSMETIC_BASKET.texture, DataHandler::COSMETIC_BASKET.fragment_shader);
     basket_->setAnchorPoint(Vec2(0.5,0.5));
     basket_->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
 

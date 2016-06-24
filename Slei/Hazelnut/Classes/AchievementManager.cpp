@@ -13,7 +13,7 @@
 
 std::unique_ptr<AchievementManager> AchievementManager::instance_;
 
-AchievementManager::AchievementManager(const tmp&)
+AchievementManager::AchievementManager()
 {
 #pragma WARN message("maybe use the static map from DataHandler")
     achievment_container_[EAchievements::NO_HAZ_MISSED_L1].str = "NO_HAZ_MISSED_L1";
@@ -91,6 +91,21 @@ void AchievementManager::LoadAchievmentsFromFile()
     //calculated them everytime, so its safer
     achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].current_points = a_counter;
     FileOperation::SetInt(achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str_curr, a_counter);
+
+    int32_t cosmetic_value = 1;
+    
+    if(FileOperation::GetInt("COSMETIC_BASKET", cosmetic_value))
+    {
+        CCLOG("basekt string found");
+    }
+    
+    switch(cosmetic_value)
+    {
+        case 1: DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV1; break;
+        case 2: DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV2; break;
+        case 3: DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV3; break;
+        case 4: DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV4; break;
+    }
 }
 
 void AchievementManager::InitAchievementsFile()
@@ -101,9 +116,12 @@ void AchievementManager::InitAchievementsFile()
 		
 		if (item.second.str_curr != "")
 		{
-			FileOperation::SetInt(item.second.str_curr,0);
+			FileOperation::SetInt(item.second.str_curr,1);
 		}
 	}
+    
+    //init basket
+    FileOperation::SetInt("COSMETIC_BASKET", 1);
 }
 
 void AchievementManager::SaveAchievmentsToFile()

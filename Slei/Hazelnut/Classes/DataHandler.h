@@ -46,6 +46,12 @@
 #   define WARN(exp) ("WARNING: " exp)
 #endif
 
+struct SBasket
+{
+    std::string texture;
+    std::string fragment_shader;
+};
+
 namespace DataHandler
 {
     static CocosDenshion::SimpleAudioEngine* game_audio = CocosDenshion::SimpleAudioEngine::getInstance();
@@ -55,6 +61,7 @@ namespace DataHandler
     extern cocos2d::Size            app_screen_size_;
     extern EAppLayout               app_layout_;
     
+
     /****** Resolution Options *******/
     static const int32_t GAME_RESOLUTION_WIDTH = 1920;
     static const int32_t GAME_RESOLUTION_HEIGHT = 1080;
@@ -91,7 +98,7 @@ namespace DataHandler
     /** LEVEL SETTINGS **/
 #ifndef PERFORMANCETEST
     //LEVEL 1
-	static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MAX = 10;
+	static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MAX = 1;
 	static const float_t COLLECT_GAME_LEVEL_1_AI_SPEED = 3;
 	static const float_t COLLECT_GAME_LEVEL_1_HAZELNUT_SPEED = 3;
 	static const int32_t COLLECT_GAME_LEVEL_1_DROP_INTERVAL_MIN = 900;
@@ -415,7 +422,11 @@ namespace DataHandler
     
     static const std::string TEXTURE_COLLECT_GAME_BASKET    = "Korb" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_BASKET_SIZE    = 106;
-     
+    
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV2   = "Korb" + extension;
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV3    = "Korb" + extension;
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV4    = "Korb" + extension;
+
     static const std::string TEXTURE_COLLECT_GAME_SQUIRREL  = "squirrel" + extension;
 
 	static const std::string TEXTURE_COLLECT_GAME_SQUIRREL_ANGRY = "Squirrel_angry" + extension;
@@ -483,7 +494,17 @@ namespace DataHandler
         {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"All achievments unlocked", "squirrel"+extension, 23} },
     };
     
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV2 = 1;
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV3 = 15;
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV4 = 23;
     static const int32_t ACHIEVEMENT_AMOUNT = 22;
+    
+    extern SBasket COSMETIC_BASKET;
+    
+    static const SBasket COSMETIC_BASKET_LV1 = { TEXTURE_COLLECT_GAME_BASKET, "" };
+    static const SBasket COSMETIC_BASKET_LV2 = { TEXTURE_COLLECT_GAME_BASKET, "basket_1.fsh"};
+    static const SBasket COSMETIC_BASKET_LV3 = {};
+    static const SBasket COSMETIC_BASKET_LV4 = {};
 //    static const std::vector<SStaticAchievementObject> ACHIEVEMENT_STATIC_CONTAINER
 //    {
 //        {"EpicQuest",""}
