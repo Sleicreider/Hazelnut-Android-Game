@@ -6,6 +6,9 @@
 //
 //
 
+//DONE STYLE CHANGED!
+//TODO Check for better code etc.
+
 #ifndef __Hazelnut__AIDropObject__
 #define __Hazelnut__AIDropObject__
 
@@ -24,16 +27,10 @@ class AIDropObject
 public:
 	AIDropObject(FrameworkScene* scene);
     ~AIDropObject();
-
-	bool GroundCollision();
     
     void DeathAnimation();
     void DeathAnimationHeart();
     void DeathAnimationBroken();
-    
-    bool DeathAnimationHasFinished();
-
-	FSprite* GetSprite();
     
     void CreateDropObject();
 
@@ -45,67 +42,68 @@ public:
     void WithAnimation(bool active, FSprite::EAnimation sprite_animation);
     void SetDead(bool bIsDead);
     
-    EDropObjectType GetType();
-    int GetDropObjectSpeed();
-    bool IsActive();
-    
-    bool IsDead();
+    void Remove();
 
-	void Remove();
     
+    FSprite* GetSprite();
+    bool DeathAnimationHasFinished();
+    
+    EDropObjectType GetType() const;
 
+    bool IsActive() const;
+    bool IsDead() const;
+    bool GroundCollision() const;
+    
+    int32_t GetDropObjectSpeed() const;
     
 private:
-    FrameworkScene* scene;
+    FrameworkScene* scene_;
+    FSprite* drop_object_;
     
-    FSprite* dropObject;
-    EDropObjectType dropObjectType;
-    int dropObjectSpeed;
-    
+    EDropObjectType drop_object_type_;
     FTimeframe timeframe_death_anim_;
     
-    bool bIsDead_;
-    bool bIsActive_;
+    int32_t drop_object_speed_;
+
+    uint32_t bIsDead_:1;
+    uint32_t bIsActive_:1;
 };
 
-inline void AIDropObject::WithAnimation(bool active, FSprite::EAnimation sprite_animation){ dropObject->WithAnimation(active,sprite_animation); }
-inline void AIDropObject::SetPositionX(int posX){ dropObject->setPositionX(posX); }
-inline void AIDropObject::SetPositionY(int posY){ dropObject->setPositionY(posY); }
-inline void AIDropObject::SetType(EDropObjectType type){ this->dropObjectType = type; }
-inline void AIDropObject::SetDropObjectSpeed(int dropObjectSpeed){ this->dropObjectSpeed = dropObjectSpeed; }
+FORCEINLINE void AIDropObject::SetPositionX(int posX){ drop_object_->setPositionX(posX); }
+FORCEINLINE void AIDropObject::SetPositionY(int posY){ drop_object_->setPositionY(posY); }
+FORCEINLINE void AIDropObject::SetType(EDropObjectType type){ drop_object_type_ = type; }
+FORCEINLINE void AIDropObject::SetDropObjectSpeed(int dropObjectSpeed){ drop_object_speed_ = dropObjectSpeed; }
 
-inline void AIDropObject::SetActive(bool active)
+FORCEINLINE void AIDropObject::SetActive(bool active)
 {
     if(active)
     {
-        dropObject->setVisible(true);
-        dropObject->resume();
+        drop_object_->setVisible(true);
+        drop_object_->resume();
     }
     else
     {
-        dropObject->setVisible(false);
-        dropObject->pause();
+        drop_object_->setVisible(false);
+        drop_object_->pause();
     }
     
     bIsActive_ = active;
 }
 
-inline EDropObjectType AIDropObject::GetType(){ return dropObjectType; }
-inline FSprite* AIDropObject::GetSprite(){ return dropObject; }
-inline int AIDropObject::GetDropObjectSpeed(){ return dropObjectSpeed; }
+FORCEINLINE void AIDropObject::WithAnimation(bool active, FSprite::EAnimation sprite_animation)     { drop_object_->WithAnimation(active,sprite_animation); }
+FORCEINLINE void AIDropObject::SetDead(bool bIsDead)                                                { bIsDead_ = bIsDead; };
 
-inline bool AIDropObject::GroundCollision()
+FORCEINLINE FSprite* AIDropObject::GetSprite() { return drop_object_; }
+
+FORCEINLINE EDropObjectType AIDropObject::GetType() const       { return drop_object_type_; }
+FORCEINLINE int32_t AIDropObject::GetDropObjectSpeed() const    { return drop_object_speed_; }
+
+FORCEINLINE bool AIDropObject::GroundCollision() const
 {
-    if(dropObject->getPositionY() <= DataHandler::COLLECT_GAME_GROUND_COLLISION_Y)
-    {
-        return true;
-    }
-    return false;
+    return drop_object_->getPositionY() <= DataHandler::COLLECT_GAME_GROUND_COLLISION_Y;
 }
 
-FORCEINLINE bool AIDropObject::IsDead() { return bIsDead_; }
-FORCEINLINE void AIDropObject::SetDead(bool bIsDead) { bIsDead_ = bIsDead; };
-
-FORCEINLINE bool AIDropObject::IsActive() { return bIsActive_; }
+FORCEINLINE bool AIDropObject::IsDead() const   { return bIsDead_; }
+FORCEINLINE bool AIDropObject::IsActive() const { return bIsActive_; }
 
 #endif /* defined(__Hazelnut__AIDropObject__) */

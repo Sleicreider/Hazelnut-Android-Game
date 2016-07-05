@@ -21,6 +21,7 @@ USING_NS_CC;
 
 #define COLLISIONBOX_1 //full box
 
+using AIDropObjectContainer = std::vector<std::unique_ptr<AIDropObject>>;
 
 class CollisionBox
 {
@@ -28,7 +29,7 @@ public:
     CollisionBox();
     ~CollisionBox();
     bool OnBeginOverlap();
-    void AttatchTo(Sprite* sprite,std::vector<std::unique_ptr<AIDropObject>>& dropObjects,std::vector<std::unique_ptr<AIDropObject>>& inactiveDropObjects);
+    void AttatchTo(Sprite* sprite,AIDropObjectContainer& dropObjects,AIDropObjectContainer& inactiveDropObjects);
     AIDropObject* GetObject();
     void RemoveObject();
     

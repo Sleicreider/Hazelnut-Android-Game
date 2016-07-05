@@ -19,7 +19,7 @@ CollisionBox::~CollisionBox()
 }
 
 #pragma message WARN("CHECK IF DROPOBJECT IS COLLIEDING WITH PLAYER OBJECT SO WE DONT NEED THE FOR LOOP")
-void CollisionBox::AttatchTo(Sprite* sprite,std::vector<std::unique_ptr<AIDropObject>>& dropObjects,std::vector<std::unique_ptr<AIDropObject>>& inactiveDropObjects)
+void CollisionBox::AttatchTo(Sprite* sprite,AIDropObjectContainer& dropObjects,AIDropObjectContainer& inactiveDropObjects)
 {
     this->vecDropObjects = &dropObjects;
     this->inactiveDropObjects = &inactiveDropObjects;
