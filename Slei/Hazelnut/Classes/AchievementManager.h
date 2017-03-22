@@ -19,23 +19,23 @@ class AchievementNotification;
 
 enum class EAchievements
 {
-    NO_HAZ_MISSED_L1,//
-    NO_HAZ_MISSED_L3,//
-    NO_HAZ_MISSED_L5,//
-    NO_WASTE_CATCHED_L2,//
-    NO_WASTE_CATCHED_L4,//
-    NO_WASTE_CATCHED_L6,//
-    NO_WASTE_CATCHED_L8,//
-    NO_WASTE_CATCHED_L10,//
-    NO_APPLE_MISSED_L4,//
-    NO_APPLE_MISSED_L6,//
-    NO_APPLE_MISSED_L10,//
-    HEART_BAR_FILLED,//
-    NO_HEART_MISSED_L3,//
-    NO_HEART_MISSED_L6,//
-    NO_HEART_MISSED_L9,//
-    COINS_COLLECTED_5,//      //Current Points form here
-    COINS_COLLECTED_10, //
+    NO_HAZ_MISSED_L1,
+    NO_HAZ_MISSED_L3,
+    NO_HAZ_MISSED_L5,
+    NO_WASTE_CATCHED_L2,
+    NO_WASTE_CATCHED_L4,
+    NO_WASTE_CATCHED_L6,
+    NO_WASTE_CATCHED_L8,
+    NO_WASTE_CATCHED_L10,
+    NO_APPLE_MISSED_L4,
+    NO_APPLE_MISSED_L6,
+    NO_APPLE_MISSED_L10,
+    HEART_BAR_FILLED,
+    NO_HEART_MISSED_L3,
+    NO_HEART_MISSED_L6,
+    NO_HEART_MISSED_L9,
+    COINS_COLLECTED_5,
+    COINS_COLLECTED_10,
     OVERALL_GAMES_STARTED_100,
     OVERALL_COINS_COLLECTED_STAGE_1,
     OVERALL_COINS_COLLECTED_STAGE_2,
@@ -49,22 +49,20 @@ struct SAchievment
 {
     SAchievment():str_curr(""){}
     
-    bool        unlocked;
-    int32_t     current_points;
-#pragma WARN message("maybe we dont need some of theesse, target points stored statically on DataHandler")
-    int32_t     target_points;
-    
     std::string str_curr;
     std::string str;
+    
+    int32_t     current_points;
+    int32_t     target_points;
+    
+    bool        unlocked;
 };
 
 using AchievementCointainer = std::map<EAchievements, SAchievment>;
 
-
 class AchievementManager
 {
     friend class Achievements;
-    //for make_unique in Singleton
     
 public:
     AchievementManager();
@@ -96,7 +94,6 @@ protected:
     
     AchievementManager(const AchievementManager&) = delete;
     const AchievementManager& operator=(const AchievementManager&) = delete;
-    
     
 
 private:

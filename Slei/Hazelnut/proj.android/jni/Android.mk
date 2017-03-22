@@ -36,9 +36,13 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/GameUtil.cpp \
                    ../../Classes/FileOperation.cpp \
                    ../../Classes/HighscoreScene.cpp \
-					../../Classes/AdmobHelper.cpp
-                   
-                   
+					../../Classes/AdmobHelper.cpp \
+					../../Classes/AchievementNotification.cpp\
+					../../Classes/AchievementManager.cpp\
+                    ../../Classes/AchievementListScene.cpp\
+                    ../../Classes/Subject.cpp\
+                    ../../Classes/Basket.cpp
+
                    
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes

@@ -26,6 +26,8 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.cpp;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -34,10 +36,13 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -48,6 +53,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -66,7 +74,7 @@ public class AppActivity extends Cocos2dxActivity {
 	private static final String AD_UNIT_ID = "ca-app-pub-9638672228116696/3546955560";
 	private static final String AD_UNIT_BOTTOM_ID = "ca-app-pub-9638672228116696/5540979969";
 	private static final String AD_UNIT_FULL_ID = "ca-app-pub-9638672228116696/4508227563";
-	private static final boolean USED_FOR_PRODUCTION = false;
+	private static final boolean USED_FOR_PRODUCTION = true;
 
 	// Helper get display screen to avoid deprecated function use
 	private Point getDisplaySize(Display d) {
@@ -125,6 +133,10 @@ public class AppActivity extends Cocos2dxActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		// Initialize the SDK before executing any other operations,
+		// especially, if you're using Facebook UI elements.
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -347,6 +359,40 @@ public class AppActivity extends Cocos2dxActivity {
 
 	}
 
+	public static void tryShareScore(int score) {
+		_appActiviy.runOnUiThread(new Runnable() {
+			int _score = 0;
+
+			public Runnable init(int score) {
+				_score = score;
+				return (this);
+			}
+
+			@Override
+			public void run() {
+				// if (_appActiviy.iAd.isLoaded()) {
+				// _appActiviy.iAd.show();
+				// }
+
+				Log.i("adviewScreen", "tryShareScore");
+				// Intent shareIntent = new Intent(Intent.ACTION_SEND);
+				// shareIntent.setType("text/plain");
+				// shareIntent.putExtra(Intent.EXTRA_TEXT,
+				// "Your latest score in Hazelnut: ");
+				// shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+				// "Share your Hazelnut Score");
+				// _appActiviy.startActivity(Intent.createChooser(shareIntent,
+				// "Share your Hazelnut Score"));
+				AppActivity.shareImage(
+						store(getScreenShot(_appActiviy.getWindow()
+								.getDecorView()
+								.findViewById(android.R.id.content)),
+								"hazelnut_score"), _score);
+			}
+		}.init(score));
+
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -383,4 +429,51 @@ public class AppActivity extends Cocos2dxActivity {
 		super.onDestroy();
 	}
 
+	public static Bitmap getScreenShot(View view) {
+		View screenView = view.getRootView();
+		screenView.setDrawingCacheEnabled(true);
+		Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+		screenView.setDrawingCacheEnabled(false);
+		return bitmap;
+	}
+
+	public static File store(Bitmap bm, String fileName) {
+		final String dirPath = Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/Screenshots";
+		File dir = new File(dirPath);
+		if (!dir.exists())
+			dir.mkdirs();
+		File file = new File(dirPath, fileName);
+		try {
+			FileOutputStream fOut = new FileOutputStream(file);
+			bm.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+			fOut.flush();
+			fOut.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return file;
+	}
+
+	public static void shareImage(File file, int score) {
+		Uri uri = Uri.fromFile(file);
+		// Intent intent = new Intent();
+		// intent.setAction(Intent.ACTION_SEND);
+		// intent.setType("image/*");
+		//
+		// intent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+		// "Share your Hazelnut Score");
+		// intent.putExtra(android.content.Intent.EXTRA_TEXT,
+		// "Your latest score in Hazelnut: " + score);
+		// intent.putExtra(Intent.EXTRA_STREAM, uri);
+		// _appActiviy.startActivity(Intent.createChooser(intent,
+		// "Share your Hazelnut Score"));
+
+		ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+				.setContentTitle("Hazelnut Score")
+				.setContentDescription("My latest score in Hazelnut: " + score)
+				.setContentUrl(Uri.EMPTY).setImageUrl(uri).build();
+
+		ShareDialog.show(_appActiviy, shareLinkContent);
+	}
 }

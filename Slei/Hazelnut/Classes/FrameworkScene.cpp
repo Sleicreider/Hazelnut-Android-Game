@@ -42,10 +42,6 @@ FrameworkScene::FrameworkScene()
 
 FrameworkScene::~FrameworkScene()
 {
-    //    for(int i = 0; i < vec_buttons_.size();i++)
-    //    {
-    //        delete vec_buttons_.at(i);
-    //    }
     vec_buttons_.clear();
 }
 
@@ -76,7 +72,6 @@ bool FrameworkScene::updateDelayControl(float delta, float checkpoint){
             return true;
         }
     }
-    
     return false;
 }
 

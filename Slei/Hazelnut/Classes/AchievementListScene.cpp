@@ -22,10 +22,10 @@ USING_NS_CC;
 //USING_NS_CC_EXT;
 using namespace ui;
 
-const int AchievementListScene::SCROLLVIEW_HEIGHT = 584;
-const int AchievementListScene::SCROLLVIEW_WIDTH = 700;
+const int AchievementListScene::SCROLLVIEW_HEIGHT = 565;
+const int AchievementListScene::SCROLLVIEW_WIDTH = 680;
 const int AchievementListScene::SCROLLVIEW_INNER_HEIGHT = 2860;
-const int AchievementListScene::SCROLLVIEW_INNER_WIDTH = 700;
+const int AchievementListScene::SCROLLVIEW_INNER_WIDTH = 690;
 
 void AchievementListScene::onExit()
 {
@@ -81,9 +81,16 @@ bool AchievementListScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	//Achievment head
-	auto achievment_head = FSprite::create(DataHandler::TEXTURE_ACHIEVEMENT_TABLE_BG, Vec2(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2 + origin.x, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + origin.y + 380)));
+	auto achievment_head = FSprite::create(DataHandler::TEXTURE_ACHIEVEMENT_HEADER, Vec2(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2 + origin.x, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + origin.y + 380)));
 	
 	addChild(achievment_head);
+
+	// Create the menu buttons
+	scrollerbackground_ = FSprite::create(DataHandler::TEXTURE_ACHIEVEMENT_TABLE_BG_SCROLLER
+		, Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2 + origin.x, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + origin.y));
+
+	scrollerbackground_->setZOrder(1);
+	addChild(scrollerbackground_);
 
     // Create the menu buttons
 	ui::ScrollView* scrollView = ui::ScrollView::create();
@@ -92,7 +99,6 @@ bool AchievementListScene::init()
 	scrollView->setInnerContainerSize(Size(0, 500));
 	scrollView->setInnerContainerSize(Size(AchievementListScene::SCROLLVIEW_INNER_WIDTH, AchievementListScene::SCROLLVIEW_INNER_HEIGHT));
 	scrollView->setBounceEnabled(true);
-	scrollView->setBackGroundImage(DataHandler::TEXTURE_ACHIEVEMENT_TABLE_BG_SCROLLER);
 	scrollView->setAnchorPoint(Vec2(0.5, 0.5));
 	scrollView->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2 + origin.x, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + origin.y));
 
@@ -127,28 +133,52 @@ bool AchievementListScene::init()
 
 	for (auto& item : AchievementManager::GetInstance()->GetAchievementContainer())
 	{
-		FSprite* achievementButton = FSprite::create(DataHandler::TEXTURE_ACHIEVEMENT_EMPTY);
+		FSprite* achievementButton;;
+		
+		if (item.second.unlocked)
+		{
+			// Unlocked img
+			achievementButton = FSprite::create(DataHandler::TEXUTRE_ACHIEVEMENT_UNLOCKED);
+		}
+		else 
+		{
+			achievementButton = FSprite::create();
+		}
 		achievementButton->setAnchorPoint(Vec2(0, 0));
-		achievementButton->setPosition(Vec2(0, (counter * 120) + 30));
+		achievementButton->setPosition(Vec2(50, (counter * 120) + 100));
 		scrollView->addChild(achievementButton);
 
 		auto ach_name = Label::createWithTTF(DataHandler::ACHIEVEMENT_STATIC_MAP.at(item.first).text, DataHandler::FONT_QUARMIC_SANS, 26);
-		ach_name->setPosition(Vec2(320.f,50.f));
+		
+		// if status not needed for current achievement, place it in the middle
+		if(item.second.str_curr != "")
+		{
+			ach_name->setPosition(Vec2(350.f, 50.f));
+		}
+		else
+		{
+			ach_name->setPosition(Vec2(350.f, 25.f));
+		}
+		
+		ach_name->setTextColor(Color4B::BLACK);
         
-        ach_name->setWidth(420.f);
+        ach_name->setWidth(480.f);
 		ach_name->setAlignment(TextHAlignment::LEFT);
 		achievementButton->addChild(ach_name);
 
-		auto ach_status = Label::createWithTTF(item.second.unlocked ? "Unlocked" : "Locked", DataHandler::FONT_QUARMIC_SANS, 30);
-		ach_status->setPosition(Vec2(620.f,50.f));
-		achievementButton->addChild(ach_status);
+		//auto ach_status = Label::createWithTTF(item.second.unlocked ? "Unlocked" : "Locked", DataHandler::FONT_QUARMIC_SANS, 30);
+		//ach_status->setPosition(Vec2(620.f,50.f));
+		//achievementButton->addChild(ach_status);
         
         if(item.second.str_curr != "")
         {
-            auto ach_progress = Label::createWithTTF(std::to_string(item.second.current_points) + " of " + std::to_string(DataHandler::ACHIEVEMENT_STATIC_MAP.at(item.first).target_points), DataHandler::FONT_QUARMIC_SANS, 30);
-            ach_progress->setPosition(Vec2(320.f,0.f));
+            auto ach_progress = Label::createWithTTF(std::to_string(item.second.current_points) + " of " + std::to_string(DataHandler::ACHIEVEMENT_STATIC_MAP.at(item.first).target_points), DataHandler::FONT_QUARMIC_SANS, 26);
+            ach_progress->setPosition(Vec2(350.f,0.f));
+			ach_progress->setTextColor(Color4B::BLACK);
+			ach_progress->setWidth(480.f);
+			ach_progress->setAlignment(TextHAlignment::LEFT);
             achievementButton->addChild(ach_progress);
-        }
+        } 
 
 
 		counter--;
@@ -169,6 +199,7 @@ bool AchievementListScene::init()
 	//	
 	//}
 
+	scrollView->setZOrder(2);
 	addChild(scrollView);
     
     FSprite* buttonSpriteBack = FSprite::create(DataHandler::TEXTURE_HIGHSCORE_BUTTON_BACK);

@@ -14,5 +14,5 @@ APP_LDFLAGS := -latomic
 #  APP_OPTIM := release
 #endif
 
-APP_CPPFLAGS += -DCOCOS2D_DEBUG=0
-APP_OPTIM := release
+APP_CPPFLAGS += -DCOCOS2D_DEBUG=1
+APP_OPTIM := debug

@@ -6,9 +6,6 @@
 //
 //
 
-//DONE STYLE CHANGED!
-//TODO Check for better code etc.
-
 #include "AI.h"
 #include "DataHandler.h"
 #include "FSprite.h"
@@ -16,143 +13,148 @@
 #include "InGameScene.h"
 
 AI::AI(FrameworkScene* scene)
-: scene_(scene)
+: scene(scene)
+, vecInactiveObjects()
 , heart_counter_(0)
+
 , c_hazelnut_(0)
 , c_waste_(0)
 , c_apple_(0)
 , c_heart_(0)
 , c_coin_(0)
+
 , bCanDropHeart_(true)
 {
 }
 
-void AI::InitAI(cocos2d::Sprite* ai_object)
+void AI::InitAI(cocos2d::Sprite *aiObject)
 {
-    ai_object_ = ai_object;
-    ai_pos_x_ = ai_object_->getPositionX();
+    this->aiObject = aiObject;
+    aiPosX = aiObject->getPositionX();
     
     //CHECK IF MOVEMENT AND DROP ARE ALWAYS THE SAME
     srand ( time(NULL) );
-    rand_move_value_ = rand() % (DataHandler::GAME_RESOLUTION_WIDTH-100) + 100;
-    rand_drop_wait_value_ms_ =  rand() % 3000 + 500;
+    randMoveValue = rand() % (DataHandler::GAME_RESOLUTION_WIDTH-100) + 100;
+    //    randDropWaitValue = rand() % 5 + 1;
+    randDropWaitValueMS =  rand() % 3000 + 500;
     
-    ai_prev_timer_ = t_.GetCurrentTimeInSeconds();
-    ai_prev_timer_ms_ = t_.GetCurrentTimeInMilliseconds();
+    aiPrevTimer = timer_.GetCurrentTimeInSeconds();
+    aiPrevTimerMS = timer_.GetCurrentTimeInMilliseconds();
     
-    counter_ = 0;
+    counter = 0;
+    
 }
 
-void AI::Movement(int32_t squirrelSpeed, int32_t dropObjectSpeedMin,int32_t dropObjectSpeedMax,int32_t dropIntervalMin,int32_t dropIntervalMax, int32_t hazelnut_speed)
+void AI::Movement(int squirrelSpeed, int dropObjectSpeedMin,int dropObjectSpeedMax,int dropIntervalMin,int dropIntervalMax, int hazelnut_speed)
 {
-    if((ai_object_->getPositionX() >= rand_move_value_ && ai_prev_pos_x_ <= rand_move_value_) ||
-       (ai_object_->getPositionX() <= rand_move_value_ && ai_prev_pos_x_ >= rand_move_value_))
+    if((aiObject->getPositionX() >= randMoveValue && aiPrevPosX <= randMoveValue) ||
+       (aiObject->getPositionX() <= randMoveValue && aiPrevPosX >= randMoveValue))
     {
-        rand_move_value_ = rand() % DataHandler::GAME_RESOLUTION_WIDTH + 1;
+        randMoveValue = rand() % DataHandler::GAME_RESOLUTION_WIDTH + 1;
     }
     
-    ai_prev_pos_x_ = ai_pos_x_;
+    aiPrevPosX = aiPosX;
     
-    if(rand_move_value_ > ai_object_->getPositionX())
+    if(randMoveValue > aiObject->getPositionX())
     {
-        ai_pos_x_ += squirrelSpeed;
+        aiPosX += squirrelSpeed;
     }
     else
     {
-        ai_pos_x_ -= squirrelSpeed;
+        aiPosX -= squirrelSpeed;
     }
     
-    ai_object_->setPositionX(ai_pos_x_);
+    aiObject->setPositionX(aiPosX);
     
     DropBehaviour(dropObjectSpeedMin,dropObjectSpeedMax,dropIntervalMin,dropIntervalMax,hazelnut_speed);
     DropObjectMovement();
+    
 }
 
-void AI::DropBehaviour(int32_t dropObjectSpeedMin,int32_t dropObjectSpeedMax, int32_t dropIntervalMin,int32_t dropIntervalMax, int32_t hazelnut_speed)
+void AI::DropBehaviour(int dropObjectSpeedMin,int dropObjectSpeedMax, int dropIntervalMin,int dropIntervalMax, int hazelnut_speed)
 {
-    if((ai_prev_timer_ms_.count() + rand_drop_wait_value_ms_) <= t_.GetCurrentTimeInMilliseconds().count())
+    if((aiPrevTimerMS.count() + randDropWaitValueMS) <= timer_.GetCurrentTimeInMilliseconds().count())
     {
-        rand_drop_wait_value_ms_ = rand() % dropIntervalMax + dropIntervalMin;
-        ai_prev_timer_ms_ = t_.GetCurrentTimeInMilliseconds();
+        randDropWaitValueMS = rand() % dropIntervalMax + dropIntervalMin;
+        aiPrevTimerMS = timer_.GetCurrentTimeInMilliseconds();
         
         //RAND DROP TYPE
-        rand_drop_object_type_value_ = rand() % GetMaxDropChance() + 1;
+        randDropObjectTypeValue = rand() % GetMaxDropChance() + 1;
         //RAND DROP SPEED FOR EACH DROP OBJECT
-        rand_drop_object_speed_value_ = rand() % dropObjectSpeedMax + dropObjectSpeedMin;
+        randDropObjectSpeedValue = rand() % dropObjectSpeedMax + dropObjectSpeedMin;
         
         //Assign Type befor creating a DropObject
         SpawnObject();
         
-        if (vec_drop_objects_[vec_drop_objects_.size()-1]->GetType() == EDropObjectType::HAZELNUT)
+        if (vecDropObjects[vecDropObjects.size()-1]->GetType() == EDropObjectType::HAZELNUT)
         {
-            vec_drop_objects_[vec_drop_objects_.size() - 1]->SetDropObjectSpeed(hazelnut_speed);
+            vecDropObjects[vecDropObjects.size() - 1]->SetDropObjectSpeed(hazelnut_speed);
         }
     }
 }
 
 void AI::DropObjectMovement()
 {
-    hit_ground_counter_ = 0;
+    hitGroundCounter = 0;
     
-    for(auto i = 0lu; i < vec_drop_objects_.size(); i++)
+    for(auto i = 0lu; i < vecDropObjects.size(); i++)
     {
-        if(!vec_drop_objects_.at(i)->GroundCollision())
+        if(!vecDropObjects.at(i)->GroundCollision())
         {
-            vec_drop_objects_.at(i)->SetPositionY(vec_drop_objects_.at(i)->GetSprite()->getPositionY() - vec_drop_objects_.at(i)->GetDropObjectSpeed());
+            vecDropObjects.at(i)->SetPositionY(vecDropObjects.at(i)->GetSprite()->getPositionY() - vecDropObjects.at(i)->GetDropObjectSpeed());
         }
         else
         {
-            if(!vec_drop_objects_[i]->IsDead())
+            if(!vecDropObjects[i]->IsDead())
             {
-                if(vec_drop_objects_[i]->GetType() == EDropObjectType::HAZELNUT)
+                if(vecDropObjects[i]->GetType() == EDropObjectType::HAZELNUT)
                 {
-                    vec_drop_objects_[i]->DeathAnimationBroken();
+                    vecDropObjects[i]->DeathAnimationBroken();
                     
-                    ((InGameScene*)scene_)->subject_.Notify(EEvent::EVENT_HAZELNUT_MISSED);
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_HAZELNUT_MISSED);
                 }
-                else if(vec_drop_objects_[i]->GetType() == EDropObjectType::APPLE)
+                else if(vecDropObjects[i]->GetType() == EDropObjectType::APPLE)
                 {
-                    vec_drop_objects_[i]->DeathAnimationBroken();
-                    ((InGameScene*)scene_)->subject_.Notify(EEvent::EVENT_APPLE_MISSED);
+                    vecDropObjects[i]->DeathAnimationBroken();
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_APPLE_MISSED);
                 }
-                else if(vec_drop_objects_[i]->GetType() == EDropObjectType::HEART)
+                else if(vecDropObjects[i]->GetType() == EDropObjectType::HEART)
                 {
-                    vec_drop_objects_[i]->DeathAnimationHeart();
-                    ((InGameScene*)scene_)->subject_.Notify(EEvent::EVENT_HEART_MISSED);
+                    vecDropObjects[i]->DeathAnimationHeart();
+                    ((InGameScene*)scene)->subject_.Notify(EEvent::EVENT_HEART_MISSED);
                 }
-                else if(vec_drop_objects_[i]->GetType() == EDropObjectType::WASTE)
+                //WASTE + COIN no special death animation
+                else //if(vecDropObjects[i]->GetType() == EDropObjectType::WASTE)
                 {
-                    vec_drop_objects_[i]->DeathAnimation();
+                    vecDropObjects[i]->DeathAnimation();
                 }
                 
-                //If a APPLE or HAZELNUT dropped on the ground increase the hit_ground_counter_
-                if(vec_drop_objects_.at(i)->GetType() == EDropObjectType::HAZELNUT)
+                //If a APPLE or HAZELNUT dropped on the ground increase the hitGroundCounter
+                if(vecDropObjects.at(i)->GetType() == EDropObjectType::HAZELNUT)
                 {
-                    hit_ground_counter_++;
+                    hitGroundCounter++;
                 }
             }
             
             //move to inactive object to avoid collision detection, but item remains active
-            vec_dangling_objects_.push_back(std::move(vec_drop_objects_.at(i)));
-            vec_drop_objects_.erase(vec_drop_objects_.begin() + i);
+            vecDanglingObjects.push_back(std::move(vecDropObjects.at(i)));
+            vecDropObjects.erase(vecDropObjects.begin() + i);
             i--;
-        }
-        
-        
+        }  
     }
     
     //animation objects
-    for(auto k = 0lu; k < vec_dangling_objects_.size(); k++)
+    for(auto k = 0lu; k < vecDanglingObjects.size(); k++)
     {
-        if(vec_dangling_objects_[k]->DeathAnimationHasFinished())
+        if(vecDanglingObjects[k]->DeathAnimationHasFinished())
         {
             //DropObject HIT GROUND
-            vec_dangling_objects_.at(k)->SetActive(false);
-            vec_dangling_objects_.at(k)->SetPositionX(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
-            vec_dangling_objects_.at(k)->SetPositionY(ai_pos_x_);
+            vecDanglingObjects.at(k)->SetActive(false);
+            vecDanglingObjects.at(k)->SetPositionX(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
+            vecDanglingObjects.at(k)->SetPositionY(aiPosX);
             
-            vec_inactive_objects_.push_back(std::move(vec_dangling_objects_.at(k)));
-            vec_dangling_objects_.erase(vec_dangling_objects_.begin() + k);
+            vecInactiveObjects.push_back(std::move(vecDanglingObjects.at(k)));
+            vecDanglingObjects.erase(vecDanglingObjects.begin() + k);
             k--;
         }
     }
@@ -160,111 +162,112 @@ void AI::DropObjectMovement()
 
 void AI::DropObjectTypeAssignment(AIDropObject* dropObject)
 {
-    bWithAnimation_ = false;
+    withAnimation = false;
     //Hazelnut
-    if(rand_drop_object_type_value_ <= c_hazelnut_)
+    if(randDropObjectTypeValue <= c_hazelnut_)
     {
         dropObject->SetType(EDropObjectType::HAZELNUT);
     }
     //Waste
-    else if(rand_drop_object_type_value_ <= (c_waste_ + c_hazelnut_) && rand_drop_object_type_value_ > c_hazelnut_)
+    else if(randDropObjectTypeValue <= (c_waste_ + c_hazelnut_) && randDropObjectTypeValue > c_hazelnut_)
     {
         dropObject->SetType(EDropObjectType::WASTE);
     }
     //Apple
-    else if (rand_drop_object_type_value_ <= (c_hazelnut_ + c_waste_ + c_apple_) && rand_drop_object_type_value_ > (c_hazelnut_ + c_waste_))
+    else if (randDropObjectTypeValue <= (c_hazelnut_ + c_waste_ + c_apple_) && randDropObjectTypeValue > (c_hazelnut_ + c_waste_))
     {
         dropObject->SetType(EDropObjectType::APPLE);
     }
-    else if (rand_drop_object_type_value_ <= (c_hazelnut_ + c_waste_ + c_apple_ + c_heart_) && rand_drop_object_type_value_ > (c_hazelnut_ + c_waste_ + c_apple_))
+    else if (randDropObjectTypeValue <= (c_hazelnut_ + c_waste_ + c_apple_ + c_heart_) && randDropObjectTypeValue > (c_hazelnut_ + c_waste_ + c_apple_))
     {
         dropObject->SetType(EDropObjectType::HEART);
-        bWithAnimation_ = true;
+        withAnimation = true;
         sprite_animation_ = FSprite::EAnimation::SCALE;
     }
-    else if (rand_drop_object_type_value_ > (c_hazelnut_ + c_waste_ + c_apple_ + c_heart_))
+    else if (randDropObjectTypeValue > (c_hazelnut_ + c_waste_ + c_apple_ + c_heart_))
     {
         dropObject->SetType(EDropObjectType::COIN);
-        bWithAnimation_ = true;
+        withAnimation = true;
         sprite_animation_ = FSprite::EAnimation::ROTATE;
     }
 }
 
 void AI::SpawnObject()
 {
-    if(vec_inactive_objects_.size() > 0)
+    if(vecInactiveObjects.size() > 0)
     {
-        auto fileName = std::string{""};
-        auto size = 0;
+        std::string fileName = "";
+        int size = 0;
         
-        DropObjectTypeAssignment(vec_inactive_objects_[0].get());
+        DropObjectTypeAssignment(vecInactiveObjects[0].get());
         
         if (heart_counter_ > 0 || !bCanDropHeart_)
         {
-            while (vec_inactive_objects_[0]->GetType() == EDropObjectType::HEART)
+            while (vecInactiveObjects[0]->GetType() == EDropObjectType::HEART)
             {
-                rand_drop_object_type_value_ = GetNewDropTypeValue();
-                DropObjectTypeAssignment(vec_inactive_objects_[0].get());
+                randDropObjectTypeValue = GetNewDropTypeValue();
+                DropObjectTypeAssignment(vecInactiveObjects[0].get());
             }
         }
-        else if (vec_inactive_objects_[0]->GetType() == EDropObjectType::HEART)
+        else if (vecInactiveObjects[0]->GetType() == EDropObjectType::HEART)
         {
             bCanDropHeart_ = false;
             heart_counter_++;
         }
         
-        if(vec_inactive_objects_[0]->GetType() == EDropObjectType::HAZELNUT)
+        if(vecInactiveObjects[0]->GetType() == EDropObjectType::HAZELNUT)
         {
             fileName = DataHandler::TEXTURE_COLLECT_GAME_HAZELNUT;
             size = DataHandler::TEXTURE_COLLECT_GAME_HAZELNUT_SIZE;
         }
-        else if(vec_inactive_objects_[0]->GetType() == EDropObjectType::WASTE)
+        else if(vecInactiveObjects[0]->GetType() == EDropObjectType::WASTE)
         {
             fileName = DataHandler::TEXTURE_COLLECT_GAME_WASTE;
             size = DataHandler::TEXTURE_COLLECT_GAME_WASTE_SIZE;
         }
-        else if(vec_inactive_objects_[0]->GetType() == EDropObjectType::APPLE)
+        else if(vecInactiveObjects[0]->GetType() == EDropObjectType::APPLE)
         {
             fileName = DataHandler::TEXTURE_COLLECT_GAME_APPLE;
             size = DataHandler::TEXTURE_COLLECT_GAME_APPLE_SIZE;
         }
-        else if(vec_inactive_objects_[0]->GetType() == EDropObjectType::HEART)
+        else if(vecInactiveObjects[0]->GetType() == EDropObjectType::HEART)
         {
             fileName = DataHandler::TEXTURE_COLLECT_GAME_HEART;
             size = DataHandler::TEXTURE_COLLECT_GAME_HEART_SIZE;
         }
-        else if(vec_inactive_objects_[0]->GetType() == EDropObjectType::COIN)
+        else if(vecInactiveObjects[0]->GetType() == EDropObjectType::COIN)
         {
             fileName = DataHandler::TEXTURE_COLLECT_GAME_COIN;
             size = DataHandler::TEXTURE_COLLECT_GAME_COIN_SIZE;
         }
         
         // GET TEXTURE BY NAME!!!! DONT ADD IT AGAIN (COCOS CHECKS IT BUT STILL DONT DO IT)
-        vec_inactive_objects_[0]->GetSprite()->setTexture(Director::getInstance()->getTextureCache()->addImage(fileName));
+        vecInactiveObjects[0]->GetSprite()->setTexture(Director::getInstance()->getTextureCache()->addImage(fileName));
         Director::getInstance()->getTextureCache()->getTextureForKey(fileName);
-        vec_inactive_objects_[0]->GetSprite()->setTextureRect(Rect(0, 0, size, size));
+        vecInactiveObjects[0]->GetSprite()->setTextureRect(Rect(0, 0, size, size));
         
-        vec_inactive_objects_[0]->GetSprite()->UpdateAlphaTexture(FUtil::GenerateETC1AlphaString(fileName));
+        vecInactiveObjects[0]->GetSprite()->UpdateAlphaTexture(FUtil::GenerateETC1AlphaString(fileName));
         
-        vec_inactive_objects_[0]->SetActive(true);
+        vecInactiveObjects[0]->SetActive(true);
         
-        vec_inactive_objects_[0]->SetDropObjectSpeed(rand_drop_object_speed_value_);
-        vec_inactive_objects_[0]->GetSprite()->setPositionX(ai_pos_x_-30);
-        vec_inactive_objects_[0]->GetSprite()->setPositionY(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
+        vecInactiveObjects[0]->SetDropObjectSpeed(randDropObjectSpeedValue);
+        vecInactiveObjects[0]->GetSprite()->setPositionX(aiPosX-30);
+        vecInactiveObjects[0]->GetSprite()->setPositionY(DataHandler::COLLECT_GAME_SQUIRREL_POSY_START);
         
-        vec_inactive_objects_[0]->GetSprite()->Reset();
-        vec_inactive_objects_[0]->WithAnimation(bWithAnimation_,sprite_animation_);
+        vecInactiveObjects[0]->GetSprite()->Reset();
+        vecInactiveObjects[0]->WithAnimation(withAnimation,sprite_animation_);
         
-        vec_inactive_objects_[0]->GetSprite()->setOpacity(255);
-        vec_inactive_objects_[0]->GetSprite()->stopAllActions();
-        vec_inactive_objects_[0]->SetDead(false);
+        vecInactiveObjects[0]->GetSprite()->setOpacity(255);
+        vecInactiveObjects[0]->GetSprite()->stopAllActions();
+        vecInactiveObjects[0]->SetDead(false);
         
-        vec_drop_objects_.push_back(std::move(vec_inactive_objects_[0]));
-        vec_inactive_objects_.erase(vec_inactive_objects_.begin() + 0);
+        vecDropObjects.push_back(std::move(vecInactiveObjects[0]));
+        vecInactiveObjects.erase(vecInactiveObjects.begin() + 0);
     }
     else
     {
-        auto dropObject = std14::make_unique<AIDropObject>(scene_);//std::unique_ptr<AIDropObject>(new AIDropObject(scene_));
+        auto dropObject = std::unique_ptr<AIDropObject>(new AIDropObject(scene));
+        
         
         DropObjectTypeAssignment(dropObject.get());
         
@@ -272,7 +275,7 @@ void AI::SpawnObject()
         {
             while (dropObject->GetType() == EDropObjectType::HEART)
             {
-                rand_drop_object_type_value_ = GetNewDropTypeValue();
+                randDropObjectTypeValue = GetNewDropTypeValue();
                 DropObjectTypeAssignment(dropObject.get());
             }
         }
@@ -283,29 +286,31 @@ void AI::SpawnObject()
         }
         
         
-        dropObject->SetDropObjectSpeed(rand_drop_object_speed_value_);
+        
+        dropObject->SetDropObjectSpeed(randDropObjectSpeedValue);
         dropObject->CreateDropObject();
         
-        dropObject->WithAnimation(bWithAnimation_,sprite_animation_);
+        dropObject->WithAnimation(withAnimation,sprite_animation_);
         
-        dropObject->GetSprite()->setPositionX(ai_pos_x_-30);
+        dropObject->GetSprite()->setPositionX(aiPosX-30);
         
-        vec_drop_objects_.push_back(std::move(dropObject));
+        vecDropObjects.push_back(std::move(dropObject));
     }
 }
 
-void AI::GenearteNewDropTimer(int32_t dropObjectSpeedMin, int32_t dropObjectSpeedMax, int32_t dropIntervalMin, int32_t dropIntervalMax)
+void AI::GenearteNewDropTimer(int dropObjectSpeedMin,int dropObjectSpeedMax, int dropIntervalMin,int dropIntervalMax)
 {
-    rand_drop_wait_value_ms_ = rand() % dropIntervalMax + dropIntervalMin;
-    ai_prev_timer_ms_ = t_.GetCurrentTimeInMilliseconds();
+    randDropWaitValueMS = rand() % dropIntervalMax + dropIntervalMin;
+    aiPrevTimerMS = timer_.GetCurrentTimeInMilliseconds();
     
     //RAND DROP TYPE
-    rand_drop_object_type_value_ = rand() % GetMaxDropChance() + 1;
+    randDropObjectTypeValue = rand() % GetMaxDropChance() + 1;
     //RAND DROP SPEED FOR EACH DROP OBJECT
-    rand_drop_object_speed_value_ = rand() % dropObjectSpeedMax + dropObjectSpeedMin;
+    randDropObjectSpeedValue = rand() % dropObjectSpeedMax + dropObjectSpeedMin;
 }
 
-void AI::SetDropChance(int32_t c_hazelnut, int32_t c_waste, int32_t c_apple, int32_t c_heart, int32_t c_coin)
+
+void AI::SetDropChance(int c_hazelnut, int c_waste, int c_apple, int c_heart, int c_coin)
 {
     c_hazelnut_ = c_hazelnut;
     c_waste_ = c_waste;

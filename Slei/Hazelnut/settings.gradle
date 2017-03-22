@@ -1,0 +1,3 @@
+include ':proj.android'
+include ':cocos2d:cocos:platform:android:java'
+include ':proj.android:google-play-services_lib'

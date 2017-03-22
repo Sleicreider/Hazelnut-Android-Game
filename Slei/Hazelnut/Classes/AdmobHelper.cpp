@@ -11,6 +11,7 @@ GPLv3
 bool AdmobHelper::isAdShowing = true;
 bool AdmobHelper::isAdBottomShowing = true;
 bool AdmobHelper::isAdScreenShowing = true;
+bool AdmobHelper::wasTryShareCalled = true;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
@@ -79,7 +80,6 @@ void AdmobHelper::showAdBottom()
     cocos2d::JniMethodInfo t;
     if (cocos2d::JniHelper::getStaticMethodInfo(t, AppActivityClassName, "showAdBottom", "()V"))
     {
-
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
         isAdBottomShowing = true;
@@ -97,6 +97,20 @@ void AdmobHelper::showAdScreen()
         t.env->CallStaticVoidMethod(t.classID, t.methodID);
         t.env->DeleteLocalRef(t.classID);
         isAdScreenShowing = true;
+    }
+
+}
+
+void AdmobHelper::tryShareScore(int scoreToShare)
+{
+
+    cocos2d::JniMethodInfo t;
+    if (cocos2d::JniHelper::getStaticMethodInfo(t, AppActivityClassName, "tryShareScore", "(I)V"))
+    {
+
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, scoreToShare);
+        t.env->DeleteLocalRef(t.classID);
+		wasTryShareCalled = true;
     }
 
 }
@@ -147,6 +161,15 @@ void AdmobHelper::showAdScreen()
 {
     CCLOG("showAdScreen() called");
     isAdScreenShowing = true;
+    return; //nothing;
+
+}
+
+void AdmobHelper::tryShareScore(int scoreToShare)
+{
+
+    CCLOG("tryShareScore() called " + scoreToShare);
+	wasTryShareCalled = true;
     return; //nothing;
 
 }

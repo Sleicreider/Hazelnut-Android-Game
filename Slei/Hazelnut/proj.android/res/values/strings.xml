@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hazelnut</string>
+    <string name="facebook_app_id">1045290138857076</string>
 </resources>

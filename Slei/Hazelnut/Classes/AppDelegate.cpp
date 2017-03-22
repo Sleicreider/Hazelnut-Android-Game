@@ -168,7 +168,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     //director->setAnimationInterval(1.0 / 60);
@@ -186,14 +186,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
     Loader loader;
     loader.LoadGame();
-#pragma message WARN("use loader and not auto scene... just return scene in the loadmenu()")
 //    loader.LoadMenu();
     auto scene = MenuScene::createMenuScene();
     
     auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
     // audio initialization/preloads
     
-#pragma message WARN("sound should be loaded in loader")
     audio->preloadEffect(DataHandler::SOUND_BUTTON_1);
     
     // set the background music and continuously play it.
@@ -213,12 +211,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	}
 
     AchievementManager::GetInstance()->LoadAchievmentsFromFile();
-//    AchievementManager::GetInstance()->GetAchievementContainer()[EAchievements::NO_HAZ_MISSED_L1]
-//    int a;
-//    FileOperation::GetInt("hearts",a);
-//    std::cout << " a = " << a << std::endl;
-
-#pragma message WARN("USE LOADER")
 
 
     // run
@@ -230,15 +222,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
-    
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
-    
-    // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

@@ -78,7 +78,7 @@ private:
     //Scene* currentScene;
 };
 
-inline void Loader::AddFile(std::vector<std::string>& container, const std::string& file_name)
+FORCEINLINE void Loader::AddFile(std::vector<std::string>& container, const std::string& file_name)
 {
     container.push_back(file_name);
 }

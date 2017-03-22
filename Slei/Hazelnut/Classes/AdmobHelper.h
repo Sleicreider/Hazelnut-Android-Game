@@ -21,6 +21,8 @@ public:
 	static void hideAdScreen();
     static void showAdScreen();
     static bool isAdScreenShowing;
+	static void tryShareScore(int scoreToShare);
+	static bool wasTryShareCalled;
 
 };
 

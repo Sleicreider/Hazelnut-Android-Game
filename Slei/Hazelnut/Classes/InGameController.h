@@ -11,12 +11,10 @@
 
 #include "FGeneral.h"
 
-#include <cocos2d.h>
 #include <stdlib.h>
 #include <CocosGUI.h>
 
 #include "FSprite.h"
-
 
 #include "FrameworkScene.h"
 
@@ -25,8 +23,6 @@
 #include "LevelSystem.h"
 #include "TextFieldExtended.h"
 #include "FrameworkButton.h"
-
-#include <unordered_map>
 
 #include "FStateMachine.h"
 #include "GamePausePopup.h"
@@ -37,11 +33,6 @@ USING_NS_CC;
 
 class InGameScene;
 
-//using state_func_ptr = std::add_pointer<void()>::type;
-//typedef  int (Fred::*FredMemFn)(char x, float y);  // Please do this!
-
-
-
 class InGameController
 {
     typedef void (InGameController::*state_func_ptr)(float delta);
@@ -50,19 +41,74 @@ public:
     InGameController(InGameScene* scene);
     ~InGameController();
     
+    
+    //============================================================================================================
+    // General
     void OnInit();
     void OnEnter();
     
     void Tick(float delta);
     
-    Vector<Sprite*>& GetSceneObjects();
-    
     bool GetNewObjectFound();
     void SetNewObjectFound(bool new_object_found);
-
+    
+    Vector<Sprite*>& GetSceneObjects();
     Sprite* GetNewObject();
     
 private:
+    void NotifyHappen();
+    void UpdateTextAndLives();
+    void UpdateLiveBar();
+    void GenerateLiveBar();
+    
+    //============================================================================================================
+    //Timeframe functionptr
+    void MoveOutLevelUp();
+    void LevelUpEnd();
+    
+    //======================================================
+    // Clouds
+    void CloudMovement();
+    
+    //======================================================
+    // Birds
+    void BirdMovement();
+    
+    
+    //============================================================================================================
+    // States
+private:
+    void OnStateRunning(float delta);
+    void OnStateEnter(float delta);
+    void OnStatePaused(float delta);
+    void OnStateGameOver(float delta);
+    void OnStateLevelUp(float delta);
+    void OnStatePopupMenu(float delta);
+    void OnStateExit(float delta);
+    void OnStateIdle(float delta); //intentionally left empty to do nothing
+    
+    //============================================================================================================
+    // General variables
+private:
+    Vector<Sprite*> scene_objects_;
+    std::vector<Sprite*> live_bar_player_lives_;
+
+    LevelSystem lvl_system_;
+    
+    CollisionBox basket_collision_box_;
+    
+    FStateMachine f;
+    FStateMachine state_machine_;
+    
+    FTimeframe timeframe_;
+    FTimeframe timeframe_animation_;
+    FTimeframe timeframe_animation_2_;
+    FTimeframe timeframe_state_;
+    
+    
+    AI ai_;
+
+    
     FSprite* squirrel_;
 	FSprite* background_;
 	FSprite* branch_;
@@ -75,7 +121,6 @@ private:
     FSprite* scene_object_;
     FSprite* basket_;
     
-    FStateMachine f;
     
     GamePausePopup* popup_pause_;
     
@@ -85,18 +130,15 @@ private:
     FrameworkButton* button_start_game_;
 	FrameworkButton* buttonRetry;
 	FrameworkButton* buttonRegister;
+	FrameworkButton* buttonShareScore;
 	TextFieldExtended* tfeUsername;
-    
-//    ParticleSystemQuad* psq;
     
     Label* label_level_up_;
     Label* label_player_score_;
 
-	std::vector<Sprite*> live_bar_player_lives_;
     
     InGameScene* scene_;
     
-    LevelSystem lvl_system_;
     
     int squirrel_speed_;
 	int hazelnut_speed_;
@@ -111,62 +153,18 @@ private:
 	int drop_c_coin_;
     int level_score_multiplier_;
     
-    bool button_pressed_;
-    long player_score_;
-    long prev_player_score_;
-    int player_lives_;
-    int prev_player_lives_;
+    bool    button_pressed_;
+    long    player_score_;
+    long    prev_player_score_;
+    int     player_lives_;
+    int     prev_player_lives_;
     
     EInGameState in_game_state_;
     
-    CollisionBox basket_collision_box_;
-
-    Vector<Sprite*> scene_objects_;
+    int squirrel_pos_x_;
     
-    int32_t squirrel_pos_x_;
-    
-    AI ai_;
-    
-    FStateMachine state_machine_;
-	FTimeframe timeframe_;
-    FTimeframe timeframe_animation_;
-    FTimeframe timeframe_animation_2_;
-	FTimeframe timeframe_state_;
-
-private:
-    
-    void NotifyHappen();
-//    FStateMachine<InGameController> state_machine_;
-
-    void UpdateTextAndLives();
-	void UpdateLiveBar();
-	void GenerateLiveBar();
-    
-    std::unordered_map<std::string,state_func_ptr> state_map_;
-    //std::string current_state_;
-    std::string prev_state_;
-
-    
-    void RunCurrentState();
-    void RegisterState(const std::string& id, state_func_ptr func);
-
-	//======================================================
-	//Timeframe functionptr
-
-	void MoveOutLevelUp();
-	void LevelUpEnd();
-    
-    
-    //======================================================
-    // Clouds
-    
-    void CloudMovement();
-
-	//======================================================
-	// Birds
-
-	void BirdMovement();
-    
+    //============================================================================================================
+    // States
 private:
     const std::string SQUIRREL;
     const std::string BASKET;
@@ -180,21 +178,10 @@ private:
     const std::string STATE_POPUP_MENU;
     const std::string STATE_EXIT;
     const std::string STATE_IDLE;
-    
-private:
-    void OnStateRunning(float delta);
-    void OnStateEnter(float delta);
-    void OnStatePaused(float delta);
-    void OnStateGameOver(float delta);
-    void OnStateLevelUp(float delta);
-    void OnStatePopupMenu(float delta);
-    void OnStateExit(float delta);
-    void OnStateIdle(float delta); //intentionally left empty to do nothing
 
-    
 };
 
-inline Vector<Sprite*>& InGameController::GetSceneObjects()
+FORCEINLINE Vector<Sprite*>& InGameController::GetSceneObjects()
 {
     return scene_objects_;
 }

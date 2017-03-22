@@ -1,4 +1,4 @@
- //
+  //
 //  AchievementManager.cpp
 //  Hazelnut
 //
@@ -40,8 +40,6 @@ AchievementManager::AchievementManager()
     achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_4].str = "OVERALL_COINS_COLLECTED_STAGE_4";
     achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str = "ALL_ACHIEVEMENTS_UNLOCKED";
 
-    achievment_container_[EAchievements::COINS_COLLECTED_5].str_curr = "COINS_COLLECTED_5.curr";
-    achievment_container_[EAchievements::COINS_COLLECTED_10].str_curr = "COINS_COLLECTED_10.curr";
     achievment_container_[EAchievements::OVERALL_GAMES_STARTED_100].str_curr = "OVERALL_GAMES_STARTED_100.curr";
     achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_1].str_curr = "OVERALL_COINS_COLLECTED_STAGE_1.curr";
     achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_2].str_curr = "OVERALL_COINS_COLLECTED_STAGE_2.curr";
@@ -49,7 +47,7 @@ AchievementManager::AchievementManager()
     achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_4].str_curr = "OVERALL_COINS_COLLECTED_STAGE_4.curr";
     achievment_container_[EAchievements::ALL_ACHIEVEMENTS_UNLOCKED].str_curr = "ALL_ACHIEVEMENTS_UNLOCKED.curr";
 
-    ui_queue_.reserve(5);
+//    ui_queue_.reserve(5);
 }
 
 void AchievementManager::LoadAchievmentsFromFile()
@@ -147,7 +145,7 @@ void AchievementManager::UnlockAchievement(EAchievements type)
     }
     
     
-    ui_queue_.push_back(type);
+//    ui_queue_.push_back(type);
     
     if(ui_notification_ != nullptr)
     {
@@ -171,12 +169,12 @@ bool AchievementManager::IsAchievementUnlocked(EAchievements type)
 
 void AchievementManager::NotificationEnd()
 {
-    ui_queue_.erase(ui_queue_.begin());
+//    ui_queue_.erase(ui_queue_.begin());
     
-    if(ui_queue_.size() > 0)
-    {
-        ui_notification_->SetText("next text");
-        ui_notification_->Show(this, &AchievementManager::NotificationEnd);
-    }
+//    if(ui_queue_.size() > 0)
+//    {
+//        ui_notification_->SetText("next text");
+//        ui_notification_->Show(this, &AchievementManager::NotificationEnd);
+//    }
 }
 

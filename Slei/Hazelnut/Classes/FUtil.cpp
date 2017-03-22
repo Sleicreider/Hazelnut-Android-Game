@@ -35,3 +35,22 @@ void FUtil::NodeRecursion(Node* node, bool active_and_visible)
         NodeRecursion(children.at(i), active_and_visible);
     }
 }
+
+// trim from start
+std::string FUtil::ltrim(std::string s) {
+	s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+		std::not1(std::ptr_fun<int, int>(std::isspace))));
+	return s;
+}
+
+// trim from end
+std::string FUtil::rtrim(std::string s) {
+	s.erase(std::find_if(s.rbegin(), s.rend(),
+		std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+	return s;
+}
+
+// trim from both ends
+std::string FUtil::trim(std::string s) {
+	return FUtil::ltrim(rtrim(s));
+}

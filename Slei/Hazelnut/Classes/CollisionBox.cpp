@@ -10,16 +10,14 @@
 
 CollisionBox::CollisionBox()
 {
-    
 }
 
 CollisionBox::~CollisionBox()
 {
-    
 }
 
 #pragma message WARN("CHECK IF DROPOBJECT IS COLLIEDING WITH PLAYER OBJECT SO WE DONT NEED THE FOR LOOP")
-void CollisionBox::AttatchTo(Sprite* sprite,AIDropObjectContainer& dropObjects,AIDropObjectContainer& inactiveDropObjects)
+void CollisionBox::AttatchTo(Sprite* sprite,std::vector<std::unique_ptr<AIDropObject>>& dropObjects,std::vector<std::unique_ptr<AIDropObject>>& inactiveDropObjects)
 {
     this->vecDropObjects = &dropObjects;
     this->inactiveDropObjects = &inactiveDropObjects;
@@ -51,12 +49,7 @@ bool CollisionBox::OnBeginOverlap()
                 }
             }
         }
-        //        else if(vecDropObjects->at(i).GetSprite()->getPositionY() <= 500)
-        //        {
-        //            collidedObject = &vecDropObjects->at(i);
-        //            colliedIndex = i;
-        //            return true;
-        //        }
+
 #else
         if (!outOfScreenRangeBottom(vecDropObjects->at(i).GetSprite()) && catchAble(vecDropObjects->at(i).GetSprite(), sprite, 25, 5) && collision(vecDropObjects->at(i).GetSprite(), sprite, 0, 15))
         {

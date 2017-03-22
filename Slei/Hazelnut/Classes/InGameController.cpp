@@ -134,10 +134,6 @@ InGameController::InGameController(InGameScene* scene)
     basket_->setAnchorPoint(Vec2(0.5,0.5));
     basket_->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
 
-    //FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BASKET
-      //                        , FUtil::GenerateETC1AlphaString(DataHandler::TEXTURE_COLLECT_GAME_BASKET)
-       //                       ,Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::COLLECT_GAME_BASKET_POSY_START));
-    //basket_->setAnchorPoint(Vec2(0.5,0.5));
     scene_->addChild(basket_);
     
     background_->setZOrder(0);
@@ -146,10 +142,8 @@ InGameController::InGameController(InGameScene* scene)
     
     
     
-    
     //Default set state RUNNING
     state_machine_.SetState(STATE_RUNNING);
-    prev_state_ = STATE_IDLE;
     
     
     lvl_system_.LevelControl(player_score_);
@@ -164,7 +158,9 @@ InGameController::InGameController(InGameScene* scene)
     
     buttonRetry = NULL;
     buttonRegister = NULL;
+	buttonShareScore = NULL;
     tfeUsername = NULL;
+
     
     GenerateLiveBar();
     UpdateLiveBar();
@@ -250,6 +246,11 @@ void InGameController::OnEnter()
 
 void InGameController::OnStateRunning(float delta)
 {
+	if (AdmobHelper::wasTryShareCalled) {
+		AdmobHelper::wasTryShareCalled = false;
+	}
+	
+
     if (timeframe_.IsRunning())
     {
         return;
@@ -388,7 +389,6 @@ void InGameController::OnStateRunning(float delta)
 
                 scene_->subject_.Notify(EEvent::EVENT_LEVEL_UP);
                 state_machine_.SetState(STATE_LEVEL_UP);
-                prev_state_ = STATE_RUNNING;
             }
         }
     }
@@ -417,42 +417,48 @@ void InGameController::OnStateRunning(float delta)
         //        scene_->CreateText("gameover", "GAME OVER", DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 100,100,"Qarmic sans Abridged.ttf",Color3B(100,100,100));
         Label* text_game_over = Label::createWithTTF("GAME OVER", DataHandler::FONT_QUARMIC_SANS, 100);
         text_game_over->setColor(Color3B(100,100,100));
-        text_game_over->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 100));
+        text_game_over->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2, DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 150));
         scene_->addChild(text_game_over);
         
         
         //        scene_->CreateText("gameover_highscore", "Score: " + std::to_string(player_score_), DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 - 20, 80, "Qarmic sans Abridged.ttf", Color3B(255,255,255));
         
         Label* text_end_score = Label::createWithTTF("Score: " + std::to_string(player_score_), DataHandler::FONT_QUARMIC_SANS, 80);
-        text_end_score->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 + 10));
+        text_end_score->setPosition(Vec2(DataHandler::GAME_RESOLUTION_WIDTH/2, DataHandler::GAME_RESOLUTION_HEIGHT/2 + 60));
         text_end_score->setColor(Color3B(255,255,255));
         scene_->addChild(text_end_score);
         
         FSprite* buttonSpriteRegister = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_REGISTER);
         buttonRegister = FrameworkButton::create(scene_, 700, 100, buttonSpriteRegister);
         buttonRegister->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-        buttonRegister->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 250);
+        buttonRegister->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 175);
         buttonRegister->SetZOrder(2);
         scene_->addChild(buttonRegister);
         
         tfeUsername = TextFieldExtended::create("Input username", DataHandler::FONT_QUARMIC_SANS
                                                 , 46
                                                 , Vec2(scene_->getContentSize().width / 2.0f
-                                                       , buttonRegister->GetTop() + 52)
+                                                       , buttonRegister->GetTop() + 90)
                                                 , 1.0);
         scene_->addChild(tfeUsername, 1);
+
+		FSprite* buttonSpriteShareScore = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_SHARE_SCORE);
+		buttonShareScore = FrameworkButton::create(scene_, 700, 100, buttonSpriteShareScore);
+		buttonShareScore->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
+		buttonShareScore->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 300);
+		buttonShareScore->SetZOrder(2);
+		scene_->addChild(buttonShareScore);
         
         FSprite* buttonSpriteRetry = FSprite::create(DataHandler::TEXTURE_COLLECT_GAME_BUTTON_RETRY);
         buttonRetry = FrameworkButton::create(scene_, 700, 120, buttonSpriteRetry);
         buttonRetry->SetPositionX(DataHandler::GAME_RESOLUTION_WIDTH / 2);
-        buttonRetry->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 420);
+        buttonRetry->SetPositionY(DataHandler::GAME_RESOLUTION_HEIGHT / 2 - 425);
         buttonRetry->SetZOrder(2);
         scene_->addChild(buttonRetry);
         
         scene_->subject_.Notify(EEvent::EVENT_GAME_OVER);
         state_machine_.SetState(STATE_GAME_OVER);
         
-        prev_state_ = STATE_RUNNING;
 #endif
     }
     
@@ -477,6 +483,7 @@ void InGameController::OnStateGameOver(float delta)
     
 #pragma message WARN("DELAY NOT NEEDED?")
     
+	std::string strUsername = FUtil::trim(tfeUsername->GetTextFieldValue());
     if (buttonRetry != NULL && buttonRetry->WasPressed())
     {
         DataHandler::game_audio->playEffect(DataHandler::SOUND_BUTTON_1);
@@ -486,11 +493,10 @@ void InGameController::OnStateGameOver(float delta)
         scene_->ReloadGame();
         
         state_machine_.SetState("");
-        prev_state_ = STATE_GAME_OVER;
         
         AdmobHelper::hideAdScreen();
     }
-    else if (buttonRegister != NULL && buttonRegister->WasPressed())
+    else if (!strUsername.empty() && FUtil::containsNoSpecialCharacters(strUsername) && buttonRegister != NULL && buttonRegister->WasPressed())
     {
         DataHandler::game_audio->playEffect(DataHandler::SOUND_BUTTON_1);
         
@@ -511,12 +517,13 @@ void InGameController::OnStateGameOver(float delta)
         DataHandler::game_audio->stopBackgroundMusic();
         
         state_machine_.SetState(STATE_IDLE);
-        prev_state_ = STATE_GAME_OVER;
         
         AdmobHelper::hideAdScreen();
     }
-    
-    //    prev_state_ = STATE_GAME_OVER;
+	else if (buttonShareScore != NULL && buttonShareScore->WasPressed())
+	{
+		AdmobHelper::tryShareScore(player_score_);
+	}
 }
 
 void InGameController::OnStateLevelUp(float delta)
@@ -524,11 +531,6 @@ void InGameController::OnStateLevelUp(float delta)
     if(timeframe_animation_.WasRunning())
     {
         timeframe_animation_2_.Start(milliseconds(2000));
-    }
-    else if(timeframe_animation_2_.WasRunning())
-    {
-        //state_machine_.SetState(STATE_RUNNING);
-        //scene_->SetActiveAndVisible(label_level_up_,false);
     }
 }
 
@@ -566,8 +568,6 @@ void InGameController::OnStateExit(float delta)
     DataHandler::game_audio->unloadEffect(DataHandler::SOUND_PAPER_WAD);
     
     state_machine_.SetState(STATE_IDLE);
-    prev_state_ = STATE_EXIT;
-    
 }
 
 void InGameController::Tick(float delta)

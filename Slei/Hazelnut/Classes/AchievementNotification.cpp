@@ -18,7 +18,6 @@ AchievementNotification::~AchievementNotification()
 {
 }
 
-
 AchievementNotification* AchievementNotification::create(const std::string& text)
 {
     AchievementNotification* ret = new (std::nothrow) AchievementNotification();
@@ -35,9 +34,7 @@ AchievementNotification* AchievementNotification::create(const std::string& text
 }
 AchievementNotification* AchievementNotification::create(const std::string& text, const std::string& reward_sprite_filename)
 {
-    
     AchievementNotification* ret = new (std::nothrow) AchievementNotification();
-    
     
     if (ret && ret->InitWithText(text))
     {
@@ -63,25 +60,16 @@ bool AchievementNotification::InitWithText(const std::string& text)
     if(Node::init())
     {
         label_archievment_ = Label::createWithTTF(text, DataHandler::FONT_QUARMIC_SANS, 50);
-        label_archievment_->setColor(Color3B::RED);
-        label_archievment_->setZOrder(1);
-//        label_archievment_->setCascadeColorEnabled(true);
+        label_archievment_->setColor(Color3B::GREEN);
+		label_archievment_->setAnchorPoint(Vec2(0.5, 0.5));
+		label_archievment_->setHorizontalAlignment(TextHAlignment::CENTER);
+		int32_t desired_x = label_archievment_->getContentSize().width;
+		int32_t desired_y = label_archievment_->getContentSize().height;
+		label_archievment_->setPosition(DataHandler::GAME_RESOLUTION_WIDTH - desired_x - 100, -DataHandler::GAME_RESOLUTION_HEIGHT + 100);
+        label_archievment_->setZOrder(10);
         addChild(label_archievment_);
-        
-        sprite_bg_ = FSprite::create(DataHandler::TEXTURE_ACHIEVMENTS_BG);
-        sprite_bg_->setZOrder(0);
-        sprite_bg_->setOpacity(255/2);
-        int32_t x = sprite_bg_->getTexture()->getContentSize().width;
-        int32_t y = sprite_bg_->getTexture()->getContentSize().height;
-        int32_t desired_x = label_archievment_->getContentSize().width;
-        int32_t desired_y = label_archievment_->getContentSize().height;
-        
-        sprite_bg_->setScaleX(desired_x/(float)x);
-        sprite_bg_->setScaleY(desired_y/(float)y);
+
         setContentSize(Size(desired_x,desired_y));
-//        sprite_bg_->setCascadeColorEnabled(true);
-        addChild(sprite_bg_);
-        
         setOpacity(0);
         
         setCascadeOpacityEnabled(true);
@@ -93,8 +81,6 @@ bool AchievementNotification::InitWithText(const std::string& text)
     }
     return false;
 }
-
-
 
 void AchievementNotification::update(float delta)
 {

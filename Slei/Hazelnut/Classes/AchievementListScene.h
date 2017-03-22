@@ -41,7 +41,7 @@ private:
 	Loader loader;
 
 	FrameworkButton* buttonExit;
-	FSprite* highscore_;
+	FSprite* scrollerbackground_;
     FSprite* background_;
 
 	std::vector<GameUser> userData;

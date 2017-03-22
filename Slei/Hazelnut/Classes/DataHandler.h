@@ -98,230 +98,230 @@ namespace DataHandler
     /** LEVEL SETTINGS **/
 #ifndef PERFORMANCETEST
     //LEVEL 1
-	static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MAX = 1;
-	static const float_t COLLECT_GAME_LEVEL_1_AI_SPEED = 3;
-	static const float_t COLLECT_GAME_LEVEL_1_HAZELNUT_SPEED = 3;
-	static const int32_t COLLECT_GAME_LEVEL_1_DROP_INTERVAL_MIN = 900;
-	static const int32_t COLLECT_GAME_LEVEL_1_DROP_INTERVAL_MAX = 1400;
-	static const int32_t COLLECT_GAME_LEVEL_1_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_1_DROP_SPEED_MAX = 3;
-	static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_1_HAZELNUT_DROP_CHANCE = 55;
-	static const int32_t COLLECT_GAME_LEVEL_1_WASTE_DROP_CHANCE = 45;
-	static const int32_t COLLECT_GAME_LEVEL_1_APPLE_DROP_CHANCE = 0;
-	static const int32_t COLLECT_GAME_LEVEL_1_HEART_DROP_CHANCE = 0;
-	static const int32_t COLLECT_GAME_LEVEL_1_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MAX = 7;
+    static const float_t COLLECT_GAME_LEVEL_1_AI_SPEED = 3;
+    static const float_t COLLECT_GAME_LEVEL_1_HAZELNUT_SPEED = 3;
+    static const int32_t COLLECT_GAME_LEVEL_1_DROP_INTERVAL_MIN = 900;
+    static const int32_t COLLECT_GAME_LEVEL_1_DROP_INTERVAL_MAX = 1400;
+    static const int32_t COLLECT_GAME_LEVEL_1_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_1_DROP_SPEED_MAX = 3;
+    static const int32_t COLLECT_GAME_LEVEL_1_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_1_HAZELNUT_DROP_CHANCE = 55;
+    static const int32_t COLLECT_GAME_LEVEL_1_WASTE_DROP_CHANCE = 45;
+    static const int32_t COLLECT_GAME_LEVEL_1_APPLE_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_1_HEART_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_1_COIN_DROP_CHANCE = 0;
     
     //LEVEL 2
-	static const int32_t COLLECT_GAME_LEVEL_2_SCORE_MAX = 20;
-	static const float_t COLLECT_GAME_LEVEL_2_AI_SPEED = 4;
-	static const float_t COLLECT_GAME_LEVEL_2_HAZELNUT_SPEED = 3;
-	static const int32_t COLLECT_GAME_LEVEL_2_DROP_INTERVAL_MIN = 800;
-	static const int32_t COLLECT_GAME_LEVEL_2_DROP_INTERVAL_MAX = 1300;
-	static const int32_t COLLECT_GAME_LEVEL_2_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_2_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_2_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_2_HAZELNUT_DROP_CHANCE = 45;
-	static const int32_t COLLECT_GAME_LEVEL_2_WASTE_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_2_APPLE_DROP_CHANCE = 0;
-	static const int32_t COLLECT_GAME_LEVEL_2_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_2_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_2_SCORE_MAX = 20;
+    static const float_t COLLECT_GAME_LEVEL_2_AI_SPEED = 4;
+    static const float_t COLLECT_GAME_LEVEL_2_HAZELNUT_SPEED = 3;
+    static const int32_t COLLECT_GAME_LEVEL_2_DROP_INTERVAL_MIN = 800;
+    static const int32_t COLLECT_GAME_LEVEL_2_DROP_INTERVAL_MAX = 1300;
+    static const int32_t COLLECT_GAME_LEVEL_2_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_2_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_2_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_2_HAZELNUT_DROP_CHANCE = 45;
+    static const int32_t COLLECT_GAME_LEVEL_2_WASTE_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_2_APPLE_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_2_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_2_COIN_DROP_CHANCE = 0;
     
     //LEVEL 3
-	static const int32_t COLLECT_GAME_LEVEL_3_SCORE_MAX = 32;
-	static const float_t COLLECT_GAME_LEVEL_3_AI_SPEED = 5;
-	static const float_t COLLECT_GAME_LEVEL_3_HAZELNUT_SPEED = 3;
-	static const int32_t COLLECT_GAME_LEVEL_3_DROP_INTERVAL_MIN = 700;
-	static const int32_t COLLECT_GAME_LEVEL_3_DROP_INTERVAL_MAX = 1200;
-	static const int32_t COLLECT_GAME_LEVEL_3_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_3_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_3_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_3_HAZELNUT_DROP_CHANCE = 45;
-	static const int32_t COLLECT_GAME_LEVEL_3_WASTE_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_3_APPLE_DROP_CHANCE = 0;
-	static const int32_t COLLECT_GAME_LEVEL_3_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_3_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_3_SCORE_MAX = 32;
+    static const float_t COLLECT_GAME_LEVEL_3_AI_SPEED = 5;
+    static const float_t COLLECT_GAME_LEVEL_3_HAZELNUT_SPEED = 3;
+    static const int32_t COLLECT_GAME_LEVEL_3_DROP_INTERVAL_MIN = 700;
+    static const int32_t COLLECT_GAME_LEVEL_3_DROP_INTERVAL_MAX = 1200;
+    static const int32_t COLLECT_GAME_LEVEL_3_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_3_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_3_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_3_HAZELNUT_DROP_CHANCE = 45;
+    static const int32_t COLLECT_GAME_LEVEL_3_WASTE_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_3_APPLE_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_3_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_3_COIN_DROP_CHANCE = 0;
     
     //LEVEL 4
-	static const int32_t COLLECT_GAME_LEVEL_4_SCORE_MAX = 46;
-	static const float_t COLLECT_GAME_LEVEL_4_AI_SPEED = 6;
-	static const float_t COLLECT_GAME_LEVEL_4_HAZELNUT_SPEED = 3;
-	static const int32_t COLLECT_GAME_LEVEL_4_DROP_INTERVAL_MIN = 600;
-	static const int32_t COLLECT_GAME_LEVEL_4_DROP_INTERVAL_MAX = 1100;
-	static const int32_t COLLECT_GAME_LEVEL_4_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_4_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_4_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_4_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_4_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_4_APPLE_DROP_CHANCE = 15;
-	static const int32_t COLLECT_GAME_LEVEL_4_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_4_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_4_SCORE_MAX = 46;
+    static const float_t COLLECT_GAME_LEVEL_4_AI_SPEED = 6;
+    static const float_t COLLECT_GAME_LEVEL_4_HAZELNUT_SPEED = 3;
+    static const int32_t COLLECT_GAME_LEVEL_4_DROP_INTERVAL_MIN = 600;
+    static const int32_t COLLECT_GAME_LEVEL_4_DROP_INTERVAL_MAX = 1100;
+    static const int32_t COLLECT_GAME_LEVEL_4_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_4_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_4_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_4_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_4_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_4_APPLE_DROP_CHANCE = 15;
+    static const int32_t COLLECT_GAME_LEVEL_4_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_4_COIN_DROP_CHANCE = 0;
     
     //LEVEL 5
-	static const int32_t COLLECT_GAME_LEVEL_5_SCORE_MAX = 64;
-	static const float_t COLLECT_GAME_LEVEL_5_AI_SPEED = 7;
-	static const float_t COLLECT_GAME_LEVEL_5_HAZELNUT_SPEED = 3;
-	static const int32_t COLLECT_GAME_LEVEL_5_DROP_INTERVAL_MIN = 500;
-	static const int32_t COLLECT_GAME_LEVEL_5_DROP_INTERVAL_MAX = 1000;
-	static const int32_t COLLECT_GAME_LEVEL_5_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_5_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_5_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_5_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_5_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_5_APPLE_DROP_CHANCE = 15;
-	static const int32_t COLLECT_GAME_LEVEL_5_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_5_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_5_SCORE_MAX = 64;
+    static const float_t COLLECT_GAME_LEVEL_5_AI_SPEED = 7;
+    static const float_t COLLECT_GAME_LEVEL_5_HAZELNUT_SPEED = 3;
+    static const int32_t COLLECT_GAME_LEVEL_5_DROP_INTERVAL_MIN = 500;
+    static const int32_t COLLECT_GAME_LEVEL_5_DROP_INTERVAL_MAX = 1000;
+    static const int32_t COLLECT_GAME_LEVEL_5_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_5_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_5_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_5_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_5_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_5_APPLE_DROP_CHANCE = 15;
+    static const int32_t COLLECT_GAME_LEVEL_5_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_5_COIN_DROP_CHANCE = 0;
     
     
     //LEVEL 6
-	static const int32_t COLLECT_GAME_LEVEL_6_SCORE_MAX = 86;
-	static const float_t COLLECT_GAME_LEVEL_6_AI_SPEED = 8;
-	static const float_t COLLECT_GAME_LEVEL_6_HAZELNUT_SPEED = 4;
-	static const int32_t COLLECT_GAME_LEVEL_6_DROP_INTERVAL_MIN = 500;
-	static const int32_t COLLECT_GAME_LEVEL_6_DROP_INTERVAL_MAX = 900;
-	static const int32_t COLLECT_GAME_LEVEL_6_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_6_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_6_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_6_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_6_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_6_APPLE_DROP_CHANCE = 15;
-	static const int32_t COLLECT_GAME_LEVEL_6_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_6_COIN_DROP_CHANCE = 0;
+    static const int32_t COLLECT_GAME_LEVEL_6_SCORE_MAX = 86;
+    static const float_t COLLECT_GAME_LEVEL_6_AI_SPEED = 8;
+    static const float_t COLLECT_GAME_LEVEL_6_HAZELNUT_SPEED = 4;
+    static const int32_t COLLECT_GAME_LEVEL_6_DROP_INTERVAL_MIN = 500;
+    static const int32_t COLLECT_GAME_LEVEL_6_DROP_INTERVAL_MAX = 900;
+    static const int32_t COLLECT_GAME_LEVEL_6_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_6_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_6_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_6_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_6_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_6_APPLE_DROP_CHANCE = 15;
+    static const int32_t COLLECT_GAME_LEVEL_6_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_6_COIN_DROP_CHANCE = 0;
     
     //LEVEL 7
-	static const int32_t COLLECT_GAME_LEVEL_7_SCORE_MAX = 124;
-	static const float_t COLLECT_GAME_LEVEL_7_AI_SPEED = 9;
-	static const float_t COLLECT_GAME_LEVEL_7_HAZELNUT_SPEED = 4;
-	static const int32_t COLLECT_GAME_LEVEL_7_DROP_INTERVAL_MIN = 400;
-	static const int32_t COLLECT_GAME_LEVEL_7_DROP_INTERVAL_MAX = 800;
-	static const int32_t COLLECT_GAME_LEVEL_7_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_7_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_7_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_7_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_7_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_7_APPLE_DROP_CHANCE = 15;
-	static const int32_t COLLECT_GAME_LEVEL_7_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_7_COIN_DROP_CHANCE = 0;
-   
+    static const int32_t COLLECT_GAME_LEVEL_7_SCORE_MAX = 124;
+    static const float_t COLLECT_GAME_LEVEL_7_AI_SPEED = 9;
+    static const float_t COLLECT_GAME_LEVEL_7_HAZELNUT_SPEED = 4;
+    static const int32_t COLLECT_GAME_LEVEL_7_DROP_INTERVAL_MIN = 400;
+    static const int32_t COLLECT_GAME_LEVEL_7_DROP_INTERVAL_MAX = 800;
+    static const int32_t COLLECT_GAME_LEVEL_7_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_7_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_7_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_7_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_7_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_7_APPLE_DROP_CHANCE = 15;
+    static const int32_t COLLECT_GAME_LEVEL_7_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_7_COIN_DROP_CHANCE = 0;
+    
     //LEVEL 8
-	static const int32_t COLLECT_GAME_LEVEL_8_SCORE_MAX = 166;
-	static const float_t COLLECT_GAME_LEVEL_8_AI_SPEED = 10;
-	static const float_t COLLECT_GAME_LEVEL_8_HAZELNUT_SPEED = 4;
-	static const int32_t COLLECT_GAME_LEVEL_8_DROP_INTERVAL_MIN = 300;
-	static const int32_t COLLECT_GAME_LEVEL_8_DROP_INTERVAL_MAX = 700;
-	static const int32_t COLLECT_GAME_LEVEL_8_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_8_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_8_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_8_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_8_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_8_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_8_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_8_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_8_SCORE_MAX = 166;
+    static const float_t COLLECT_GAME_LEVEL_8_AI_SPEED = 10;
+    static const float_t COLLECT_GAME_LEVEL_8_HAZELNUT_SPEED = 4;
+    static const int32_t COLLECT_GAME_LEVEL_8_DROP_INTERVAL_MIN = 300;
+    static const int32_t COLLECT_GAME_LEVEL_8_DROP_INTERVAL_MAX = 700;
+    static const int32_t COLLECT_GAME_LEVEL_8_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_8_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_8_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_8_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_8_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_8_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_8_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_8_COIN_DROP_CHANCE = 3;
     
     //LEVEL 9
-	static const int32_t COLLECT_GAME_LEVEL_9_SCORE_MAX = 214;
-	static const float_t COLLECT_GAME_LEVEL_9_AI_SPEED = 11;
-	static const float_t COLLECT_GAME_LEVEL_9_HAZELNUT_SPEED = 4;
-	static const int32_t COLLECT_GAME_LEVEL_9_DROP_INTERVAL_MIN = 200;
-	static const int32_t COLLECT_GAME_LEVEL_9_DROP_INTERVAL_MAX = 600;
-	static const int32_t COLLECT_GAME_LEVEL_9_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_9_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_9_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_9_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_9_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_9_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_9_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_9_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_9_SCORE_MAX = 214;
+    static const float_t COLLECT_GAME_LEVEL_9_AI_SPEED = 11;
+    static const float_t COLLECT_GAME_LEVEL_9_HAZELNUT_SPEED = 4;
+    static const int32_t COLLECT_GAME_LEVEL_9_DROP_INTERVAL_MIN = 200;
+    static const int32_t COLLECT_GAME_LEVEL_9_DROP_INTERVAL_MAX = 600;
+    static const int32_t COLLECT_GAME_LEVEL_9_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_9_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_9_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_9_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_9_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_9_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_9_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_9_COIN_DROP_CHANCE = 3;
     
     //LEVEL 10
     static const int32_t COLLECT_GAME_LEVEL_10_SCORE_MAX = 258;
     static const float_t COLLECT_GAME_LEVEL_10_AI_SPEED = 12;
-	static const float_t COLLECT_GAME_LEVEL_10_HAZELNUT_SPEED = 4;
+    static const float_t COLLECT_GAME_LEVEL_10_HAZELNUT_SPEED = 4;
     static const int32_t COLLECT_GAME_LEVEL_10_DROP_INTERVAL_MIN = 200;
     static const int32_t COLLECT_GAME_LEVEL_10_DROP_INTERVAL_MAX = 500;
     static const int32_t COLLECT_GAME_LEVEL_10_DROP_SPEED_MIN = 2;
     static const int32_t COLLECT_GAME_LEVEL_10_DROP_SPEED_MAX = 4;
     static const int32_t COLLECT_GAME_LEVEL_10_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_10_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_10_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_10_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_10_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_10_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_10_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_10_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_10_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_10_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_10_COIN_DROP_CHANCE = 3;
     
     //LEVEL 11
-	static const int32_t COLLECT_GAME_LEVEL_11_SCORE_MAX = 328;
-	static const float_t COLLECT_GAME_LEVEL_11_AI_SPEED = 13;
-	static const float_t COLLECT_GAME_LEVEL_11_HAZELNUT_SPEED = 5;
-	static const int32_t COLLECT_GAME_LEVEL_11_DROP_INTERVAL_MIN = 200;
-	static const int32_t COLLECT_GAME_LEVEL_11_DROP_INTERVAL_MAX = 450;
-	static const int32_t COLLECT_GAME_LEVEL_11_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_11_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_11_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_11_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_11_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_11_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_11_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_11_COIN_DROP_CHANCE = 3;
-   
+    static const int32_t COLLECT_GAME_LEVEL_11_SCORE_MAX = 328;
+    static const float_t COLLECT_GAME_LEVEL_11_AI_SPEED = 13;
+    static const float_t COLLECT_GAME_LEVEL_11_HAZELNUT_SPEED = 5;
+    static const int32_t COLLECT_GAME_LEVEL_11_DROP_INTERVAL_MIN = 200;
+    static const int32_t COLLECT_GAME_LEVEL_11_DROP_INTERVAL_MAX = 450;
+    static const int32_t COLLECT_GAME_LEVEL_11_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_11_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_11_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_11_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_11_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_11_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_11_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_11_COIN_DROP_CHANCE = 3;
+    
     //LEVEL 12
-	static const int32_t COLLECT_GAME_LEVEL_12_SCORE_MAX = 394;
-	static const float_t COLLECT_GAME_LEVEL_12_AI_SPEED = 14;
-	static const float_t COLLECT_GAME_LEVEL_12_HAZELNUT_SPEED = 5;
-	static const int32_t COLLECT_GAME_LEVEL_12_DROP_INTERVAL_MIN = 150;
-	static const int32_t COLLECT_GAME_LEVEL_12_DROP_INTERVAL_MAX = 400;
-	static const int32_t COLLECT_GAME_LEVEL_12_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_12_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_12_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_12_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_12_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_12_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_12_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_12_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_12_SCORE_MAX = 394;
+    static const float_t COLLECT_GAME_LEVEL_12_AI_SPEED = 14;
+    static const float_t COLLECT_GAME_LEVEL_12_HAZELNUT_SPEED = 5;
+    static const int32_t COLLECT_GAME_LEVEL_12_DROP_INTERVAL_MIN = 150;
+    static const int32_t COLLECT_GAME_LEVEL_12_DROP_INTERVAL_MAX = 400;
+    static const int32_t COLLECT_GAME_LEVEL_12_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_12_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_12_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_12_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_12_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_12_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_12_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_12_COIN_DROP_CHANCE = 3;
     
     //LEVEL 13
-	static const int32_t COLLECT_GAME_LEVEL_13_SCORE_MAX = 466;
-	static const float_t COLLECT_GAME_LEVEL_13_AI_SPEED = 15;
-	static const float_t COLLECT_GAME_LEVEL_13_HAZELNUT_SPEED = 5;
-	static const int32_t COLLECT_GAME_LEVEL_13_DROP_INTERVAL_MIN = 150;
-	static const int32_t COLLECT_GAME_LEVEL_13_DROP_INTERVAL_MAX = 350;
-	static const int32_t COLLECT_GAME_LEVEL_13_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_13_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_13_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_13_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_13_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_13_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_13_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_13_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_13_SCORE_MAX = 466;
+    static const float_t COLLECT_GAME_LEVEL_13_AI_SPEED = 15;
+    static const float_t COLLECT_GAME_LEVEL_13_HAZELNUT_SPEED = 5;
+    static const int32_t COLLECT_GAME_LEVEL_13_DROP_INTERVAL_MIN = 150;
+    static const int32_t COLLECT_GAME_LEVEL_13_DROP_INTERVAL_MAX = 350;
+    static const int32_t COLLECT_GAME_LEVEL_13_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_13_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_13_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_13_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_13_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_13_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_13_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_13_COIN_DROP_CHANCE = 3;
     
     //LEVEL 14
-	static const int32_t COLLECT_GAME_LEVEL_14_SCORE_MAX = 544;
-	static const float_t COLLECT_GAME_LEVEL_14_AI_SPEED = 16;
-	static const float_t COLLECT_GAME_LEVEL_14_HAZELNUT_SPEED = 5;
-	static const int32_t COLLECT_GAME_LEVEL_14_DROP_INTERVAL_MIN = 100;
-	static const int32_t COLLECT_GAME_LEVEL_14_DROP_INTERVAL_MAX = 300;
-	static const int32_t COLLECT_GAME_LEVEL_14_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_14_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_14_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_14_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_14_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_14_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_14_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_14_COIN_DROP_CHANCE = 3;
-   
+    static const int32_t COLLECT_GAME_LEVEL_14_SCORE_MAX = 544;
+    static const float_t COLLECT_GAME_LEVEL_14_AI_SPEED = 16;
+    static const float_t COLLECT_GAME_LEVEL_14_HAZELNUT_SPEED = 5;
+    static const int32_t COLLECT_GAME_LEVEL_14_DROP_INTERVAL_MIN = 100;
+    static const int32_t COLLECT_GAME_LEVEL_14_DROP_INTERVAL_MAX = 300;
+    static const int32_t COLLECT_GAME_LEVEL_14_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_14_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_14_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_14_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_14_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_14_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_14_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_14_COIN_DROP_CHANCE = 3;
+    
     //LEVEL 15
-	static const int32_t COLLECT_GAME_LEVEL_15_SCORE_MAX = 590;
-	static const float_t COLLECT_GAME_LEVEL_15_AI_SPEED = 17;
-	static const float_t COLLECT_GAME_LEVEL_15_HAZELNUT_SPEED = 6;
-	static const int32_t COLLECT_GAME_LEVEL_15_DROP_INTERVAL_MIN = 100;
-	static const int32_t COLLECT_GAME_LEVEL_15_DROP_INTERVAL_MAX = 250;
-	static const int32_t COLLECT_GAME_LEVEL_15_DROP_SPEED_MIN = 2;
-	static const int32_t COLLECT_GAME_LEVEL_15_DROP_SPEED_MAX = 4;
-	static const int32_t COLLECT_GAME_LEVEL_15_SCORE_MULTIPLIER = 1;
-	static const int32_t COLLECT_GAME_LEVEL_15_HAZELNUT_DROP_CHANCE = 40;
-	static const int32_t COLLECT_GAME_LEVEL_15_WASTE_DROP_CHANCE = 30;
-	static const int32_t COLLECT_GAME_LEVEL_15_APPLE_DROP_CHANCE = 12;
-	static const int32_t COLLECT_GAME_LEVEL_15_HEART_DROP_CHANCE = 20;
-	static const int32_t COLLECT_GAME_LEVEL_15_COIN_DROP_CHANCE = 3;
+    static const int32_t COLLECT_GAME_LEVEL_15_SCORE_MAX = 590;
+    static const float_t COLLECT_GAME_LEVEL_15_AI_SPEED = 17;
+    static const float_t COLLECT_GAME_LEVEL_15_HAZELNUT_SPEED = 6;
+    static const int32_t COLLECT_GAME_LEVEL_15_DROP_INTERVAL_MIN = 100;
+    static const int32_t COLLECT_GAME_LEVEL_15_DROP_INTERVAL_MAX = 250;
+    static const int32_t COLLECT_GAME_LEVEL_15_DROP_SPEED_MIN = 2;
+    static const int32_t COLLECT_GAME_LEVEL_15_DROP_SPEED_MAX = 4;
+    static const int32_t COLLECT_GAME_LEVEL_15_SCORE_MULTIPLIER = 1;
+    static const int32_t COLLECT_GAME_LEVEL_15_HAZELNUT_DROP_CHANCE = 40;
+    static const int32_t COLLECT_GAME_LEVEL_15_WASTE_DROP_CHANCE = 30;
+    static const int32_t COLLECT_GAME_LEVEL_15_APPLE_DROP_CHANCE = 12;
+    static const int32_t COLLECT_GAME_LEVEL_15_HEART_DROP_CHANCE = 20;
+    static const int32_t COLLECT_GAME_LEVEL_15_COIN_DROP_CHANCE = 3;
     
 #endif
     
@@ -423,9 +423,9 @@ namespace DataHandler
     static const std::string TEXTURE_COLLECT_GAME_BASKET    = "Korb" + extension;
     static const int32_t TEXTURE_COLLECT_GAME_BASKET_SIZE    = 106;
     
-    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV2   = "Korb" + extension;
-    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV3    = "Korb" + extension;
-    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV4    = "Korb" + extension;
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV2   = "Korb1" + extension;
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV3    = "Korb2" + extension;
+    static const std::string TEXTURE_COLLECT_GAME_BASKET_LV4    = "Korb3" + extension;
 
     static const std::string TEXTURE_COLLECT_GAME_SQUIRREL  = "squirrel" + extension;
 
@@ -436,6 +436,7 @@ namespace DataHandler
     static const std::string TEXTURE_COLLECT_GAME_BUTTON_RETRY      = "MenuButtonRetry" + extension;
     static const std::string TEXTURE_COLLECT_GAME_BUTTON_REGISTER   = "MenuButtonRegister" + extension;
     static const std::string TEXTURE_COLLECT_GAME_EDIT_BOX          = "EditBoxTemplate" + extension;
+	static const std::string TEXTURE_COLLECT_GAME_BUTTON_SHARE_SCORE = "MenuButtonShareScore" + extension;
 
     static const std::string TEXTURE_COLLECT_GAME_POPUP_RESUME  = "PopupButtonResume" + extension;
     static const std::string TEXTURE_COLLECT_GAME_POPUP_EXIT    = "PopupButtonQuit" + extension;
@@ -445,11 +446,12 @@ namespace DataHandler
     //Highscore
     static const std::string TEXTURE_HIGHSCORE_TABLE_BG     = "highscore" + extension;
     static const std::string TEXTURE_HIGHSCORE_BUTTON_BACK  = "MenuButtonBack" + extension;
+	static const std::string TEXTURE_HIGHSCORE_HEADER		= "highscore_header" + extension;
 
 	//Achievement
-	static const std::string TEXTURE_ACHIEVEMENT_TABLE_BG = "achievement" + extension;
 	static const std::string TEXTURE_ACHIEVEMENT_TABLE_BG_SCROLLER = "achievement_scroller" + extension;
-	static const std::string TEXTURE_ACHIEVEMENT_EMPTY = "empty_achievement" + extension;
+	static const std::string TEXUTRE_ACHIEVEMENT_UNLOCKED = "achievement_unlocked" + extension; 
+	static const std::string TEXTURE_ACHIEVEMENT_HEADER = "achievement_header" + extension;
     
     //Tutorial
     static const std::string TEXTURE_TUTORIAL_TAP_HERE_RIGHT = "tap_right" + extension;
@@ -466,6 +468,11 @@ namespace DataHandler
     };
     
     using AchievmentStaticMap = std::map<EAchievements,SStaticAchievementObject>;
+    
+    static const int32_t ACHIEVMENT_COIN_COLLECTED_STAGE_1 = 10;
+    static const int32_t ACHIEVMENT_COIN_COLLECTED_STAGE_2 = 50;
+    static const int32_t ACHIEVMENT_COIN_COLLECTED_STAGE_3 = 100;
+    static const int32_t ACHIEVMENT_COIN_COLLECTED_STAGE_4 = 500;
     
     static const AchievmentStaticMap ACHIEVEMENT_STATIC_MAP
     {
@@ -487,24 +494,26 @@ namespace DataHandler
         {   EAchievements::COINS_COLLECTED_5,   {"5 Coins collected", "squirrel"+extension, 0} },
         {   EAchievements::COINS_COLLECTED_10,   {"10 Coins collected", "squirrel"+extension, 0} },
         {   EAchievements::OVERALL_GAMES_STARTED_100,   {"Over Games started - 100", "squirrel"+extension, 100} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_1,   {"Overall Coins collected - xxx1", "squirrel"+extension, 10} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_2,   {"Overall Coins collected - xxx2", "squirrel"+extension, 50} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_3,   {"Overall Coins collected - xxx3", "squirrel"+extension, 100} },
-        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"Overall Coins collected - xxx4", "squirrel"+extension, 500} },
-        {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"All achievments unlocked", "squirrel"+extension, 23} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_1,   {"Overall Coins collected - Stage 1", "squirrel"+extension, ACHIEVMENT_COIN_COLLECTED_STAGE_1} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_2,   {"Overall Coins collected - Stage 2", "squirrel"+extension, ACHIEVMENT_COIN_COLLECTED_STAGE_2} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_3,   {"Overall Coins collected - Stage 3", "squirrel"+extension, ACHIEVMENT_COIN_COLLECTED_STAGE_3} },
+        {   EAchievements::OVERALL_COINS_COLLECTED_STAGE_4,   {"Overall Coins collected - Stage 4", "squirrel"+extension, ACHIEVMENT_COIN_COLLECTED_STAGE_4} },
+        {   EAchievements::ALL_ACHIEVEMENTS_UNLOCKED,   {"All achievments unlocked", "squirrel"+extension, 22} },
     };
-    
-    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV2 = 1;
-    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV3 = 15;
-    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV4 = 23;
+
+
+
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV2 = 8;
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV3 = 16;
+    static const int32_t ACHIEVMENT_COSMETIC_BASKET_LV4 = 22;
     static const int32_t ACHIEVEMENT_AMOUNT = 22;
     
     extern SBasket COSMETIC_BASKET;
     
     static const SBasket COSMETIC_BASKET_LV1 = { TEXTURE_COLLECT_GAME_BASKET, "" };
-    static const SBasket COSMETIC_BASKET_LV2 = { TEXTURE_COLLECT_GAME_BASKET, "basket_1.fsh"};
-    static const SBasket COSMETIC_BASKET_LV3 = {};
-    static const SBasket COSMETIC_BASKET_LV4 = {};
+    static const SBasket COSMETIC_BASKET_LV2 = { TEXTURE_COLLECT_GAME_BASKET_LV2, "" };
+    static const SBasket COSMETIC_BASKET_LV3 = { TEXTURE_COLLECT_GAME_BASKET_LV3, "" };
+    static const SBasket COSMETIC_BASKET_LV4 = { TEXTURE_COLLECT_GAME_BASKET_LV4, "" };
 //    static const std::vector<SStaticAchievementObject> ACHIEVEMENT_STATIC_CONTAINER
 //    {
 //        {"EpicQuest",""}
@@ -522,6 +531,7 @@ namespace DataHandler
     static const char* SOUND_OTHER_1 =              "sound/sound_hazelnut.m4a";
     static const char* SOUND_LEVEL_UP =             "sound/sound_level_up.m4a";
 	static const char* SOUND_HEART_COLLECT =		"sound/sound_heart.m4a";
+	static const char* SOUND_HAZELNUT_BROKEN =		"sound/sound_hazelnut_broken.mp3";
 	
 	//TEXT
 	static const char* FONT_QUARMIC_SANS = 			"fonts/Qarmic sans Abridged.ttf";

@@ -12,7 +12,6 @@
 #include "FGeneral.h"
 
 #include <stdio.h>
-#include <cocos2d.h>
 #include <vector>
 #include "AIDropObject.h"
 #include "DataHandler.h"
@@ -21,15 +20,13 @@ USING_NS_CC;
 
 #define COLLISIONBOX_1 //full box
 
-using AIDropObjectContainer = std::vector<std::unique_ptr<AIDropObject>>;
-
 class CollisionBox
 {
 public:
     CollisionBox();
     ~CollisionBox();
     bool OnBeginOverlap();
-    void AttatchTo(Sprite* sprite,AIDropObjectContainer& dropObjects,AIDropObjectContainer& inactiveDropObjects);
+    void AttatchTo(Sprite* sprite,std::vector<std::unique_ptr<AIDropObject>>& dropObjects,std::vector<std::unique_ptr<AIDropObject>>& inactiveDropObjects);
     AIDropObject* GetObject();
     void RemoveObject();
     
@@ -38,13 +35,13 @@ public:
 	static bool catchAble(Sprite* object1, Sprite* object2, int catchOffset, int catchSideOffset);
     
 private:
-    Sprite* sprite;
     std::vector<std::unique_ptr<AIDropObject>>* vecDropObjects;
     std::vector<std::unique_ptr<AIDropObject>>* inactiveDropObjects;
+    Sprite* sprite;
     AIDropObject* collidedObject;
     int32_t colliedIndex;
 };
 
-inline AIDropObject* CollisionBox::GetObject(){ return collidedObject; }
+FORCEINLINE AIDropObject* CollisionBox::GetObject(){ return collidedObject; }
 
 #endif /* defined(__Hazelnut__CollisionBox__) */

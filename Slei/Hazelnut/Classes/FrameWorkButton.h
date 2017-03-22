@@ -69,7 +69,6 @@ public:
             CC_SAFE_DELETE(ret);
         }
         
-        //        scene_->addChild(ret);
         scene->AddButton(ret);
         return ret;
     }
@@ -261,17 +260,11 @@ FORCEINLINE void FrameworkButton::SetIsPressed(bool bIsPressed)      { bIsPresse
 FORCEINLINE Sprite*  FrameworkButton::GetSprite()    { return sprite_; }
 
 FORCEINLINE bool     FrameworkButton::IsActive()     { return bIsActive_; }
-//FORCEINLINE bool     FrameworkButton::IsVisible()    { return bIsVisible_; }
 
 
 FORCEINLINE void FrameworkButton::SetPositionX(int x)
 {
-    //    this->x_ = x;
-    
-    //    if(sprite_ != nullptr)
-    //    {
     setPositionX(x);
-    //    }
     
 #ifdef BUTTON_RECT
     rectangle_->setPositionX(x);
@@ -280,13 +273,7 @@ FORCEINLINE void FrameworkButton::SetPositionX(int x)
 
 FORCEINLINE void FrameworkButton::SetPositionY(int y)
 {
-    //    this->y_ = y;
     setPositionY(y);
-    
-    //    if(sprite_ != nullptr)
-    //    {
-    //        sprite_->setPositionY(y);
-    //    }
     
 #ifdef BUTTON_RECT
     rectangle_->setPositionY(y);
@@ -295,7 +282,6 @@ FORCEINLINE void FrameworkButton::SetPositionY(int y)
 
 FORCEINLINE void FrameworkButton::SetZOrder(int z_order)
 {
-    //    this->z_order_ = z_order;
     setZOrder(z_order);
     if(sprite_ != nullptr)
     {
@@ -310,11 +296,8 @@ FORCEINLINE void FrameworkButton::SetZOrder(int z_order)
 FORCEINLINE void FrameworkButton::SetActive(bool active)
 {
     bIsActive_ = active;
-    //
-    //    if(sprite_ != nullptr)
-    //    {
+
     (active) ? resume() : pause();
-    //    }
     
 #ifdef BUTTON_RECT
     (active) ? rectangle_->pause() : rectangle_->resume();
@@ -324,13 +307,8 @@ FORCEINLINE void FrameworkButton::SetActive(bool active)
 
 FORCEINLINE void FrameworkButton::SetVisible(bool visible)
 {
-    //    bIsVisible_ = visible;
-    
-    //    if(sprite_ != nullptr)
-    //    {
 #pragma message WARN("is this also true for the sprite? or just for the button node??? check for all other functions too")
     setVisible(visible);
-    //    }
     
 #ifdef BUTTON_RECT
     rectangle_->setVisible(visible);

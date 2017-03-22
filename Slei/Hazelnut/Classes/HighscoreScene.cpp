@@ -67,6 +67,11 @@ bool HighscoreScene::init()
         addChild(background_extension);
     }
 
+	auto highscore_header = FSprite::create(DataHandler::TEXTURE_HIGHSCORE_HEADER, Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2,
+		DataHandler::GAME_RESOLUTION_HEIGHT / 2 + 380));
+
+	addChild(highscore_header);
+
     // Create the menu buttons
     highscore_ = FSprite::create(DataHandler::TEXTURE_HIGHSCORE_TABLE_BG
 		,Vec2(DataHandler::GAME_RESOLUTION_WIDTH / 2,
@@ -127,15 +132,15 @@ void HighscoreScene::registerHighscoreEntry(std::string newHighscoreEntry)
 
 void HighscoreScene::calculateEntryPositions()
 {
-    float entryHeight = 40;
-    int numberOfEntries = 10;
+    float entryHeight = 0;
+    int numberOfEntries = 8;
     
-    float padding = 50;
-    float headerHighscoreHeight = 60;
+    float padding = 40;
+    float headerHighscoreHeight = 30;
     float headerHighscoreEntryHeight = 0;
     
     // Highscore Panel
-    float highscorePanelHeight = 700;
+    float highscorePanelHeight = 580;
     float highscorePanelWidth = 700;
     float highscorePanelX = highscore_->getPositionX();
     float highscorePanelY = highscore_->getPositionY();
@@ -143,12 +148,12 @@ void HighscoreScene::calculateEntryPositions()
     // Highscore Content
     float contentHeight = highscorePanelHeight - (2 * padding);
     float contentWidth = highscorePanelWidth - (2 * padding);
-    float contentX = (highscorePanelX - 700/2) + padding;
-    float contentY = (highscorePanelY - 700/2) + padding;
+    float contentX = (highscorePanelX - highscorePanelWidth /2) + padding;
+    float contentY = (highscorePanelY - highscorePanelHeight /2) + padding;
     float contentHeightForEntryList = contentHeight - headerHighscoreHeight - headerHighscoreEntryHeight;
     
     // Calculate padding between each entry
-    float entryPadding = (contentHeightForEntryList - (entryHeight * numberOfEntries)) / 9;
+    float entryPadding = (contentHeightForEntryList - (entryHeight * numberOfEntries)) / (numberOfEntries - 1);
     int entryPaddingRounded = static_cast<int>(entryPadding);
     
     // Calculate Positions for all entries
@@ -171,7 +176,7 @@ void HighscoreScene::loadHighscoreEntries()
     std::vector<std::string> userDataString;
     GameUtil::split(rawContent, ';', userDataString);
     
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 8; ++i) {
         std::vector<std::string> userDataPartsString;
         struct HighscoreScene::GameUser user;
         

@@ -28,7 +28,6 @@ public:
     
     virtual ~AchievementNotification();
 
-    
     static AchievementNotification* create(const std::string& text);
     static AchievementNotification* create(const std::string& text, const std::string& reward_sprite_filename);
 
@@ -38,24 +37,17 @@ public:
     void Show(T* instance, void (T::*func)());
     
     void SetText(const std::string& text);
-    void SetSprite(const std::string& filename);
-    
     
 private:
-    void Hide()
-    {
-        CCLOG("GadasafdaffdasfO");
-        runAction(FadeTo::create(0.5,0));
-    }
+    void Hide();
     
 private:
+    FTimeframe timer_;
+    
     Label* label_archievment_;
     FSprite* sprite_reward_;
     FSprite* sprite_bg_;
     Node* node_;
-    
-    FTimeframe timer_;
-    
     
 protected:
     virtual void update(float delta) override;
@@ -75,11 +67,6 @@ FORCEINLINE void AchievementNotification::SetText(const std::string &text)
     setContentSize(Size(desired_x,desired_y));
 }
 
-FORCEINLINE void AchievementNotification::SetSprite(const std::string &filename)
-{
-    //reuse sprite
-}
-
 template <typename T>
 FORCEINLINE
 void AchievementNotification::Show(T* instance, void (T::*func)())
@@ -90,10 +77,11 @@ void AchievementNotification::Show(T* instance, void (T::*func)())
     timer_.Start(milliseconds(2000), this, &AchievementNotification::Hide);
     
     func_task = std::bind(func, instance);
-    
-    CCLOG("startttt");
-    
-//    timer_.Start(milliseconds(2000));
+}
+
+FORCEINLINE void AchievementNotification::Hide()
+{
+    runAction(FadeTo::create(0.5,0));
 }
 
 #endif

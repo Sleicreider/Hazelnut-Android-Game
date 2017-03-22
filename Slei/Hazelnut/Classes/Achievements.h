@@ -16,6 +16,7 @@ public:
     , bNoAppleMissed_(true)
     , bNoHeartMissed_(true)
     , level_(1)
+    , coins_(0)
     {
     }
     
@@ -47,10 +48,33 @@ public:
             case EEvent::EVENT_COIN_COLLECTED:
                 coins_++;
                 
-                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_1, coins_);
-                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_2, coins_);
-                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_3, coins_);
-                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_4, coins_);
+                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_1, 1);
+                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_2, 1);
+                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_3, 1);
+                UpdateCurrPoints(EAchievements::OVERALL_COINS_COLLECTED_STAGE_4, 1);
+
+				if (AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_GAMES_STARTED_100].current_points >= 100)
+					Unlock(EAchievements::OVERALL_GAMES_STARTED_100);
+
+				if (AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_1].current_points >= DataHandler::ACHIEVMENT_COIN_COLLECTED_STAGE_1)
+				{
+					Unlock(EAchievements::OVERALL_COINS_COLLECTED_STAGE_1);
+				}
+
+				if (AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_2].current_points >= DataHandler::ACHIEVMENT_COIN_COLLECTED_STAGE_2)
+				{
+					Unlock(EAchievements::OVERALL_COINS_COLLECTED_STAGE_2);
+				}
+
+				if (AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_3].current_points >= DataHandler::ACHIEVMENT_COIN_COLLECTED_STAGE_3)
+				{
+					Unlock(EAchievements::OVERALL_COINS_COLLECTED_STAGE_3);
+				}
+
+				if (AchievementManager::GetInstance()->achievment_container_[EAchievements::OVERALL_COINS_COLLECTED_STAGE_4].current_points >= DataHandler::ACHIEVMENT_COIN_COLLECTED_STAGE_4)
+				{
+					Unlock(EAchievements::OVERALL_COINS_COLLECTED_STAGE_4);
+				}
 
                 
                 if(coins_ == 5){ Unlock(EAchievements::COINS_COLLECTED_5); }
@@ -140,14 +164,15 @@ private:
                 DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV3;
                 break;
                 
-            case DataHandler::ACHIEVMENT_COSMETIC_BASKET_LV4:
-                FileOperation::SetInt("COSMETIC_BASKET", 4);
-                DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV4;
-                break;
-                
             case DataHandler::ACHIEVEMENT_AMOUNT: Unlock(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED); break;
                 
             default: CCLOG("nothing to do");
+        }
+        
+        if(AchievementManager::GetInstance()->IsAchievementUnlocked(EAchievements::ALL_ACHIEVEMENTS_UNLOCKED))
+        {
+            FileOperation::SetInt("COSMETIC_BASKET", 4);
+            DataHandler::COSMETIC_BASKET = DataHandler::COSMETIC_BASKET_LV4;
         }
     }
     
