@@ -6,6 +6,9 @@
 //
 //
 
+//  Extremely old logic
+//  Might contain inefficient code
+
 #ifndef __Hazelnut__AIDropObject__
 #define __Hazelnut__AIDropObject__
 

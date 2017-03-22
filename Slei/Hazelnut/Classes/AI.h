@@ -6,6 +6,9 @@
 //
 //
 
+//  Extremely old logic
+//  Might contain inefficient code
+
 #ifndef __Hazelnut__AI___
 #define __Hazelnut__AI___
 
@@ -30,7 +33,7 @@ class AI
 public:
     AI(FrameworkScene* scene);
     
-
+    
     std::vector<std::unique_ptr<AIDropObject>>& GetDropObjects();
     std::vector<std::unique_ptr<AIDropObject>>& GetInactiveDropObjects();
     
@@ -42,17 +45,17 @@ public:
     
     void SpawnObject();
     
-	void DecreaseHeartCounter();
-	void ActivateHeartDrop();
+    void DecreaseHeartCounter();
+    void ActivateHeartDrop();
     
     void Movement(int squirrelSpeed, int dropObjectSpeedMin,int dropObjectSpeedMax,int dropIntervalMin,int dropIntervalMax, int hazelnut_speed);
     void InitAI(cocos2d::Sprite* aiObject);
     void GenearteNewDropTimer(int dropObjectSpeedMin,int dropObjectSpeedMax, int dropIntervalMin,int dropIntervalMax);
     void SetDropChance(int c_hazelnut, int c_waste, int c_apple, int c_heart, int c_coin);
-
-
+    
+    
 private:
-	int GetMaxDropChance();
+    int GetMaxDropChance();
     
     void DropBehaviour(int dropObjectSpeedMin,int dropObjectSpeedMax, int dropIntervalMin,int dropIntervalMax, int hazelnut_speed);
     void DropObjectMovement();
@@ -64,17 +67,17 @@ private:
     std::vector<std::unique_ptr<AIDropObject>> vecDanglingObjects; /**< Objects where animation hasn't finished yet */
     
     FrameworkTimer timer_;
-
+    
     milliseconds aiPrevTimerMS;
     
     FSprite::EAnimation sprite_animation_;
     
     FrameworkScene* scene;
     InGameScene*    ing_scene_;
-
+    
     Sprite* aiObject;
     
-	bool bCanDropHeart_;
+    bool bCanDropHeart_;
     
     int hitGroundCounter;
     int randMoveValue;
@@ -82,19 +85,19 @@ private:
     int randDropWaitValue;
     int randDropObjectTypeValue;
     int randDropObjectSpeedValue;
-	int c_hazelnut_;
-	int c_waste_;
-	int c_apple_;
-	int c_heart_;
-	int c_coin_;
-
-	int counter;
+    int c_hazelnut_;
+    int c_waste_;
+    int c_apple_;
+    int c_heart_;
+    int c_coin_;
+    
+    int counter;
     
     float aiPrevPosX;
     float aiPosX;
-
+    
     int aiPrevTimer;
-	int heart_counter_;
+    int heart_counter_;
     
     bool withAnimation;
 };
@@ -107,7 +110,7 @@ FORCEINLINE void AI::DecreaseHeartCounter() { heart_counter_--; }
 
 FORCEINLINE int AI::GetMaxDropChance()
 {
-	return c_hazelnut_ + c_waste_ + c_apple_ + c_heart_ + c_coin_;
+    return c_hazelnut_ + c_waste_ + c_apple_ + c_heart_ + c_coin_;
 }
 
 FORCEINLINE void AI::ActivateHeartDrop() { bCanDropHeart_ = true;  }
