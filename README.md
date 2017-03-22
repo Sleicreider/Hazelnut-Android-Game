@@ -20,10 +20,12 @@ Project might contain test code, which is not well designed.
 
 Developer Dominik Reisner, Matthias Reisner
 
-CodePath: hazelnut2k15/Slei/Hazelnut/Classes/
+__This is not the original Repository, therefore contains undocumented code!__
+__CodePath:__ hazelnut2k15/Slei/Hazelnut/Classes/
 
-Screenshot Collect Game
+(Go to PlayStore for new Screenshots)
+Old - Screenshot Collect Game
 ![Alt text](http://puu.sh/hFI7q/8dfcd92613.png "Collect Game Screenshot")
 
-Screenshot with Debug settings enabled (Button areas and performance test mode)
+Old - Screenshot with Debug settings enabled (Button areas and performance test mode)
 ![Alt text](http://puu.sh/hFI4Q/2400699138.png "Debug Screenshot")
