@@ -21,6 +21,8 @@ Project might contain test code, which is not well designed.
 
 Developer Dominik Reisner, Matthias Reisner
 
+CodePath: hazelnut2k15/Slei/Hazelnut/Classes/
+
 Screenshot Collect Game
 ![Alt text](http://puu.sh/hFI7q/8dfcd92613.png "Collect Game Screenshot")
 
