@@ -1,6 +1,9 @@
 #ifndef FRAMEWORKLAYER_H
 #define FRAMEWORKLAYER_H
 
+//  Extremely old logic
+//  Might contain inefficient code
+
 #include <cocos2d.h>
 #include <CocosGUI.h>
 
