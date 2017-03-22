@@ -15,7 +15,6 @@ __Development:__
 * __Programming Language:__ C++
 * __Target Plattform:__ Android, iOS
 * __Tested Plattform:__ Android, iOS, Windows, OS-X
-* __Framework:__ Custom cocos2d-x framework developed By Dominik Reisner
 
 Project might contain test code, which is not well designed.
 
