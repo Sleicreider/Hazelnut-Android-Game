@@ -5,6 +5,9 @@ Android PlayStore Link: https://play.google.com/store/apps/details?id=com.Slei.H
 Is a Mobile 2D Game based on the idea of an old PC game.  
 The Game will be available for Android (maybe iOS too).
 
+Majority of the code was developed in my early stages with C++ / C++11, therefore might contain not well designed code,
+different coding styles / naming conventions, inefficient code.
+
 Tested with cocos2d-x v3.5.
 
 Engine submodule required to compile: Slei/Hazelnut/cocos2d/<cocos2d-x engine-content>
