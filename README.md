@@ -23,4 +23,4 @@ Developer Dominik Reisner, Matthias Reisner
 __This is not the original Repository, therefore contains undocumented code!__
 
 
-__CodePath:__ hazelnut2k15/Slei/Hazelnut/Classes/
+__CodePath:__ Slei/Hazelnut/Classes/
