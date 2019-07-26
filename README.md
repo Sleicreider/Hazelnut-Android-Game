@@ -3,7 +3,7 @@
 Android PlayStore Link: https://play.google.com/store/apps/details?id=com.Slei.Hazelnut
 
 Is a Mobile 2D Game based on the idea of an old PC game.  
-The Game will be available for Android (maybe iOS too).
+Mainly developed for fun, nostalgia, and trying out cocos2d-x.
 
 Majority of the code was developed in my early stages with C++ / C++11, therefore might contain not well designed code,
 different coding styles / naming conventions, inefficient code.
